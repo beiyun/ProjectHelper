@@ -1,13 +1,20 @@
 package com.beiyun.projecthelper;
 
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.beiyun.library.util.Apps;
+import com.beiyun.projecthelper.adapter.MainAdapter;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements MainAdapter.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +26,41 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView textView = (TextView) findViewById(R.id.text);
-        textView.setText("test");
-        textView.setTextColor(Apps.getColor(R.color.colorAccent));
+        RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setItemAnimator(new DefaultItemAnimator());
+        rv.setHasFixedSize(true);
 
 
+        MainAdapter  adapter = new MainAdapter(getItemData());
+        rv.setAdapter(adapter);
+        adapter.setOnItemClickListener(this);
 
+    }
+
+    private ArrayList<String> getItemData() {
+        ArrayList<String> data = new ArrayList<>();
+        data.add("test Apps");
+        data.add("test Toast");
+        data.add("test View");
+        return data;
+    }
+
+
+    @Override
+    public void onItemClick(int position, String data) {
+        switch (position){
+            case 0:
+                PackageManager manager = Apps.getPackageManager();
+
+                Toast.makeText(MainActivity.this, "getPackageManager = "+manager, Toast.LENGTH_SHORT).show();
+                break;
+            case 1:
+                com.beiyun.library.view.Toast.show(this,"测试Toast");
+                break;
+            case 2:
+                com.beiyun.library.view.Toast.show(this,"测试View");
+                break;
+        }
     }
 }
