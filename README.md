@@ -1,5 +1,8 @@
 # ProjectHelper
+Android工具库，节省开发效率
 
+
+# How to use
 _allprojects_ {
 		
 		repositories {
