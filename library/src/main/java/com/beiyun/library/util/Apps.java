@@ -80,7 +80,7 @@ public class Apps {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return mContext.getColor(resId);
         }
-        return mContext.getResources().getColor(resId,null);
+        return mContext.getResources().getColor(resId);
     }
 
 
