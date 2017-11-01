@@ -1,4 +1,4 @@
-package util;
+package com.beiyun.library.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
