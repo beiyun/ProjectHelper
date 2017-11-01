@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -130,5 +131,12 @@ public class Apps {
      */
     public static PackageManager getPackageManager(){
         return mContext.getPackageManager();
+    }
+
+    /**
+     * @return AssetManager
+     */
+    public static AssetManager getAssets(){
+        return mContext.getAssets();
     }
 }
