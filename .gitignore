@@ -6,3 +6,9 @@
 .DS_Store
 /build
 /captures
+library/libs/
+library/src/main/res/drawable/
+sample/libs/
+sample/src/main/res/drawable/
+libs/
+src/main/res/drawable/
