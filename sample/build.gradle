@@ -1,11 +1,11 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "27.0.0"
 
     defaultConfig {
-        applicationId "com.beiyun.projecthelper"
+//        applicationId "com.beiyun.projecthelper"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
