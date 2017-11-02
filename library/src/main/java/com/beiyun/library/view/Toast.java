@@ -5,7 +5,6 @@ package com.beiyun.library.view;
  */
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.util.Log;
@@ -64,6 +63,7 @@ public class Toast {
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.format = PixelFormat.TRANSLUCENT;
         params.type = WindowManager.LayoutParams.TYPE_TOAST;
+        params.windowAnimations = R.style.Animation_Toast;
         params.setTitle("Toast");
         params.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -95,7 +95,6 @@ public class Toast {
         View v = inflate.inflate(R.layout.dialog_toast,null);
         TextView textView = (TextView) v.findViewById(R.id.toast_text);
         textView.setText(text);
-        textView.setBackgroundColor(Color.GRAY);
         toast.duration = duration;
         toast.mToastView = v;
 

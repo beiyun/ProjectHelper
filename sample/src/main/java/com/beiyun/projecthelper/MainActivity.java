@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         if (actionBar != null) {
             actionBar.setTitle("test");
             actionBar.setDisplayHomeAsUpEnabled(true);
+
         }
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
@@ -43,6 +44,26 @@ public class MainActivity extends AppCompatActivity implements MainAdapter.OnIte
         data.add("test Apps");
         data.add("test Toast");
         data.add("test View");
+        data.add("A");
+        data.add("B");
+        data.add("C");
+        data.add("D");
+        data.add("E");
+        data.add("F");
+        data.add("G");
+        data.add("H");
+        data.add("I");
+        data.add("G");
+        data.add("K");
+        data.add("L");
+        data.add("M");
+        data.add("N");
+        data.add("O");
+        data.add("P");
+        data.add("Q");
+        data.add("R");
+        data.add("S");
+        data.add("T");
         return data;
     }
 

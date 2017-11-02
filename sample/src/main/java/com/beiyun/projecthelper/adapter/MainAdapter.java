@@ -1,5 +1,6 @@
 package com.beiyun.projecthelper.adapter;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
 
     @Override
     public MainHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = Apps.getLayoutInflater().inflate(R.layout.adapter_main, null, true);
+        View itemView = Apps.getLayoutInflater().inflate(R.layout.adapter_main,null, true);
         itemView.setLayoutParams(new FrameLayout.LayoutParams(-1,-2));
         return new MainHolder(itemView);
     }
@@ -36,7 +37,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
         if(mData == null) return;
         final String data = mData.get(position);
         holder.text.setText(data);
-        holder.text.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mItemClickListener != null){
@@ -65,10 +66,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
     class MainHolder extends RecyclerView.ViewHolder{
 
         TextView text;
+        CardView cardView;
 
         public MainHolder(View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.text);
+            cardView = (CardView) itemView.findViewById(R.id.cardView);
         }
     }
 }
