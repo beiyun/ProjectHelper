@@ -4,7 +4,7 @@ import android.content.Context;
 
 /**
  * Created by beiyun on 2017/11/3.
- * 在application中进行初始化
+ * 在application中调用init方法进行初始化
  */
 public class ProjectHelper {
 

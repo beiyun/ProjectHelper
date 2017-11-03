@@ -25,7 +25,7 @@ import java.io.File;
     /**
      * @return ApplicationContext
      */
-     public abstract Context getContext();
+    public abstract Context getContext();
 
     /**
      * 获取Resource对象

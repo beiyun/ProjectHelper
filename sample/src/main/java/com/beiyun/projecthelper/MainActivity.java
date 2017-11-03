@@ -1,5 +1,6 @@
 package com.beiyun.projecthelper;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,10 +13,12 @@ import android.view.MenuItem;
 
 import com.beiyun.library.util.Apps;
 import com.beiyun.library.util.Nets;
+import com.beiyun.library.util.Sps;
 import com.beiyun.library.util.Views;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.Base.BaseActivity;
 import com.beiyun.projecthelper.adapter.MainAdapter;
+import com.beiyun.projecthelper.entity.Account;
 
 import java.util.ArrayList;
 
@@ -52,8 +55,8 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("test Toast");
         data.add("当前网络状态");
         data.add("exit");
-        data.add("B");
-        data.add("C");
+        data.add("test sps.save");
+        data.add("sp.get");
         data.add("D");
         return data;
     }
@@ -75,8 +78,23 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
             case 3:
                 Apps.exit();
                 break;
-
-
+            case 4:
+                Account a = new Account();
+                a.setAge(10);
+                a.setIdentify("41022119890718481X");
+                a.setName("北云");
+                a.setPassword("beiyun");
+                a.setPhone("18087172019");
+                a.setLogin(true);
+                a.setAge(26);
+                Sps.save(a, Context.MODE_PRIVATE);
+                break;
+            case 5:
+                Account o = (Account) Sps.get(Account.class, Context.MODE_PRIVATE);
+                if (o != null) {
+                    Toast.show(this,o.toString());
+                }
+                break;
         }
     }
 
