@@ -19,7 +19,7 @@ import java.io.File;
  * Created by beiyun on 2017/11/3.
  *
  */
-abstract class App {
+ abstract class App {
 
 
     /**

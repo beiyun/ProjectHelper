@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.beiyun.library.base.Apps;
+import com.beiyun.library.entity.NetState;
 
 /**
  * Created by beiyun on 2017/11/3.
@@ -26,10 +27,8 @@ public class Nets {
     }
 
 
-    public enum NetState {
-        WIFI,
-        MOBILE,
-        NONE
-    }
+
 
 }
+
+

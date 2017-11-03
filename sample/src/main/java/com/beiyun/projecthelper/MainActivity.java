@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("test App");
         data.add("test Toast");
         data.add("当前网络状态");
-        data.add("A");
+        data.add("exit");
         data.add("B");
         data.add("C");
         data.add("D");
@@ -72,6 +72,10 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
             case 2:
                 Toast.show(this,"当前网络状态"+ Nets.getNetState());
                 break;
+            case 3:
+                Apps.exit();
+                break;
+
 
         }
     }

@@ -33,7 +33,7 @@ class AppsIml extends App {
         mActivityManager = ActivityManager.init(context);
     }
 
-    static App init(Context context){
+    protected static App init(Context context){
         if(appsIml == null){
             synchronized (AppsIml.class){
                 if(appsIml == null){
