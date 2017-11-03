@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.beiyun.library.base.Apps;
+import com.beiyun.library.util.Apps;
 import com.beiyun.projecthelper.R;
 
 import java.util.ArrayList;

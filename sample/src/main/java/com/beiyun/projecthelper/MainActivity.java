@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.beiyun.library.base.Apps;
+import com.beiyun.library.util.Apps;
 import com.beiyun.library.util.Nets;
 import com.beiyun.library.util.Views;
 import com.beiyun.library.view.Toast;

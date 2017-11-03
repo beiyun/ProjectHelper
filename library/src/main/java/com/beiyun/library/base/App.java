@@ -19,29 +19,29 @@ import java.io.File;
  * Created by beiyun on 2017/11/3.
  *
  */
- abstract class App {
+ public abstract class App {
 
 
     /**
      * @return ApplicationContext
      */
-     protected abstract Context getContext();
+     public abstract Context getContext();
 
     /**
      * 获取Resource对象
      * @return Resource
      */
-    protected abstract Resources getResource();
+    public abstract Resources getResource();
 
 
     /**
      *
      * @return LayoutInflater
      */
-    protected abstract LayoutInflater getLayoutInflater();
+    public abstract LayoutInflater getLayoutInflater();
 
 
-    protected abstract String getString(@StringRes int resId);
+    public abstract String getString(@StringRes int resId);
 
 
     /**
@@ -49,7 +49,7 @@ import java.io.File;
      * @param resId
      * @return ColorId
      */
-    protected abstract int getColor(@ColorRes int resId);
+    public abstract int getColor(@ColorRes int resId);
 
 
     /**
@@ -58,40 +58,40 @@ import java.io.File;
      * @param spMode
      * @return
      */
-    protected abstract SharedPreferences getSharedPreferences(String spName, int spMode);
+    public abstract SharedPreferences getSharedPreferences(String spName, int spMode);
 
     /**
      *
      * @return ApplicationInfo
      */
-    protected abstract ApplicationInfo getApplicationInfo();
+    public abstract ApplicationInfo getApplicationInfo();
 
     /**
      * @return File
      */
-    protected abstract File getExternalCacheDir();
+    public abstract File getExternalCacheDir();
 
 
     /**
      * @return File
      */
-    protected abstract File getCacheDir();
+    public abstract File getCacheDir();
 
     /**
      * @return ContentResolver
      */
-    protected abstract ContentResolver getContentResolver();
+    public abstract ContentResolver getContentResolver();
 
 
     /**
      * @return PackageManager
      */
-    protected abstract PackageManager getPackageManager();
+    public abstract PackageManager getPackageManager();
 
     /**
      * @return AssetManager
      */
-    protected abstract AssetManager getAssets();
+    public abstract AssetManager getAssets();
 
 
 
@@ -99,38 +99,38 @@ import java.io.File;
 
 
     //获取当前的activity
-    protected abstract Activity getCurrentActivity();
+    public abstract Activity getCurrentActivity();
 
 
     /**
      * 结束当前activity
      */
-    protected abstract void finish();
+    public abstract void finish();
 
 
     /**
      * 结束指定的activity
      * @param activity
      */
-    protected abstract void finish(Activity activity);
+    public abstract void finish(Activity activity);
 
 
     //根据class关闭指定activity
-    protected abstract void finish(Class<? extends Activity> cls);
+    public abstract void finish(Class<? extends Activity> cls);
 
 
     //根据class文件获取activity
-    protected abstract Activity getActivity(Class<? extends Activity> cls);
+    public abstract Activity getActivity(Class<? extends Activity> cls);
 
 
 
     //退出程序
-    protected abstract void exit();
+    public abstract void exit();
 
 
-    protected abstract Object getSystemService(@NonNull String name);
+    public abstract Object getSystemService(@NonNull String name);
 
 
-    protected abstract Object getSystemService(Class<?> serviceClass);
+    public abstract Object getSystemService(Class<?> serviceClass);
 
 }

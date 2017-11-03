@@ -49,7 +49,7 @@ class AppsIml extends App {
      * @return ApplicationContext
      */
     @Override
-    protected Context getContext() {
+    public Context getContext() {
         return mContext;
     }
 
@@ -58,7 +58,7 @@ class AppsIml extends App {
      * @return Resource
      */
     @Override
-    protected Resources getResource(){
+    public Resources getResource(){
         return mContext.getResources();
     }
 
@@ -68,13 +68,13 @@ class AppsIml extends App {
      * @return LayoutInflater
      */
     @Override
-    protected LayoutInflater getLayoutInflater(){
+    public LayoutInflater getLayoutInflater(){
         return (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
     @Override
-    protected String getString(@StringRes int resId){
+    public String getString(@StringRes int resId){
         return mContext.getString(resId);
     }
 
@@ -85,7 +85,7 @@ class AppsIml extends App {
      * @return ColorId
      */
     @Override
-    protected int getColor(@ColorRes int resId){
+    public int getColor(@ColorRes int resId){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return mContext.getColor(resId);
         }
@@ -100,7 +100,7 @@ class AppsIml extends App {
      * @return
      */
     @Override
-    protected SharedPreferences getSharedPreferences(String spName, int spMode){
+    public SharedPreferences getSharedPreferences(String spName, int spMode){
         return mContext.getSharedPreferences(spName,spMode);
     }
 
@@ -109,7 +109,7 @@ class AppsIml extends App {
      * @return ApplicationInfo
      */
     @Override
-    protected ApplicationInfo getApplicationInfo(){
+    public ApplicationInfo getApplicationInfo(){
         return mContext.getApplicationInfo();
     }
 
@@ -117,7 +117,7 @@ class AppsIml extends App {
      * @return File
      */
     @Override
-    protected File getExternalCacheDir(){
+    public File getExternalCacheDir(){
         return mContext.getExternalCacheDir();
     }
 
@@ -126,7 +126,7 @@ class AppsIml extends App {
      * @return File
      */
     @Override
-    protected File getCacheDir(){
+    public File getCacheDir(){
         return mContext.getCacheDir();
     }
 
@@ -134,7 +134,7 @@ class AppsIml extends App {
      * @return ContentResolver
      */
     @Override
-    protected ContentResolver getContentResolver(){
+    public ContentResolver getContentResolver(){
         return mContext.getContentResolver();
     }
 
@@ -143,7 +143,7 @@ class AppsIml extends App {
      * @return PackageManager
      */
     @Override
-    protected PackageManager getPackageManager(){
+    public PackageManager getPackageManager(){
         return mContext.getPackageManager();
     }
 
@@ -151,7 +151,7 @@ class AppsIml extends App {
      * @return AssetManager
      */
     @Override
-    protected AssetManager getAssets(){
+    public AssetManager getAssets(){
         return mContext.getAssets();
     }
 
@@ -162,7 +162,7 @@ class AppsIml extends App {
 
     //获取当前的activity
     @Override
-    protected Activity getCurrentActivity(){
+    public Activity getCurrentActivity(){
        return mActivityManager.getCurrentActivity();
     }
 
@@ -171,7 +171,7 @@ class AppsIml extends App {
      * 结束当前activity
      */
     @Override
-    protected void finish(){
+    public void finish(){
         mActivityManager.finish();
     }
 
@@ -181,21 +181,21 @@ class AppsIml extends App {
      * @param activity
      */
     @Override
-    protected void finish(Activity activity) {
+    public void finish(Activity activity) {
         mActivityManager.finish(activity);
     }
 
 
     //根据class关闭指定activity
     @Override
-    protected void finish(Class<? extends Activity> cls){
+    public void finish(Class<? extends Activity> cls){
         mActivityManager.finish(cls);
     }
 
 
     //根据class文件获取activity
     @Override
-    protected Activity getActivity(Class<? extends Activity> cls){
+    public Activity getActivity(Class<? extends Activity> cls){
        return mActivityManager.getActivity(cls);
     }
 
@@ -203,19 +203,19 @@ class AppsIml extends App {
 
     //退出程序
     @Override
-    protected void exit(){
+    public void exit(){
         mActivityManager.exit();
     }
 
     @Override
-    protected Object getSystemService(@NonNull String name) {
+    public Object getSystemService(@NonNull String name) {
         return mContext.getSystemService(name);
     }
 
 
     @Override
     @TargetApi(Build.VERSION_CODES.M)
-    protected Object getSystemService(Class<?> serviceClass){
+    public Object getSystemService(Class<?> serviceClass){
         return  mContext.getSystemService(serviceClass);
     }
 
