@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.beiyun.library.util.Apps;
+import com.beiyun.library.base.Apps;
 
 /**
  * Created by beiyun on 2017/11/1.

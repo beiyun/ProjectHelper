@@ -1,4 +1,4 @@
-package com.beiyun.library.util;
+package com.beiyun.library.base;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -13,8 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 
-import com.beiyun.library.iml.App;
-
 import java.io.File;
 
 /**
@@ -27,12 +25,12 @@ public class Apps{
 
     @Deprecated
     protected static void init(Context context){
-        app = App.init(context);
+        app = AppsIml.init(context);
     }
 
     private static void ca(){
         if(app == null){
-            throw new NullPointerException("----------the Apps class has no register---------------");
+            throw new NullPointerException("----------the Apps class has no init---------------");
         }
     }
 

@@ -1,4 +1,4 @@
-package com.beiyun.library.util;
+package com.beiyun.library.base;
 
 import android.content.Context;
 

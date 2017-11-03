@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.beiyun.library.util.Apps;
+import com.beiyun.library.base.Apps;
 import com.beiyun.library.util.Views;
 import com.beiyun.projecthelper.Base.BaseActivity;
 import com.beiyun.projecthelper.adapter.MainAdapter;

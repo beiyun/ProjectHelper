@@ -4,12 +4,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.beiyun.library.base.Apps;
+
 /**
  * Created by beiyun on 2017/11/3.
  * //网络工具类
  */
 public class Nets {
-
 
     //获取当前的网络连接类型
     public static NetState getNetState(){

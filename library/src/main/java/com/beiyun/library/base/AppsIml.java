@@ -1,4 +1,4 @@
-package com.beiyun.library.iml;
+package com.beiyun.library.base;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -33,7 +33,7 @@ class AppsIml extends App {
         mActivityManager = ActivityManager.init(context);
     }
 
-    public static App init(Context context){
+    protected static App init(Context context){
         if(appsIml == null){
             synchronized (AppsIml.class){
                 if(appsIml == null){

@@ -1,4 +1,4 @@
-package com.beiyun.library.iml;
+package com.beiyun.library.base;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -19,7 +19,7 @@ import java.io.File;
  * Created by beiyun on 2017/11/3.
  *
  */
-public abstract class App {
+abstract class App {
 
 
     /**
@@ -133,8 +133,4 @@ public abstract class App {
 
     public abstract Object getSystemService(Class<?> serviceClass);
 
-
-    public static App init(Context context){
-        return AppsIml.init(context);
-    }
 }
