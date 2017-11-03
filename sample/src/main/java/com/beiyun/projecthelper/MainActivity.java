@@ -1,6 +1,5 @@
 package com.beiyun.projecthelper;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -87,10 +86,10 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 a.setPhone("18087172019");
                 a.setLogin(true);
                 a.setAge(26);
-                Sps.save(a, Context.MODE_PRIVATE);
+                Sps.save(a);
                 break;
             case 5:
-                Account o = (Account) Sps.get(Account.class, Context.MODE_PRIVATE);
+                Account o = (Account) Sps.get(Account.class);
                 if (o != null) {
                     Toast.show(this,o.toString());
                 }
