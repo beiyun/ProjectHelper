@@ -4,23 +4,15 @@ import android.content.Context;
 
 /**
  * Created by beiyun on 2017/11/3.
+ * 在application中进行初始化
  */
 public class ProjectHelper {
 
-    private static ProjectHelper projectHelper;
     private ProjectHelper(Context context){
         Apps.init(context);
-
-
     }
 
     public static void init(Context context){
-        if(projectHelper == null){
-            synchronized (ProjectHelper.class){
-                if(projectHelper == null){
-                    new ProjectHelper(context);
-                }
-            }
-        }
+        new ProjectHelper(context);
     }
 }

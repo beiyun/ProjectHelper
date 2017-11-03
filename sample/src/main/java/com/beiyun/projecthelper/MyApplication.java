@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.beiyun.library.base.Apps;
+import com.beiyun.library.base.ProjectHelper;
 
 /**
  * Created by beiyun on 2017/11/1.
@@ -14,7 +14,7 @@ public class MyApplication extends Application implements Application.ActivityLi
     @Override
     public void onCreate() {
         super.onCreate();
-        Apps.register(this);
+        ProjectHelper.init(this);
     }
 
     @Override

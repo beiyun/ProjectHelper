@@ -9,10 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.beiyun.library.base.Apps;
+import com.beiyun.library.util.Nets;
 import com.beiyun.library.util.Views;
+import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.Base.BaseActivity;
 import com.beiyun.projecthelper.adapter.MainAdapter;
 
@@ -49,27 +50,11 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         ArrayList<String> data = new ArrayList<>();
         data.add("test App");
         data.add("test Toast");
-        data.add("test View");
+        data.add("当前网络状态");
         data.add("A");
         data.add("B");
         data.add("C");
         data.add("D");
-        data.add("E");
-        data.add("F");
-        data.add("G");
-        data.add("H");
-        data.add("I");
-        data.add("G");
-        data.add("K");
-        data.add("L");
-        data.add("M");
-        data.add("N");
-        data.add("O");
-        data.add("P");
-        data.add("Q");
-        data.add("R");
-        data.add("S");
-        data.add("T");
         return data;
     }
 
@@ -79,14 +64,13 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         switch (position){
             case 0:
                 PackageManager manager = Apps.getPackageManager();
-
                 Toast.makeText(MainActivity.this, "getPackageManager = "+manager, Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                com.beiyun.library.view.Toast.show(this,"测试Toast");
+                Toast.show(this,"测试Toast");
                 break;
             case 2:
-                com.beiyun.library.view.Toast.show(this,"测试View");
+                Toast.show(this,"当前网络状态"+ Nets.getNetState());
                 break;
 
         }

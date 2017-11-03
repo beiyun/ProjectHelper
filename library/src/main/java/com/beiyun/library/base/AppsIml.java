@@ -33,7 +33,7 @@ class AppsIml extends App {
         mActivityManager = ActivityManager.init(context);
     }
 
-    protected static App init(Context context){
+    static App init(Context context){
         if(appsIml == null){
             synchronized (AppsIml.class){
                 if(appsIml == null){
@@ -49,7 +49,7 @@ class AppsIml extends App {
      * @return ApplicationContext
      */
     @Override
-    public Context getContext() {
+    protected Context getContext() {
         return mContext;
     }
 
@@ -58,7 +58,7 @@ class AppsIml extends App {
      * @return Resource
      */
     @Override
-    public Resources getResource(){
+    protected Resources getResource(){
         return mContext.getResources();
     }
 
@@ -68,13 +68,13 @@ class AppsIml extends App {
      * @return LayoutInflater
      */
     @Override
-    public LayoutInflater getLayoutInflater(){
+    protected LayoutInflater getLayoutInflater(){
         return (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
     @Override
-    public String getString(@StringRes int resId){
+    protected String getString(@StringRes int resId){
         return mContext.getString(resId);
     }
 
@@ -85,7 +85,7 @@ class AppsIml extends App {
      * @return ColorId
      */
     @Override
-    public int getColor(@ColorRes int resId){
+    protected int getColor(@ColorRes int resId){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return mContext.getColor(resId);
         }
@@ -100,7 +100,7 @@ class AppsIml extends App {
      * @return
      */
     @Override
-    public SharedPreferences getSharedPreferences(String spName, int spMode){
+    protected SharedPreferences getSharedPreferences(String spName, int spMode){
         return mContext.getSharedPreferences(spName,spMode);
     }
 
@@ -109,7 +109,7 @@ class AppsIml extends App {
      * @return ApplicationInfo
      */
     @Override
-    public ApplicationInfo getApplicationInfo(){
+    protected ApplicationInfo getApplicationInfo(){
         return mContext.getApplicationInfo();
     }
 
@@ -117,7 +117,7 @@ class AppsIml extends App {
      * @return File
      */
     @Override
-    public File getExternalCacheDir(){
+    protected File getExternalCacheDir(){
         return mContext.getExternalCacheDir();
     }
 
@@ -126,7 +126,7 @@ class AppsIml extends App {
      * @return File
      */
     @Override
-    public File getCacheDir(){
+    protected File getCacheDir(){
         return mContext.getCacheDir();
     }
 
@@ -134,7 +134,7 @@ class AppsIml extends App {
      * @return ContentResolver
      */
     @Override
-    public ContentResolver getContentResolver(){
+    protected ContentResolver getContentResolver(){
         return mContext.getContentResolver();
     }
 
@@ -143,7 +143,7 @@ class AppsIml extends App {
      * @return PackageManager
      */
     @Override
-    public PackageManager getPackageManager(){
+    protected PackageManager getPackageManager(){
         return mContext.getPackageManager();
     }
 
@@ -151,7 +151,7 @@ class AppsIml extends App {
      * @return AssetManager
      */
     @Override
-    public AssetManager getAssets(){
+    protected AssetManager getAssets(){
         return mContext.getAssets();
     }
 
@@ -162,7 +162,7 @@ class AppsIml extends App {
 
     //获取当前的activity
     @Override
-    public Activity getCurrentActivity(){
+    protected Activity getCurrentActivity(){
        return mActivityManager.getCurrentActivity();
     }
 
@@ -171,7 +171,7 @@ class AppsIml extends App {
      * 结束当前activity
      */
     @Override
-    public void finish(){
+    protected void finish(){
         mActivityManager.finish();
     }
 
@@ -181,21 +181,21 @@ class AppsIml extends App {
      * @param activity
      */
     @Override
-    public void finish(Activity activity) {
+    protected void finish(Activity activity) {
         mActivityManager.finish(activity);
     }
 
 
     //根据class关闭指定activity
     @Override
-    public void finish(Class<? extends Activity> cls){
+    protected void finish(Class<? extends Activity> cls){
         mActivityManager.finish(cls);
     }
 
 
     //根据class文件获取activity
     @Override
-    public Activity getActivity(Class<? extends Activity> cls){
+    protected Activity getActivity(Class<? extends Activity> cls){
        return mActivityManager.getActivity(cls);
     }
 
@@ -203,19 +203,19 @@ class AppsIml extends App {
 
     //退出程序
     @Override
-    public void exit(){
+    protected void exit(){
         mActivityManager.exit();
     }
 
     @Override
-    public Object getSystemService(@NonNull String name) {
+    protected Object getSystemService(@NonNull String name) {
         return mContext.getSystemService(name);
     }
 
 
     @Override
     @TargetApi(Build.VERSION_CODES.M)
-    public Object getSystemService(Class<?> serviceClass){
+    protected Object getSystemService(Class<?> serviceClass){
         return  mContext.getSystemService(serviceClass);
     }
 

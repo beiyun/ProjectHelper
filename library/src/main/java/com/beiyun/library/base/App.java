@@ -25,23 +25,23 @@ abstract class App {
     /**
      * @return ApplicationContext
      */
-    public abstract Context getContext();
+     protected abstract Context getContext();
 
     /**
      * 获取Resource对象
      * @return Resource
      */
-    public abstract Resources getResource();
+    protected abstract Resources getResource();
 
 
     /**
      *
      * @return LayoutInflater
      */
-    public abstract LayoutInflater getLayoutInflater();
+    protected abstract LayoutInflater getLayoutInflater();
 
 
-    public abstract String getString(@StringRes int resId);
+    protected abstract String getString(@StringRes int resId);
 
 
     /**
@@ -49,7 +49,7 @@ abstract class App {
      * @param resId
      * @return ColorId
      */
-    public abstract int getColor(@ColorRes int resId);
+    protected abstract int getColor(@ColorRes int resId);
 
 
     /**
@@ -58,40 +58,40 @@ abstract class App {
      * @param spMode
      * @return
      */
-    public abstract SharedPreferences getSharedPreferences(String spName, int spMode);
+    protected abstract SharedPreferences getSharedPreferences(String spName, int spMode);
 
     /**
      *
      * @return ApplicationInfo
      */
-    public abstract ApplicationInfo getApplicationInfo();
+    protected abstract ApplicationInfo getApplicationInfo();
 
     /**
      * @return File
      */
-    public abstract File getExternalCacheDir();
+    protected abstract File getExternalCacheDir();
 
 
     /**
      * @return File
      */
-    public abstract File getCacheDir();
+    protected abstract File getCacheDir();
 
     /**
      * @return ContentResolver
      */
-    public abstract ContentResolver getContentResolver();
+    protected abstract ContentResolver getContentResolver();
 
 
     /**
      * @return PackageManager
      */
-    public abstract PackageManager getPackageManager();
+    protected abstract PackageManager getPackageManager();
 
     /**
      * @return AssetManager
      */
-    public abstract AssetManager getAssets();
+    protected abstract AssetManager getAssets();
 
 
 
@@ -99,38 +99,38 @@ abstract class App {
 
 
     //获取当前的activity
-    public abstract Activity getCurrentActivity();
+    protected abstract Activity getCurrentActivity();
 
 
     /**
      * 结束当前activity
      */
-    public abstract void finish();
+    protected abstract void finish();
 
 
     /**
      * 结束指定的activity
      * @param activity
      */
-    public abstract void finish(Activity activity);
+    protected abstract void finish(Activity activity);
 
 
     //根据class关闭指定activity
-    public abstract void finish(Class<? extends Activity> cls);
+    protected abstract void finish(Class<? extends Activity> cls);
 
 
     //根据class文件获取activity
-    public abstract Activity getActivity(Class<? extends Activity> cls);
+    protected abstract Activity getActivity(Class<? extends Activity> cls);
 
 
 
     //退出程序
-    public abstract void exit();
+    protected abstract void exit();
 
 
-    public abstract Object getSystemService(@NonNull String name);
+    protected abstract Object getSystemService(@NonNull String name);
 
 
-    public abstract Object getSystemService(Class<?> serviceClass);
+    protected abstract Object getSystemService(Class<?> serviceClass);
 
 }

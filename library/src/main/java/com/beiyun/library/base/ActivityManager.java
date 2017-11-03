@@ -25,7 +25,7 @@ class ActivityManager {
         registerActivityLifeCallbacks(context);
     }
 
-    public static ActivityManager init(Context context){
+    protected static ActivityManager init(Context context){
         if(manager == null){
             synchronized (ActivityManager.class){
                 if(manager == null){
@@ -93,7 +93,7 @@ class ActivityManager {
 
 
     //获取当前的activity
-    public Activity getCurrentActivity(){
+    protected Activity getCurrentActivity(){
         if(!mActivityStack.empty()){
             return mActivityStack.peek();
         }
@@ -105,7 +105,7 @@ class ActivityManager {
     /**
      * 结束当前activity
      */
-    public void finish(){
+    protected void finish(){
         if(!mActivityStack.empty()){
             mActivityStack.pop();
         }
@@ -116,7 +116,7 @@ class ActivityManager {
      * 结束指定的activity
      * @param activity
      */
-    public void finish(Activity activity) {
+    protected void finish(Activity activity) {
         if(mActivityStack.empty()||mActivityStack.search(activity) == -1) return;
         activity.finish();
         mActivityStack.removeElement(activity);
@@ -125,7 +125,7 @@ class ActivityManager {
 
 
     //根据class关闭指定activity
-    public void finish(Class<? extends Activity> cls){
+    protected void finish(Class<? extends Activity> cls){
         if(!mActivityStack.empty()){
             Activity readyToEnd = null;
             for (Activity a:mActivityStack) {
@@ -145,7 +145,7 @@ class ActivityManager {
 
 
     //根据class文件获取activity
-    public Activity getActivity(Class<? extends Activity> cls){
+    protected Activity getActivity(Class<? extends Activity> cls){
         if(!mActivityStack.empty()){
             for (Activity a:mActivityStack) {
                 if(a.getClass().equals(cls)){
@@ -159,7 +159,7 @@ class ActivityManager {
 
 
     //退出程序
-    public void exit(){
+    protected void exit(){
 
         if(!mActivityStack.empty()){
             synchronized (AppsIml.class){

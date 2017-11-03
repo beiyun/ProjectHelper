@@ -23,7 +23,6 @@ public class Apps{
 
     private static App app;
 
-    @Deprecated
     protected static void init(Context context){
         app = AppsIml.init(context);
     }

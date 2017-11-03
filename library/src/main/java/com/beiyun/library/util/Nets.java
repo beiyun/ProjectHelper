@@ -16,6 +16,7 @@ public class Nets {
     public static NetState getNetState(){
         ConnectivityManager manager = (ConnectivityManager) Apps.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if(networkInfo == null) return NetState.NONE;
         if(networkInfo.getType() == ConnectivityManager.TYPE_WIFI){
             return NetState.WIFI;
         }else if(networkInfo.getType() == ConnectivityManager.TYPE_MOBILE){
