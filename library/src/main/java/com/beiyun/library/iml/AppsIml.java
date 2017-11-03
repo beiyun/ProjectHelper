@@ -20,7 +20,7 @@ import java.io.File;
  * this class should register in application
  *
  */
-public class AppsIml extends App {
+class AppsIml extends App {
 
     private Context mContext;
     private static AppsIml appsIml;

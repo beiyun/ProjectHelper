@@ -21,10 +21,6 @@ import java.io.File;
 public abstract class App {
 
 
-    public static App init(Context context){
-        return AppsIml.init(context);
-    }
-
     /**
      * @return ApplicationContext
      */
@@ -130,4 +126,8 @@ public abstract class App {
     //退出程序
     public abstract void exit();
 
+
+    public static App init(Context context){
+        return AppsIml.init(context);
+    }
 }
