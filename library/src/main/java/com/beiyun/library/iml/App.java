@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 
@@ -125,6 +126,12 @@ public abstract class App {
 
     //退出程序
     public abstract void exit();
+
+
+    public abstract Object getSystemService(@NonNull String name);
+
+
+    public abstract Object getSystemService(Class<?> serviceClass);
 
 
     public static App init(Context context){

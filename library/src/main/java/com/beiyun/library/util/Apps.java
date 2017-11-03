@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 
@@ -24,7 +25,8 @@ public class Apps{
 
     private static App app;
 
-    public static void register(Context context){
+    @Deprecated
+    protected static void init(Context context){
         app = App.init(context);
     }
 
@@ -140,5 +142,15 @@ public class Apps{
     public static void exit() {
         ca();
         app.exit();
+    }
+
+    public static Object getSystemService(@NonNull String name){
+        ca();
+        return app.getSystemService(name);
+    }
+
+    public static Object getSystemService(Class<?> serviceClass){
+        ca();
+        return app.getSystemService(serviceClass);
     }
 }
