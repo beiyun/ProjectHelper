@@ -1,5 +1,6 @@
 package com.beiyun.library.util;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,136 +8,137 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 
+import com.beiyun.library.iml.App;
+
 import java.io.File;
 
 /**
- * Created by beiyun on 2017/11/1.
+ * Created by beiyun on 2017/11/3.
+ *
  */
-public class Apps {
+public class Apps{
 
-    private static Context mContext;
-    private static Apps apps;
+    private static App app;
 
-    private Apps(Context context) {
-        mContext = context;
+    public static void register(Context context){
+        app = App.init(context);
     }
 
-
-
-
-
-    public static Apps register(Context context){
-        if(apps == null){
-            synchronized (Apps.class){
-                if(apps == null){
-                    apps = new Apps(context);
-                }
-            }
+    private static void ca(){
+        if(app == null){
+            throw new NullPointerException("----------the Apps class has no register---------------");
         }
-
-        return apps;
     }
 
-    /**
-     * @return ApplicationContext
-     */
+
     public static Context getContext() {
-        return mContext;
+        ca();
+        return app.getContext();
     }
 
-    /**
-     * 获取Resource对象
-     * @return Resource
-     */
-    public static Resources getResource(){
-        return mContext.getResources();
+    
+    public static Resources getResource() {
+        ca();
+        return app.getResource();
     }
 
-
-    /**
-     *
-     * @return LayoutInflater
-     */
-    public static LayoutInflater getLayoutInflater(){
-        return (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    
+    public static LayoutInflater getLayoutInflater() {
+        ca();
+        return app.getLayoutInflater();
     }
 
-
-    public static String getString(@StringRes int resId){
-        return mContext.getString(resId);
+    
+    public static String getString(@StringRes int resId) {
+        ca();
+        return app.getString(resId);
     }
 
-
-    /**
-     *
-     * @param resId
-     * @return ColorId
-     */
-    public static int getColor(@ColorRes int resId){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return mContext.getColor(resId);
-        }
-        return mContext.getResources().getColor(resId);
+    
+    public static int getColor(@ColorRes int resId) {
+        ca();
+        return app.getColor(resId);
     }
 
-
-    /**
-     *
-     * @param spName
-     * @param spMode
-     * @return
-     */
-    public static SharedPreferences getSharedPreferences(String spName, int spMode){
-        return mContext.getSharedPreferences(spName,spMode);
+    
+    public static SharedPreferences getSharedPreferences(String spName, int spMode) {
+        ca();
+        return app.getSharedPreferences(spName,spMode);
     }
 
-    /**
-     *
-     * @return ApplicationInfo
-     */
-    public static ApplicationInfo getApplicationInfo(){
-        return mContext.getApplicationInfo();
+    
+    public static ApplicationInfo getApplicationInfo() {
+        ca();
+        return app.getApplicationInfo();
     }
 
-    /**
-     * @return File
-     */
-    public static File getExternalCacheDir(){
-        return mContext.getExternalCacheDir();
+    
+    public static File getExternalCacheDir() {
+        ca();
+        return app.getExternalCacheDir();
     }
 
-
-    /**
-     * @return File
-     */
-    public static File getCacheDir(){
-        return mContext.getCacheDir();
+    
+    public static File getCacheDir() {
+        ca();
+        return app.getCacheDir();
     }
 
-    /**
-     * @return ContentResolver
-     */
-    public static ContentResolver getContentResolver(){
-        return mContext.getContentResolver();
+    
+    public static ContentResolver getContentResolver() {
+        ca();
+        return app.getContentResolver();
     }
 
-
-    /**
-     * @return PackageManager
-     */
-    public static PackageManager getPackageManager(){
-        return mContext.getPackageManager();
+    
+    public static PackageManager getPackageManager() {
+        ca();
+        return app.getPackageManager();
     }
 
-    /**
-     * @return AssetManager
-     */
-    public static AssetManager getAssets(){
-        return mContext.getAssets();
+    
+    public static AssetManager getAssets() {
+        ca();
+        return app.getAssets();
+    }
+
+    
+    public static Activity getCurrentActivity() {
+        ca();
+        return app.getCurrentActivity();
+    }
+
+    
+    public static void finish() {
+        ca();
+        app.finish();
+    }
+
+    
+    public static void finish(Activity activity) {
+        ca();
+        app.finish(activity);
+    }
+
+    
+    public static void finish(Class<? extends Activity> cls) {
+        ca();
+        app.finish(cls);
+    }
+
+    
+    public static Activity getActivity(Class<? extends Activity> cls) {
+        ca();
+        return app.getActivity(cls);
+    }
+
+    
+    public static void exit() {
+        ca();
+        app.exit();
     }
 }
