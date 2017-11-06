@@ -20,6 +20,8 @@ import com.beiyun.projecthelper.adapter.MainAdapter;
 import com.beiyun.projecthelper.entity.Account;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends BaseActivity implements MainAdapter.OnItemClickListener {
 
@@ -80,18 +82,30 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
             case 4:
                 Account a = new Account();
                 a.setAge(10);
-                a.setIdentify("41022119890718481X");
+                a.setIdentify("41022319900214423X");
                 a.setName("北云");
                 a.setPassword("beiyun");
-                a.setPhone("18087172019");
+                a.setPhone("18087172012");
                 a.setLogin(true);
                 a.setAge(26);
-                Sps.save(a);
+                a.setaFloat(2f);
+                a.setaLong(123123123123L);
+                Set<String> stringSet = new HashSet<>();
+                stringSet.add("stringSet item 1");
+                stringSet.add("stringSet item 2");
+                stringSet.add("stringSet item 3");
+                stringSet.add("stringSet item 4");
+                a.setStringSet(stringSet);
+                boolean save = Sps.save(a);
+                if(save){
+                    Toast.show(this,"保存成功");
+                }
+
                 break;
             case 5:
                 Account o = (Account) Sps.get(Account.class);
                 if (o != null) {
-                    Toast.show(this,o.toString());
+                    Toast.makeText(this,o.toString(),Toast.LENGTH_LONG).show();
                 }
                 break;
         }

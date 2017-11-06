@@ -1,5 +1,7 @@
 package com.beiyun.projecthelper.entity;
 
+import java.util.Set;
+
 /**
  * Created by beiyun on 2017/11/3.
  */
@@ -10,6 +12,12 @@ public class Account {
     private String password;
 
     private int age;
+
+    private long aLong;
+
+    private float aFloat;
+
+    private Set<String> stringSet;
 
     private boolean isLogin;
 
@@ -65,12 +73,39 @@ public class Account {
         isLogin = login;
     }
 
+    public float getaFloat() {
+        return aFloat;
+    }
+
+    public void setaFloat(float aFloat) {
+        this.aFloat = aFloat;
+    }
+
+    public long getaLong() {
+        return aLong;
+    }
+
+    public void setaLong(long aLong) {
+        this.aLong = aLong;
+    }
+
+    public Set<String> getStringSet() {
+        return stringSet;
+    }
+
+    public void setStringSet(Set<String> stringSet) {
+        this.stringSet = stringSet;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
-                "age=" + age +
+                "aFloat=" + aFloat +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", age=" + age +
+                ", aLong=" + aLong +
+                ", stringSet=" + stringSet +
                 ", isLogin=" + isLogin +
                 ", phone='" + phone + '\'' +
                 ", identify='" + identify + '\'' +
