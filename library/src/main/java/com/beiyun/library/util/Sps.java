@@ -340,8 +340,7 @@ public class Sps {
                 }else if("long".equals(fieldType)){
                     sps.putLong(f.getName(),f.getLong(o));
                 }else if("java.util.Set<java.lang.String>".equals(fieldType)){
-                    Set<String> stringSet = (Set<String>) f.get(o);
-                    sps.putStringSet(f.getName(), stringSet);
+                    sps.putStringSet(f.getName(),(Set<String>) f.get(o));
                 }
             } catch (IllegalAccessException e) {
                 Log.e(TAG, "save: "+e.getMessage() );
