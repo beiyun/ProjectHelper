@@ -97,7 +97,11 @@ public class Sps {
     }
 
 
-    //保存object中所有的值
+    /**
+     * 保存object中所有的值，类名作为spName, field作为key mode 默认为Context.MODE_PRIVATE;
+     * @param o
+     * @return boolean  true表示保存成功  false表示保存失败
+     */
     public static boolean save(@NonNull Object o){
         return save(o,SpMode.MODE_PRIVATE);
     }
