@@ -22,52 +22,37 @@ public class Sps {
     private SharedPreferences mSp;
     private Class<?> mCls;
     private Object mObject;
-    private String mSpName;
-    private SpMode mSpMode;
-
-    private Sps(){}
-
-    public static Sps init(){
-        return new Sps();
-    }
-
-    public Sps name(String spName){
-        this.mSpName = spName;
-        return this;
-    }
-
-    public Sps mode(SpMode spMode){
-        this.mSpMode = spMode;
-        return this;
-    }
-
-    public Sps object(Object o){
-        this.mObject = o;
-        return this;
-    }
-
-    public Sps cls(Class<?> cls){
-        this.mCls = cls;
-        return this;
-    }
 
     /**
-     * 初始化 SharedPreferences 必须调用
-     * @return Sps
+     * Sps构造器
+     * @param spName
+     * @param o
+     * @param cls
+     * @param spMode
      */
-    public Sps build(){
-        String spName = null;
-        if(mSpName != null){
-            spName = mSpName;
+    private Sps(String spName,Object o,Class<?> cls,SpMode spMode){
+        this.mCls = cls;
+        this.mObject = o;
+        String name = null;
+        if(spName != null){
+            name = spName;
         }else if(mCls != null){
-            spName = mCls.getName();
+            name = mCls.getName();
         }else if(mObject != null){
-            spName = mObject.getClass().getName();
+            name = mObject.getClass().getName();
         }else{
             throw new NullPointerException("this spName cannot be null");
         }
-        mSp = Apps.getSharedPreferences(spName,mSpMode == null? getSpMode(SpMode.MODE_PRIVATE):getSpMode(mSpMode));
-        return this;
+        mSp = Apps.getSharedPreferences(name,spMode == null? getSpMode(SpMode.MODE_PRIVATE):getSpMode(spMode));
+    }
+
+
+    /**
+     * 若使用Sps的一般方法，需调用此方法进行初始化
+     * @return SpsBuilder
+     */
+    public static SpsBuilder init(){
+        return new Sps.SpsBuilder();
     }
 
 
@@ -395,5 +380,63 @@ public class Sps {
         }
     }
 
+
+    /**
+     * Sps构造类
+     */
+    public static class SpsBuilder{
+        private String spName;
+        private SpMode spMode;
+        private Object object;
+        private Class<?> cls;
+
+
+        /**
+         * @param spName
+         * @return SpsBuilder
+         */
+        public SpsBuilder name(String spName){
+            this.spName = spName;
+            return this;
+        }
+
+
+        /**
+         * @param spMode
+         * @return SpsBuilder
+         */
+        public SpsBuilder mode(SpMode spMode){
+            this.spMode = spMode;
+            return this;
+        }
+
+
+        /**
+         * @param o
+         * @return SpsBuilder
+         */
+        public SpsBuilder object(Object o){
+            this.object = o;
+            return this;
+        }
+
+
+        /**
+         * @param cls
+         * @return SpsBuilder
+         */
+        public SpsBuilder cls(Class<?> cls){
+            this.cls = cls;
+            return this;
+        }
+
+        /**
+         * 初始化 SharedPreferences 必须调用
+         * @return Sps
+         */
+        public Sps build(){
+            return new Sps(spName,object,cls,spMode);
+        }
+    }
 
 }
