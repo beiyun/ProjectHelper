@@ -51,6 +51,10 @@ public class Sps {
         return this;
     }
 
+    /**
+     * 初始化 SharedPreferences 必须调用
+     * @return Sps
+     */
     public Sps build(){
         String spName = null;
         if(mSpName != null){
@@ -119,11 +123,11 @@ public class Sps {
     }
 
     /**
+     * 通过class文件找回保存的该class中所有保存的值
      * @param cls 对应实体类的class文件
      * @param spMode sp类型
      * @return object
      */
-    //通过class文件找回保存的该class中所有保存的值
     public static Object get(Class<?> cls,SpMode spMode) {
         Sps sps = Sps.init().cls(cls).mode(spMode).build();
         return get(cls,sps);
@@ -131,7 +135,6 @@ public class Sps {
 
 
     /***
-     *
      * @param spName 定义sp名字
      * @param o 保存的实体对象
      * @param spMode 保存类型
@@ -144,7 +147,6 @@ public class Sps {
 
 
     /**
-     *
      * @param spName sp名字
      * @param cls 对应接收类的class文件
      * @param spMode sp类型
@@ -156,67 +158,131 @@ public class Sps {
     }
 
 
-
-    //保存Boolean值
+    /**
+     * 保存Boolean值
+     * @param key
+     * @param booleanValue
+     */
     public void putBoolean(String key, boolean booleanValue) {
         mSp.edit().putBoolean(key,booleanValue).apply();
     }
 
-    //保存int值
+
+    /**
+     * 保存int值
+     * @param key
+     * @param intValue
+     */
     public void putInt(String key, int intValue) {
         mSp.edit().putInt(key,intValue).apply();
     }
 
-    //保存string字串
+
+    /**
+     * 保存string字串
+     * @param key
+     * @param stringValue
+     */
     public void putString(String key, String stringValue) {
         mSp.edit().putString(key,stringValue).apply();
-
     }
 
 
+    /**
+     * 保存long值
+     * @param key
+     * @param longValue
+     */
     public void putLong(String key, long longValue){
         mSp.edit().putLong(key,longValue).apply();
     }
 
 
+    /**
+     * 保存float值
+     * @param key
+     * @param floatValue
+     */
     public void putFloat(String key,float floatValue){
         mSp.edit().putFloat(key,floatValue).apply();
     }
 
+
+    /**
+     * 保存StringSet集合
+     * @param key
+     * @param stringSet
+     */
     public void putStringSet(String key, @NonNull Set<String> stringSet){
         mSp.edit().putStringSet(key,stringSet).apply();
     }
 
-    //获取Boolean值
+
+    /**
+     * 获取Boolean值
+     * @param key
+     * @return boolean
+     */
     public boolean getBoolean(String key){
         return mSp.getBoolean(key,false);
     }
 
-    //获取int值
+
+    /**
+     * 获取int值
+     * @param key
+     * @return int
+     */
     public int getInt(String key){
         return mSp.getInt(key,-1);
     }
 
-    //获取string值
+
+    /**
+     * 获取string值
+     * @param key
+     * @return String
+     */
     public String getString(String key){
         return mSp.getString(key,null);
     }
 
 
+    /**
+     * 获取long值
+     * @param key
+     * @return long
+     */
     public long getLong(String key){
         return mSp.getLong(key,-1);
     }
 
+
+    /**
+     * 获取float值
+     * @param key
+     * @return float
+     */
     public float getFloat(String key){
         return mSp.getFloat(key,-1);
     }
 
+
+    /**
+     * 获取Set<String>集合
+     * @param key
+     * @return Set<String>
+     */
     public Set<String> getStringSet(String key){
         return mSp.getStringSet(key,null);
     }
 
 
-    //获取sp类型
+    /**
+     * 获取sp类型
+     * @param spMode
+     * @return int
+     */
     private int getSpMode(SpMode spMode) {
 
         int mode = 0;
@@ -247,7 +313,13 @@ public class Sps {
     }
 
 
-    private static boolean save(Object o,Sps sps){
+    /**
+     *保存
+     * @param o
+     * @param sps
+     * @return
+     */
+    private static boolean save(@NonNull Object o,Sps sps){
         Field[] fields = o.getClass().getDeclaredFields();
         for (Field f:fields) {
             try {
@@ -278,6 +350,12 @@ public class Sps {
     }
 
 
+    /**
+     * 获取
+     * @param cls
+     * @param sps
+     * @return Object
+     */
     private static Object get(Class<?> cls,Sps sps){
         try {
             Constructor<?> constructor = cls.getConstructor();
@@ -306,7 +384,6 @@ public class Sps {
                     f.set(o,stringSet);
                 }
             }
-
             Log.e(TAG, "get: "+o);
             return o;
         } catch (Exception e) {
