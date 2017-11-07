@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -156,10 +157,6 @@ class AppsIml extends App {
     }
 
 
-
-
-
-
     //获取当前的activity
     @Override
     public Activity getCurrentActivity(){
@@ -200,7 +197,6 @@ class AppsIml extends App {
     }
 
 
-
     //退出程序
     @Override
     public void exit(){
@@ -217,6 +213,37 @@ class AppsIml extends App {
     @TargetApi(Build.VERSION_CODES.M)
     public Object getSystemService(Class<?> serviceClass){
         return  mContext.getSystemService(serviceClass);
+    }
+
+
+    @Override
+    public String getVersionName() {
+
+        PackageManager manager = getPackageManager();
+        String versionName = "";
+        try {
+            PackageInfo info = manager.getPackageInfo(getContext().getPackageName(),
+                    0);
+            versionName = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
+
+    @Override
+    public int getVersionCode() {
+        PackageManager manager = getPackageManager();
+        int versionCode = 0;
+        try {
+            PackageInfo info = manager.getPackageInfo(getContext().getPackageName(),
+                    0);
+            versionCode = info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
     }
 
 

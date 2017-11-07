@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.beiyun.library.util.Apps;
+import com.beiyun.library.base.Apps;
 import com.beiyun.library.util.Nets;
 import com.beiyun.library.util.Sps;
 import com.beiyun.library.util.Views;
@@ -55,10 +55,10 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("test App");
         data.add("test Toast");
         data.add("当前网络状态");
-        data.add("exit");
-        data.add("test sps.save");
+        data.add("exit App");
+        data.add("sps.save");
         data.add("sp.get");
-        data.add("D");
+        data.add("Bitmaps");
         return data;
     }
 
@@ -108,6 +108,11 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                     Toast.makeText(this,o.toString(),Toast.LENGTH_LONG).show();
                 }
                 break;
+            case 6:
+
+
+                break;
+
         }
     }
 

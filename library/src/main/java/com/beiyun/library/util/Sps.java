@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.beiyun.library.base.Apps;
 import com.beiyun.library.entity.SpMode;
 
 import java.lang.reflect.Constructor;

@@ -18,7 +18,7 @@ public class ProjectHelper {
         new ProjectHelper(context);
     }
 
-    public static App getApp() {
+    protected static App getApp() {
         if(app == null){
             throw new NullPointerException("----------the ProjectHelper class has no init---------------");
         }

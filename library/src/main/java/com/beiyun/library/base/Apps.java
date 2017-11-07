@@ -1,4 +1,4 @@
-package com.beiyun.library.util;
+package com.beiyun.library.base;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -13,8 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 
-import com.beiyun.library.base.ProjectHelper;
-
 import java.io.File;
 
 /**
@@ -22,8 +20,6 @@ import java.io.File;
  *
  */
 public class Apps{
-
-
 
 
     public static Context getContext() {
@@ -115,9 +111,11 @@ public class Apps{
         ProjectHelper.getApp().exit();
     }
 
+
     public static Object getSystemService(@NonNull String name){
         return ProjectHelper.getApp().getSystemService(name);
     }
+
 
     public static Object getSystemService(Class<?> serviceClass){
         return ProjectHelper.getApp().getSystemService(serviceClass);
