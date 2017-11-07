@@ -3,7 +3,11 @@ Android工具库，节省开发效率,包含view、bitmap、File、App、等集�
 
 
 # How to use
-allprojects {
+# step1
+
+<code>
+
+    allprojects {
      	
      	repositories {
      			...
@@ -11,11 +15,25 @@ allprojects {
      		}
      	}
 	
-
-dependencies {
-		
-		compile 'com.github.beiyun:ProjectHelper:1.0.4'
+</code>	
+<code>
 	
-	    }	
+	 dependencies {
+		...
+		compile 'com.github.beiyun:ProjectHelper:1.0.4'
+	    }
+</code>	
+
+# step2
+
+    public class MyApplication extends Application {
+
+        @Override
+        public void onCreate() {
+            super.onCreate();
+            ProjectHelper.init(this);
+        }
+     }
+
 	
 	
