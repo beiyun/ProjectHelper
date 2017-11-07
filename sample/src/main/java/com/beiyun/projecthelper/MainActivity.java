@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import com.beiyun.library.base.Apps;
 import com.beiyun.library.util.Nets;
 import com.beiyun.library.util.Sps;
-import com.beiyun.library.util.Views;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.Base.BaseActivity;
 import com.beiyun.projecthelper.adapter.MainAdapter;
@@ -36,7 +35,6 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
 
         }
 
-        Views.onCreate(this);
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerView);
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -58,7 +56,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("exit App");
         data.add("sps.save");
         data.add("sp.get");
-        data.add("Bitmaps");
+        data.add("Keyboards");
         return data;
     }
 
@@ -109,8 +107,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 }
                 break;
             case 6:
-
-
+                startActivity(new Intent(this,KeyboardActivity.class));
                 break;
 
         }
@@ -126,10 +123,6 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        startActivity(new Intent(this,Main2Activity.class));
-        finish();
-
         return true;
     }
 }

@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -169,13 +171,167 @@ abstract class App {
 
 
     /**
+     * 获取app版本名
+     * @param packageName 包名
+     * @return app版本名
+     */
+   public abstract String getVersionName(String packageName);
+
+
+    /**
      * 获取系统版本号
      * @return app获取版本号
      */
    public abstract int getVersionCode();
 
 
+   /**
+    * 获取app版本号
+    * @param packageName 包名
+    * @return 版本号
+     */
+   public abstract int getVersionCode(String packageName);
+   /**
+    * 获取app名称
+    * @return appName
+     */
+   public abstract String getAppName();
 
 
+   /**
+    * 获取app名称
+    * @param packageName 包名
+    * @return APPName
+     */
+   public abstract String getAppName(String packageName);
+
+
+   /**
+    * 启动app
+    * @param packageName 包名
+     */
+   public abstract void launchApp(String packageName);
+
+
+    /**
+     * 获取app图标
+     * @return Drawable
+     */
+   public abstract Drawable getAppIcon();
+
+
+    /**
+     * 获取app图标
+     * @param packageName 包名
+     * @return APPIcon
+     */
+   public abstract Drawable getAppIcon(String packageName);
+
+
+   /**
+    * 获取app路径
+    * @return app path
+     */
+   public abstract String getAppPath();
+
+
+    /**
+     * 获取app路径
+     * @param packageName 包名
+     * @return APPPath
+     */
+   public abstract String getAppPath(String packageName);
+
+
+    /**
+     * 获取app签名
+     * @return Signatures
+     */
+   public abstract Signature[] getAppSignature();
+
+
+   /**
+    * 获取app签名
+    * @return Signatures
+    */
+   public abstract Signature[] getAppSignature(String packageName);
+
+
+    /**
+     * 判断app是否为系统app
+     * @return boolean true为是  false 为否
+     */
+   public abstract boolean isSystemApp();
+
+
+    /**
+     * 安装app
+     * @param filePath 路径
+     * @param authority 7.0及以上安装需要传入清单文件中的{@code <provider>}的authorities属性
+     *                  <br>参看https://developer.android.com/reference/android/support/v4/content/FileProvider.html
+     */
+   public abstract void installApp(String filePath,String authority);
+
+
+   /**
+    * 卸载app
+    * @param packageName 包名
+     */
+   public abstract void unInstallApp(String packageName);
+
+
+   /**
+    * 静默安装App
+    * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.INSTALL_PACKAGES" />}</p>
+    *
+    * @param filePath 文件路径
+    * @return {@code true}: 安装成功<br>{@code false}: 安装失败
+    */
+   public abstract boolean installAppSilent(String filePath);
+
+
+   /**
+    * 静默卸载App
+    * <p>非root需添加权限 {@code <uses-permission android:name="android.permission.DELETE_PACKAGES" />}</p>
+    *
+    * @param packageName 包名
+    * @param isKeepData  是否保留数据
+    * @return {@code true}: 卸载成功<br>{@code false}: 卸载失败
+    */
+   public abstract boolean unInstallAppSilent(String packageName,boolean isKeepData);
+
+
+    /**
+     * app是否已安装
+     * @param packageName packageName
+     * @return boolean
+     */
+   public abstract boolean isInstallApp(String packageName);
+
+
+   /**
+    * 获取包名
+    * @return String
+     */
+   public abstract String getPackageName();
+
+
+   /**
+    * 获取应用签名的的SHA1值
+    * <p>可据此判断高德，百度地图key是否正确</p>
+    *
+    * @return 应用签名的SHA1字符串, 比如：53:FD:54:DC:19:0F:11:AC:B5:22:9E:F1:1A:68:88:1B:8B:E8:54:42
+    */
+   public abstract String getAppSignatureSHA1();
+
+
+   /**
+    * 获取应用签名的的SHA1值
+    * <p>可据此判断高德，百度地图key是否正确</p>
+    *
+    * @param packageName 包名
+    * @return 应用签名的SHA1字符串, 比如：53:FD:54:DC:19:0F:11:AC:B5:22:9E:F1:1A:68:88:1B:8B:E8:54:42
+    */
+   public abstract String getAppSignatureSHA1(String packageName);
 
 }

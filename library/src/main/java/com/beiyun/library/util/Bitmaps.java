@@ -50,7 +50,7 @@ import java.io.OutputStream;
 /**
  * Created by beiyun on 2017/11/6.
  * copy from Blankj's androidUtilCode
- * url:https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/ImageUtils.java
+ * url:https://github.com/Blankj/AndroidUtilCode
  */
 public class Bitmaps {
 

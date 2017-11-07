@@ -6,8 +6,8 @@ package com.beiyun.library.entity;
  */
 public enum SpMode {
 
-    MODE_PRIVATE(),
-    MODE_APPEND(),
+    MODE_PRIVATE,
+    MODE_APPEND,
     MODE_ENABLE_WRITE_AHEAD_LOGGING,
     MODE_NO_LOCALIZED_COLLATORS
 
