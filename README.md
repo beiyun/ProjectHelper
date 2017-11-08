@@ -15,7 +15,7 @@ step 1: config gradle
 
     dependencies {
 		...
-		compile 'com.github.beiyun:ProjectHelper:1.0.4'
+		compile 'com.github.beiyun:ProjectHelper:1.0.5'
 	         }
 
 step 2: init ProjectHelper in Application
