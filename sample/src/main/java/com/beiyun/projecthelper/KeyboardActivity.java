@@ -26,7 +26,7 @@ public class KeyboardActivity extends BaseActivity implements KeyboardWatcher.On
 
 
         editText = (EditText) findViewById(R.id.editText);
-        Keyboards.setOnKeyBoardListener(this);
+        Keyboards.setOnKeyboardListener(this);
 
     }
 

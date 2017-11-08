@@ -60,7 +60,7 @@ public class Keyboards {
      * 当前activity配置 android:windowSoftInputMode="adjustResize"
      * @param listener 键盘监听器
      */
-    public static void setOnKeyBoardListener(KeyboardWatcher.OnKeyboardToggleListener listener){
+    public static void setOnKeyboardListener(KeyboardWatcher.OnKeyboardToggleListener listener){
         KeyboardWatcher.init(Apps.getCurrentActivity()).setListener(listener);
 
     }
