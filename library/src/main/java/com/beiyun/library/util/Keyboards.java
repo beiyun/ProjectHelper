@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.beiyun.library.base.Apps;
-import com.beiyun.library.listener.KeyboardWatcher;
+import com.beiyun.library.iml.KeyboardWatcher;
 
 /**
  * Created by beiyun on 2017/11/6.
@@ -58,19 +58,19 @@ public class Keyboards {
     /**
      * 监听软键盘使用前需要在AndroidManifest.xml中
      * 当前activity配置 android:windowSoftInputMode="adjustResize"
-     * @param activity 当前activity
      * @param listener 键盘监听器
      */
-    public static void setOnKeyBoardListener(Activity activity, KeyboardWatcher.OnKeyboardToggleListener listener){
-        KeyboardWatcher.init(activity).setListener(listener);
+    public static void setOnKeyBoardListener(KeyboardWatcher.OnKeyboardToggleListener listener){
+        KeyboardWatcher.init(Apps.getCurrentActivity()).setListener(listener);
+
     }
 
     /**
      * 销毁软键盘监听
-     * @param activity 当前activity
      */
-    public static void destroyKeyboardListener(Activity activity){
-        KeyboardWatcher.init(activity).destroy();
+    public static void destroyKeyboardListener(){
+
+        KeyboardWatcher.init(Apps.getCurrentActivity()).destroy();
     }
 
 }

@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.beiyun.library.listener.KeyboardWatcher;
+import com.beiyun.library.iml.KeyboardWatcher;
 import com.beiyun.library.util.Keyboards;
 import com.beiyun.projecthelper.Base.BaseActivity;
 
@@ -26,7 +26,7 @@ public class KeyboardActivity extends BaseActivity implements KeyboardWatcher.On
 
 
         editText = (EditText) findViewById(R.id.editText);
-        Keyboards.setOnKeyBoardListener(this,this);
+        Keyboards.setOnKeyBoardListener(this);
 
     }
 
@@ -55,7 +55,7 @@ public class KeyboardActivity extends BaseActivity implements KeyboardWatcher.On
 
     @Override
     protected void onDestroy() {
-        Keyboards.destroyKeyboardListener(this);
+        Keyboards.destroyKeyboardListener();
         super.onDestroy();
     }
 }
