@@ -3,6 +3,7 @@ package com.beiyun.projecthelper;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 
 import com.beiyun.library.iml.KeyboardWatcher;
 import com.beiyun.library.util.Keyboards;
+import com.beiyun.library.util.Windows;
 import com.beiyun.projecthelper.base.BaseActivity;
 
 public class KeyboardActivity extends BaseActivity implements KeyboardWatcher.OnKeyboardToggleListener {
@@ -57,6 +59,7 @@ public class KeyboardActivity extends BaseActivity implements KeyboardWatcher.On
     @Override
     public void onKeyboardShown(int keyboardSize) {
         editText.setText("键盘弹起中 高度为:"+keyboardSize+"px");
+        Log.e(TAG, "onKeyboardShown: "+ Windows.getActionBarHeight());
 
     }
 

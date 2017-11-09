@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.beiyun.library.base.Apps;
+import com.beiyun.library.constants.Constants;
 
 /**
  * Created by beiyun on 2017/11/9.
@@ -18,13 +19,17 @@ public class Windows {
      * @return int px
      */
     public static int getStatusBarHeight(){
+        if(Constants.STATUS_BAR_HEIGHT != 0)
+            return Constants.STATUS_BAR_HEIGHT;
         int dimenResId = Apps.getResource().getIdentifier("status_bar_height", "dimen", "android");
         if(dimenResId > 0){
-            return Apps.getResource().getDimensionPixelSize(dimenResId);
+            Constants.STATUS_BAR_HEIGHT = Apps.getResource().getDimensionPixelSize(dimenResId);
+        }else{
+            //下面这个方式只有viewTree发生变化的时候才会得到
+            Constants.STATUS_BAR_HEIGHT = getDecorViewRect().top;
         }
 
-        //下面这个方式只有viewTree发生变化的时候才会得到
-        return getDecorViewRect().top;
+        return Constants.STATUS_BAR_HEIGHT;
     }
 
 
@@ -34,8 +39,17 @@ public class Windows {
      * note 这种方式适用于APPTheme是有actionbar的,若果用toolbar代替或者没有则测量不到
      */
     public static int getActionBarHeight(){
-        View view = Apps.getCurrentActivity().getWindow().findViewById(Window.ID_ANDROID_CONTENT);
-        return view.getTop()-getStatusBarHeight();
+        if(Constants.ACTION_BAR_HEIGHT != 0)
+            return Constants.ACTION_BAR_HEIGHT;
+        if(Apps.getCurrentActivity().getActionBar()!= null){
+            View view = Apps.getCurrentActivity().getWindow().findViewById(Window.ID_ANDROID_CONTENT);
+            Constants.ACTION_BAR_HEIGHT = view.getTop();
+        }else{
+            throw new NullPointerException("the window has no feature WINDOW.FEATURE_ACTION_BAR " +
+                    "or update your AppTheme with set 'windowsActionbar' be true");
+        }
+
+        return Constants.ACTION_BAR_HEIGHT;
     }
 
 
@@ -44,7 +58,9 @@ public class Windows {
      * @return heightPixels
      */
     public static int getWindowHeight(){
-        return getWindowDisplayMetrics().heightPixels;
+        if(Constants.WINDOW_HEIGHT == 0)
+        Constants.WINDOW_HEIGHT = getWindowDisplayMetrics().heightPixels;
+        return Constants.WINDOW_HEIGHT;
     }
 
 
@@ -53,7 +69,9 @@ public class Windows {
      * @return widthPixels
      */
     public static int getWindowWidth(){
-        return getWindowDisplayMetrics().widthPixels;
+        if(Constants.WINDOW_WIDTH == 0)
+        Constants.WINDOW_WIDTH = getWindowDisplayMetrics().widthPixels;
+        return Constants.WINDOW_WIDTH;
     }
 
 
