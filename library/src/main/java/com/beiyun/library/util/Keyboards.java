@@ -61,7 +61,7 @@ public class Keyboards {
      * @param listener 键盘监听器
      */
     public static void setOnKeyboardListener(KeyboardWatcher.OnKeyboardToggleListener listener){
-        KeyboardWatcher.init(Apps.getCurrentActivity()).setListener(listener);
+        KeyboardWatcher.init().setListener(listener);
 
     }
 
@@ -70,7 +70,7 @@ public class Keyboards {
      */
     public static void destroyKeyboardListener(){
 
-        KeyboardWatcher.init(Apps.getCurrentActivity()).destroy();
+        KeyboardWatcher.init().destroy();
     }
 
 }

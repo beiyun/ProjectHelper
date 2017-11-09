@@ -13,7 +13,7 @@ public class Logs {
     private static String TAG;
 
     static {
-        TAG = Apps.getAppName();
+        TAG = Apps.getAppName()+" ==☆==：";
     }
 
 

@@ -7,14 +7,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.beiyun.library.base.Apps;
 import com.beiyun.library.util.Nets;
 import com.beiyun.library.util.Sps;
+import com.beiyun.library.util.Windows;
 import com.beiyun.library.view.Toast;
-import com.beiyun.projecthelper.Base.BaseActivity;
+import com.beiyun.projecthelper.base.BaseActivity;
 import com.beiyun.projecthelper.adapter.MainAdapter;
 import com.beiyun.projecthelper.entity.Account;
 
@@ -24,6 +26,7 @@ import java.util.Set;
 
 public class MainActivity extends BaseActivity implements MainAdapter.OnItemClickListener {
 
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         if (actionBar != null) {
             actionBar.setTitle("test");
             actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         }
 
@@ -45,6 +49,10 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         MainAdapter  adapter = new MainAdapter(getItemData());
         rv.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
+
+        Log.e(TAG, "onCreate:getStatusBarHeight = "+ Windows.getStatusBarHeight());
+        Log.e(TAG, "onCreate:getDecorViewHeight =  "+Windows.getDecorViewHeight());
+        Log.e(TAG, "onCreate:getWindowHeight =  "+Windows.getWindowHeight());
 
     }
 
@@ -108,6 +116,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 break;
             case 6:
                 startActivity(new Intent(this,KeyboardActivity.class));
+                overridePendingTransition(R.anim.toast_in,R.anim.toast_out);
                 break;
 
         }

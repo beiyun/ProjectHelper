@@ -1,4 +1,4 @@
-package com.beiyun.projecthelper.Base;
+package com.beiyun.projecthelper.base;
 
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;

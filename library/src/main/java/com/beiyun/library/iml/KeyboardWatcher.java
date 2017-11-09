@@ -1,40 +1,40 @@
 package com.beiyun.library.iml;
 
-import android.app.Activity;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowManager;
+
+import com.beiyun.library.base.Apps;
+import com.beiyun.library.util.Logs;
+import com.beiyun.library.util.Windows;
 
 import java.lang.ref.WeakReference;
 
 /**
  * Created by beiyun on 2017/11/6.
- * copy form url: https://github.com/AzimoLabs/AndroidKeyboardWatcher
+ *
  */
 public class KeyboardWatcher {
 
     private static final String TAG = "KeyboardWatcher";
-    private WeakReference<Activity> activityRef;
-    private WeakReference<View> rootViewRef;
     private WeakReference<OnKeyboardToggleListener> onKeyboardToggleListenerRef;
     private ViewTreeObserver.OnGlobalLayoutListener viewTreeObserverListener;
 
 
     private static KeyboardWatcher mKeyboardWatcher;
+    private View mDecorView;
 
-    private KeyboardWatcher(Activity activity) {
-        activityRef = new WeakReference<>(activity);
+    private KeyboardWatcher() {
         initialize();
     }
 
-    public static KeyboardWatcher init(Activity activity){
+    public static KeyboardWatcher init(){
         if(mKeyboardWatcher == null){
             synchronized (KeyboardWatcher.class){
                 if(mKeyboardWatcher == null){
-                    return new KeyboardWatcher(activity);
+                    return new KeyboardWatcher();
                 }
             }
         }
@@ -49,28 +49,31 @@ public class KeyboardWatcher {
 
     public void destroy() {
         Log.e(TAG, "destroy: keyboard hide");
-        if (rootViewRef.get() != null)
+
+        if (mDecorView != null){
             Log.e(TAG, "destroy: rootViewRef != null" );
             if (Build.VERSION.SDK_INT >= 16) {
-                rootViewRef.get().getViewTreeObserver().removeOnGlobalLayoutListener(viewTreeObserverListener);
+                mDecorView.getViewTreeObserver().removeOnGlobalLayoutListener(viewTreeObserverListener);
             } else {
-                rootViewRef.get().getViewTreeObserver().removeGlobalOnLayoutListener(viewTreeObserverListener);
+                mDecorView.getViewTreeObserver().removeGlobalOnLayoutListener(viewTreeObserverListener);
             }
+
+        }
     }
 
     private void initialize() {
         if (hasAdjustResizeInputMode()) {
             viewTreeObserverListener = new GlobalLayoutListener();
-            rootViewRef = new WeakReference<>(activityRef.get().findViewById(Window.ID_ANDROID_CONTENT));
-            rootViewRef.get().getViewTreeObserver().addOnGlobalLayoutListener(viewTreeObserverListener);
+            mDecorView = Apps.getCurrentActivity().getWindow().getDecorView();
+            mDecorView.getViewTreeObserver().addOnGlobalLayoutListener(viewTreeObserverListener);
         } else {
             throw new IllegalArgumentException(String.format("Activity %s should have windowSoftInputMode=\"adjustResize\"" +
-                    "to make KeyboardWatcher working. You can set it in AndroidManifest.xml", activityRef.get().getClass().getSimpleName()));
+                    "to make KeyboardWatcher working. You can set it in AndroidManifest.xml", Apps.getCurrentActivity().getClass().getSimpleName()));
         }
     }
 
     private boolean hasAdjustResizeInputMode() {
-        return (activityRef.get().getWindow().getAttributes().softInputMode & WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) != 0;
+        return (Apps.getCurrentActivity().getWindow().getAttributes().softInputMode & WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) != 0;
     }
 
     private class GlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
@@ -80,20 +83,22 @@ public class KeyboardWatcher {
 
         @Override
         public void onGlobalLayout() {
+            Logs.e("initialValue = "+initialValue,null);
             if (initialValue == 0) {
-                initialValue = rootViewRef.get().getHeight();
+                initialValue = Windows.getDecorViewHeight();
             } else {
-                if (initialValue > rootViewRef.get().getHeight()) {
+                if (initialValue > Windows.getDecorViewHeight()) {
                     if (onKeyboardToggleListenerRef.get() != null) {
                         if (!hasSentInitialAction || !isKeyboardShown) {
                             isKeyboardShown = true;
-                            onKeyboardToggleListenerRef.get().onKeyboardShown(initialValue - rootViewRef.get().getHeight());
+                            onKeyboardToggleListenerRef.get().onKeyboardShown(initialValue - Windows.getDecorViewHeight());
+
                         }
                     }
                 } else {
                     if (!hasSentInitialAction || isKeyboardShown) {
                         isKeyboardShown = false;
-                        rootViewRef.get().post(new Runnable() {
+                        mDecorView.post(new Runnable() {
                             @Override
                             public void run() {
                                 if (onKeyboardToggleListenerRef.get() != null) {
@@ -107,6 +112,8 @@ public class KeyboardWatcher {
             }
         }
     }
+
+
 
     public interface OnKeyboardToggleListener {
         void onKeyboardShown(int keyboardSize);
