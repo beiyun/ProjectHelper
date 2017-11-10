@@ -1,7 +1,7 @@
 package com.beiyun.library.entity;
 
 /**
- * _reated by beiyun on 2017/11/10.
+ * created by beiyun on 2017/11/10.
  *  HH:mm:ss    15:44:40 yyyy-MM-dd    2016-08-12
  */
 public enum TimeType {
