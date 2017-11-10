@@ -7,11 +7,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
 
 import com.beiyun.library.base.Apps;
 import com.beiyun.library.util.Nets;
@@ -119,12 +116,13 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 overridePendingTransition(R.anim.toast_in,R.anim.toast_out);
                 break;
             case 7:
-                String s = "状态栏高度 =" + Windows.getStatusBarHeight() + "标题栏高度 =" + Windows.getActionBarHeight() + "decorViewWidth = " + Windows.getDecorViewHeight() + "屏幕高度 = " + Windows.getWindowHeight();
+                String s = "状态栏高度 =" + Windows.getStatusBarHeight()
+                        + "  标题栏高度 =" + Windows.getActionBarHeight()
+                        + "  顶层View的高度 = " + Windows.getDecorViewHeight()
+                        + "  顶层View的宽度 = " + Windows.getDecorViewWidth()
+                        + "  屏幕高度 = " + Windows.getWindowHeight()
+                        + "  屏幕宽度 = " + Windows.getWindowWidth();
                 Toast.show(this,s);
-                View view = getWindow().findViewById(Window.ID_ANDROID_CONTENT);
-                Log.e(TAG, "view:getWidth "+view.getWidth()+"getHeight"+view.getHeight()+"getTop"+view.getTop()+"getBottom"+view.getBottom());
-                Log.e(TAG, "onItemClick: "+getSupportActionBar().getHeight());
-                Log.e(TAG, "onItemClick: "+s);
                 break;
 
         }

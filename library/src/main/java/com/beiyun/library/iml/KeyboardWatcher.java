@@ -7,7 +7,6 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import com.beiyun.library.base.Apps;
-import com.beiyun.library.util.Logs;
 import com.beiyun.library.util.Windows;
 
 import java.lang.ref.WeakReference;
@@ -83,7 +82,6 @@ public class KeyboardWatcher {
 
         @Override
         public void onGlobalLayout() {
-            Logs.e("initialValue = "+initialValue,null);
             if (initialValue == 0) {
                 initialValue = Windows.getDecorViewHeight();
             } else {

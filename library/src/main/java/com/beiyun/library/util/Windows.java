@@ -1,9 +1,9 @@
 package com.beiyun.library.util;
 
 import android.graphics.Rect;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.Window;
 
 import com.beiyun.library.base.Apps;
 import com.beiyun.library.constants.Constants;
@@ -35,20 +35,24 @@ public class Windows {
 
     /**
      * 获取标题栏的高度
-     * @return int
-     * note 这种方式适用于APPTheme是有actionbar的,若果用toolbar代替或者没有则测量不到
+     * @return int actionbarHeight
      */
     public static int getActionBarHeight(){
         if(Constants.ACTION_BAR_HEIGHT != 0)
             return Constants.ACTION_BAR_HEIGHT;
-        if(Apps.getCurrentActivity().getActionBar()!= null){
-            View view = Apps.getCurrentActivity().getWindow().findViewById(Window.ID_ANDROID_CONTENT);
-            Constants.ACTION_BAR_HEIGHT = view.getTop();
+        if(Apps.getCurrentActivity() instanceof AppCompatActivity){
+            ActionBar actionBar = ((AppCompatActivity) Apps.getCurrentActivity()).getSupportActionBar();
+            Logs.e(actionBar + "----",null);
+            if(actionBar != null){
+                Constants.ACTION_BAR_HEIGHT = actionBar.getHeight();
+            }
         }else{
-            throw new NullPointerException("the window has no feature WINDOW.FEATURE_ACTION_BAR " +
-                    "or update your AppTheme with set 'windowsActionbar' be true");
+            android.app.ActionBar actionBar = Apps.getCurrentActivity().getActionBar();
+            Logs.e(actionBar + "+++",null);
+            if(actionBar != null){
+                Constants.ACTION_BAR_HEIGHT = actionBar.getHeight();
+            }
         }
-
         return Constants.ACTION_BAR_HEIGHT;
     }
 
