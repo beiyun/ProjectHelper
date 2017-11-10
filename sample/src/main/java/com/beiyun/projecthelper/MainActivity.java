@@ -11,8 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.beiyun.library.base.Apps;
+import com.beiyun.library.entity.TimeType;
 import com.beiyun.library.util.Nets;
 import com.beiyun.library.util.Sps;
+import com.beiyun.library.util.Times;
 import com.beiyun.library.util.Windows;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.adapter.MainAdapter;
@@ -62,6 +64,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("sp.get");
         data.add("Keyboards");
         data.add("Windows");
+        data.add("Times");
         return data;
     }
 
@@ -124,6 +127,9 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                         + "  屏幕宽度 = " + Windows.getWindowWidth()
                         + "  导航栏高度 = " + Windows.getNavBarHeight();
                 Toast.showLong(s);
+                break;
+            case 8:
+                Toast.showShort(Times.getCurrentTime(TimeType.CN_yyyy_MM_dd_a_K_mm_ss_E));
                 break;
 
         }
