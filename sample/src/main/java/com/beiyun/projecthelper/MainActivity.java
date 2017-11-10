@@ -71,13 +71,13 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         switch (position){
             case 0:
                 PackageManager manager = Apps.getPackageManager();
-                Toast.makeText(MainActivity.this, "getPackageManager = "+manager, Toast.LENGTH_SHORT).show();
+                Toast.show("getPackageManager = "+manager, Toast.LENGTH_SHORT);
                 break;
             case 1:
-                Toast.show(this,"测试Toast");
+                Toast.showShort("测试Toast");
                 break;
             case 2:
-                Toast.show(this,"当前网络状态"+ Nets.getNetState());
+                Toast.showShort("当前网络状态"+ Nets.getNetState());
                 break;
             case 3:
                 Apps.exit();
@@ -101,14 +101,14 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 a.setStringSet(stringSet);
                 boolean save = Sps.save(a);
                 if(save){
-                    Toast.show(this,"保存成功");
+                    Toast.showShort("保存成功");
                 }
 
                 break;
             case 5:
                 Account o = (Account) Sps.get(Account.class);
                 if (o != null) {
-                    Toast.makeText(this,o.toString(),Toast.LENGTH_LONG).show();
+                    Toast.show(o.toString(),Toast.LENGTH_LONG);
                 }
                 break;
             case 6:
@@ -121,8 +121,9 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                         + "  顶层View的高度 = " + Windows.getDecorViewHeight()
                         + "  顶层View的宽度 = " + Windows.getDecorViewWidth()
                         + "  屏幕高度 = " + Windows.getWindowHeight()
-                        + "  屏幕宽度 = " + Windows.getWindowWidth();
-                Toast.show(this,s);
+                        + "  屏幕宽度 = " + Windows.getWindowWidth()
+                        + "  导航栏高度 = " + Windows.getNavBarHeight();
+                Toast.showLong(s);
                 break;
 
         }

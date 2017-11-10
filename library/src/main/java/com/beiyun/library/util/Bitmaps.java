@@ -113,7 +113,7 @@ public class Bitmaps {
          * @return drawable
          */
         public static Drawable bitmap2Drawable(final Bitmap bitmap) {
-            return bitmap == null ? null : new BitmapDrawable(Apps.getResource(), bitmap);
+            return bitmap == null ? null : new BitmapDrawable(Apps.getResources(), bitmap);
         }
 
         /**
@@ -297,7 +297,7 @@ public class Bitmaps {
          */
         public static Bitmap getBitmap(@DrawableRes final int resId, final int maxWidth, final int maxHeight) {
             BitmapFactory.Options options = new BitmapFactory.Options();
-            final Resources resources = Apps.getResource();
+            final Resources resources = Apps.getResources();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeResource(resources, resId, options);
             options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);

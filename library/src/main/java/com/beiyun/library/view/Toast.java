@@ -15,20 +15,16 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.beiyun.library.R;
+import com.beiyun.library.base.Apps;
 
 
 /**
  * Created by beiyun on 2016/7/29.
  * Toast打印
  * 调用：
- * 1.Toast.makeText(activity,text,duration).show();//跟原生Toast控件调用方法一样
- * 2.Toast.show(activity,text);简略了，显示时长为默认LENGTH_SHORT = 2000背景为暗灰色
- * 3.Toast.error(activity,text);简略了，显示时长为默认LENGTH_SHORT = 2000,背景为暗红色
- *
- * 注意：方法Toast.makeText(activity,text,duration)的show方法有以下几种：
- * 1.show();//普通打印背景为暗灰色
- * 2.success();//背景为app主题色
- * 3.error();//背景为暗红色
+ * 1.Toast.showShort(text or stringResId);简略了，显示时长为默认LENGTH_SHORT
+ * 2.Toast.showLong(text or stringResId);显示时长为默认LENGTH_SHORT = 2000
+ * 3.Toast.show(text or StringResId, duration);自定义显示时长 duration是毫秒值
  */
 public class Toast {
 
@@ -72,33 +68,68 @@ public class Toast {
         return params;
     }
 
-    public static void show(Context context,int resId){
-        show(context,context.getResources().getString(resId));
+    /**
+     * 打印短toast
+     * @param resId
+     */
+    public static void showShort(int resId){
+        showShort(Apps.getResources().getString(resId));
     }
 
-    public static void show(Context context,String text){
-        makeText(context,text,Toast.LENGTH_SHORT).show();
+
+    /**
+     * 打印短toast
+     * @param text
+     */
+    public static void showShort(String text){
+        show(text,Toast.LENGTH_SHORT);
     }
 
 
-
-    public static Toast makeText(Context context, int resId, int duration){
-        return makeText(context,context.getResources().getString(resId),duration);
+    /**
+     * 打印长toast
+     * @param resId
+     */
+    public static void showLong(int resId){
+        showLong(Apps.getResources().getString(resId));
     }
 
-    public static Toast makeText(Context context, String text, int duration){
+    /**
+     * 打印长toast
+     * @param text
+     */
+    public static void showLong(String text){
+        show(text,Toast.LENGTH_LONG);
+    }
+
+
+    /**
+     * @param resId String资源id
+     * @param duration toast x显示时长
+     * @return Toast
+     */
+    public static void show(int resId, int duration){
+        show(Apps.getResources().getString(resId),duration);
+    }
+
+
+    /**
+     * @param text 打印的文字
+     * @param duration toast显示时长
+     * @return Toast
+     */
+    public static void show(String text, int duration){
 
         Toast toast = new Toast();
-
         LayoutInflater inflate = (LayoutInflater)
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                Apps.getCurrentActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflate.inflate(R.layout.dialog_toast,null);
         TextView textView = (TextView) v.findViewById(R.id.toast_text);
         textView.setText(text);
         toast.duration = duration;
         toast.mToastView = v;
+        toast.show();
 
-        return toast;
     }
 
     final Runnable mShow = new Runnable() {
@@ -117,6 +148,10 @@ public class Toast {
         }
     };
 
+
+    /**
+     * 显示toast
+     */
     private void handleShow() {
         Context context = mToastView.getContext();
         mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -126,6 +161,10 @@ public class Toast {
         dismiss();
     }
 
+
+    /**
+     * 销毁toast
+     */
     private void handleHide() {
 
         handler.postDelayed(new Runnable() {

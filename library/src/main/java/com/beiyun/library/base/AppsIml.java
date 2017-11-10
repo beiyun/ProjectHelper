@@ -66,7 +66,7 @@ class AppsIml extends App {
      * @return Resource
      */
     @Override
-    public Resources getResource(){
+    public Resources getResources(){
         return mContext.getResources();
     }
 

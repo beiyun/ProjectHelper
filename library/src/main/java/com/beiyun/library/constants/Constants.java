@@ -27,5 +27,10 @@ public class Constants {
     public static int WINDOW_WIDTH = 0;
 
 
+    /**
+     * 导航栏高度
+     */
+    public static int NAV_BAR_HEIGHT = 0;
+
 
 }

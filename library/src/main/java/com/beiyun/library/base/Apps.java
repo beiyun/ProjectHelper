@@ -29,8 +29,8 @@ public class Apps{
     }
 
     
-    public static Resources getResource() {
-        return getApp().getResource();
+    public static Resources getResources() {
+        return getApp().getResources();
     }
 
     

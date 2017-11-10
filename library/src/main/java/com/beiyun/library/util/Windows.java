@@ -1,9 +1,11 @@
 package com.beiyun.library.util;
 
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.View;
 
 import com.beiyun.library.base.Apps;
 import com.beiyun.library.constants.Constants;
@@ -21,9 +23,9 @@ public class Windows {
     public static int getStatusBarHeight(){
         if(Constants.STATUS_BAR_HEIGHT != 0)
             return Constants.STATUS_BAR_HEIGHT;
-        int dimenResId = Apps.getResource().getIdentifier("status_bar_height", "dimen", "android");
+        int dimenResId = Apps.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if(dimenResId > 0){
-            Constants.STATUS_BAR_HEIGHT = Apps.getResource().getDimensionPixelSize(dimenResId);
+            Constants.STATUS_BAR_HEIGHT = Apps.getResources().getDimensionPixelSize(dimenResId);
         }else{
             //下面这个方式只有viewTree发生变化的时候才会得到
             Constants.STATUS_BAR_HEIGHT = getDecorViewRect().top;
@@ -97,6 +99,40 @@ public class Windows {
     }
 
 
+
+    /**
+     * 获取导航栏高度
+     * <p>0代表不存在</p>
+     *
+     * @return 导航栏高度
+     */
+    public static int getNavBarHeight() {
+        if(Constants.NAV_BAR_HEIGHT != 0)
+            return Constants.NAV_BAR_HEIGHT;
+
+        Resources res = Apps.getResources();
+        int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId != 0) {
+         Constants.NAV_BAR_HEIGHT =  res.getDimensionPixelSize(resourceId);
+        }
+        return Constants.NAV_BAR_HEIGHT;
+    }
+
+    /**
+     * 隐藏导航栏
+     */
+    public static void hideNavBar() {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) return;
+        if (getNavBarHeight() > 0) {
+            View decorView = Apps.getCurrentActivity().getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
+
     /**
      * 获取屏幕参数
      * @return DisplayMetrics
@@ -118,6 +154,9 @@ public class Windows {
         Apps.getCurrentActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
         return rect;
     }
+
+
+
 
 
 

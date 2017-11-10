@@ -35,7 +35,7 @@ abstract class App {
     * 获取Resource对象
     * @return Resource
     */
-   public abstract Resources getResource();
+   public abstract Resources getResources();
 
 
    /**
