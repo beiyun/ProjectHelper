@@ -67,6 +67,26 @@ public class Times {
 
 
     /**
+     * 根据时间字串获取时间毫秒值
+     * @param data 时间字符串
+     * @param patten 时间格式
+     * @return 时间毫秒值
+     */
+    public static long timeMillis(String data,String patten){
+        try {
+            Date date = new SimpleDateFormat(patten,Locale.CHINA).parse(data);
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+
+
+
+    /**
      * 获取当前年份
      * @return int
      */
