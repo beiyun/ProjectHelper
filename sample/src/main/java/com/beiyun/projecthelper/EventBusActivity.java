@@ -3,12 +3,13 @@ package com.beiyun.projecthelper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.beiyun.library.anot.Receiver;
+import com.beiyun.library.anot.Subscribe;
 import com.beiyun.library.util.Events;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.base.BaseActivity;
@@ -18,7 +19,6 @@ import com.beiyun.projecthelper.entity.EventBusTest;
 import java.util.HashSet;
 import java.util.Set;
 
-@Receiver
 public class EventBusActivity extends BaseActivity implements View.OnClickListener {
 
 
@@ -34,6 +34,7 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        Events.register(this);
 
         Button b = (Button) findViewById(R.id.button);
         Button b1 = (Button) findViewById(R.id.button1);
@@ -51,6 +52,11 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    @Override
+    protected void onDestroy() {
+        Events.unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -64,7 +70,9 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
     private static final String TAG = "EventBusActivity";
 
 
+    @Subscribe
     public void testEventBus(Account a) {
+        Log.e(TAG, "testEventBus: "+a);
        textView.setText(a.toString());
     }
 

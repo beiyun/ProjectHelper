@@ -3,12 +3,13 @@ package com.beiyun.library.event;
 import android.util.Log;
 
 import com.beiyun.library.anot.Receiver;
-import com.beiyun.library.base.Apps;
+import com.beiyun.library.anot.Subscribe;
 import com.beiyun.library.entity.PostType;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -18,6 +19,7 @@ public class EventBus {
 
 
     private Map<String,PosterHolder> mSingleQueue = new ConcurrentHashMap<>();
+    private Stack<Class<?>> mRegisterCaches = new Stack<>();
     public EventBus(){}
     private static final String TAG = "Events";
     private static EventBus mEvents;
@@ -38,24 +40,53 @@ public class EventBus {
      * 接收
      * @param receiver receiver
      */
-    public void receive(Object receiver) {
+    public void register(Object receiver){
         if(receiver == null) return;
-        Receiver annotation = receiver.getClass().getAnnotation(Receiver.class);
-        if(annotation == null) return;
-        if(annotation.postType() == PostType.SINGLE){
-            invokeSingleTask(receiver);
-        }else if(annotation.postType() == PostType.LOOP){
-            invokeLoopTask(receiver);
+        Log.e(TAG, "register: search = "+mRegisterCaches.search(receiver.getClass()) + mRegisterCaches.toString());
+        if(mRegisterCaches.search(receiver.getClass()) != -1){
+            throw new ReOrUnRegisterException("cannot reRegister or has no unregister");
         }
-
+        mRegisterCaches.push(receiver.getClass());
+        dispatchTask(receiver);
+        Log.e(TAG, "registerEvents: 注册EventBus "+receiver.getClass().getName());
 
     }
 
+
+
+    public void dispatchTask(Object receiver) {
+        Log.e(TAG, "dispatchTask: "+receiver.getClass().getName());
+        Method[] methods = receiver.getClass().getDeclaredMethods();
+        if(methods == null || methods.length == 0) return;
+        for (Method m:methods) {
+            Subscribe annotation = m.getAnnotation(Subscribe.class);
+            if(annotation == null) continue;
+            if(annotation.postType() == PostType.DEFAULT){
+                invokeSingleTask(m,receiver);
+            }else if(annotation.postType() == PostType.MAIN){
+                invokeMainTask(m,receiver);
+            }else if(annotation.postType() == PostType.ASYNC){
+                invokeAsyncTask(m,receiver);
+            }
+        }
+    }
+
+
     /**
-     * 循环任务
+     * 异步循环传输
+     * @param method
+     * @param receiver
+     */
+    private void invokeAsyncTask(Method method, Object receiver) {
+
+    }
+
+
+    /**
+     * 主线程循环任务
      * @param receiver 接收类
      */
-    private void invokeLoopTask(Object receiver) {
+    private void invokeMainTask(Method method,Object receiver) {
 
     }
 
@@ -64,26 +95,20 @@ public class EventBus {
      * 单次任务
      * @param receiver 接收类
      */
-    private void invokeSingleTask(Object receiver) {
-        Method[] methods = receiver.getClass().getDeclaredMethods();
-        if(methods == null || methods.length == 0) return;
-        for (Method m:methods) {
-            try {
-                Class<?>[] parameterTypes = m.getParameterTypes();
-                if(parameterTypes.length == 1 && !parameterTypes[0].getName().startsWith("android")){
-                    PosterHolder posterHolder = mSingleQueue.get(parameterTypes[0].getName());
-                    if(posterHolder == null||posterHolder.getPostCaches().contains(receiver.getClass())) continue;
-                    m.invoke(receiver,posterHolder.getPoster());
-                    posterHolder.addCache(receiver.getClass());
-                    mSingleQueue.put(parameterTypes[0].getName(),posterHolder);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+    private void invokeSingleTask(Method method,Object receiver) {
+        try {
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            if(parameterTypes.length == 1 && !parameterTypes[0].getName().startsWith("android")){
+                PosterHolder posterHolder = mSingleQueue.get(parameterTypes[0].getName());
+                if(posterHolder == null||posterHolder.getPostCaches().contains(receiver.getClass())) return;
+                method.invoke(receiver,posterHolder.getPoster());
+                posterHolder.addCache(receiver.getClass());
+                mSingleQueue.put(parameterTypes[0].getName(),posterHolder);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-
 
 
 
@@ -92,20 +117,30 @@ public class EventBus {
         String key = poster.getClass().getName();
         Log.e(TAG, "post: "+poster.getClass().getName());
         mSingleQueue.put(key,new PosterHolder(poster));
-        if(isRegister(Apps.getCurrentActivity())){
-            receive(Apps.getCurrentActivity());
-        }
+        PostHandler.post();
+
     }
 
 
     /**
-     * 是否已经注册接收器
+     * 是否添加了注册注解
      * @param receiver receiver
+     * @return true false
      */
-    public boolean isRegister(Object receiver){
+    public boolean isInject(Object receiver){
         if(receiver == null) return false;
         Receiver annotation = receiver.getClass().getAnnotation(Receiver.class);
         return annotation != null;
+    }
+
+
+    /**
+     * 是否注册了EventBus
+     * @param receiver  receiver
+     * @return true false
+     */
+    public boolean isRegister(Object receiver){
+        return !mRegisterCaches.empty() && mRegisterCaches.search(receiver.getClass()) != -1;
     }
 
 
@@ -162,8 +197,37 @@ public class EventBus {
         }
     }
 
+
+    /**
+     * 获取single队列
+     * @return Map
+     */
     public Map<String, PosterHolder> getSingleQueue() {
         return mSingleQueue;
+    }
+
+
+    /**
+     * 接触注册
+     * @param receiver receiver
+     */
+    public void unregister(Object receiver){
+        if(receiver == null) return;
+        if(!mRegisterCaches.empty() && mRegisterCaches.search(receiver.getClass()) != -1){
+            mRegisterCaches.removeElement(receiver.getClass());
+        }
+
+        Log.e(TAG, "unregisterEvents: 解除注册EventBus "+receiver.getClass().getName());
+    }
+
+
+    /**
+     * 获取最后一个加入缓存的receiver
+     * @return Object
+     */
+    public Class<?> getLastReceiver(){
+        Log.e(TAG, "getLastReceiver: size == "+mRegisterCaches.size() );
+        return mRegisterCaches.empty()? null : mRegisterCaches.peek();
     }
 
 
@@ -203,4 +267,13 @@ public class EventBus {
                     '}';
         }
     }
+
+
+    class ReOrUnRegisterException extends RuntimeException{
+        public ReOrUnRegisterException(String message) {
+            super(message);
+        }
+    }
+
+
 }

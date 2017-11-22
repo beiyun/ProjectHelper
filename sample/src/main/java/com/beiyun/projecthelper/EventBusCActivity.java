@@ -3,16 +3,19 @@ package com.beiyun.projecthelper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.beiyun.library.anot.Receiver;
+import com.beiyun.library.anot.Subscribe;
 import com.beiyun.projecthelper.entity.EventBusTest;
 
 @Receiver
 public class EventBusCActivity extends AppCompatActivity {
 
     private TextView textView;
+    private static final String TAG = "EventBusCActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +28,13 @@ public class EventBusCActivity extends AppCompatActivity {
         }
 
         textView = (TextView) findViewById(R.id.textView);
+        Log.e(TAG, "onCreate: ==========================");
     }
 
 
+    @Subscribe
     public void receive(EventBusTest test){
+        Log.e(TAG, "receive: ==========================");
         textView.setText(test.toString());
     }
 

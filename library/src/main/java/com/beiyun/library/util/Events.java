@@ -26,8 +26,17 @@ public class Events {
      * 注册接收器
      * @param receiver 接收类 在那个类中接收就传入那个
      */
-    public static void receive(Object receiver){
-        getDefault().receive(receiver);
+    public static void register(Object receiver){
+        getDefault().register(receiver);
+    }
+
+
+    /**
+     * 解除注册
+     * @param receiver 接收类
+     */
+    public static void unregister(Object receiver){
+        getDefault().unregister(receiver);
     }
 
 
@@ -38,6 +47,16 @@ public class Events {
      */
     public static boolean isRegister(Object receiver){
        return getDefault().isRegister(receiver);
+    }
+
+
+    /**
+     * 是否添加了注册注解
+     * @param receiver receiver
+     * @return true false
+     */
+    public static boolean isInject(Object receiver){
+        return getDefault().isInject(receiver);
     }
 
 

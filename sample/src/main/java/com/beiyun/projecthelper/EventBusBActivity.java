@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.beiyun.library.anot.Receiver;
+import com.beiyun.library.anot.Subscribe;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.entity.EventBusTest;
 
@@ -29,6 +30,7 @@ public class EventBusBActivity extends AppCompatActivity {
     }
 
 
+    @Subscribe
     public void receive(EventBusTest test){
         textView.setText(test.toString());
         Toast.showShort(test.getMessage());

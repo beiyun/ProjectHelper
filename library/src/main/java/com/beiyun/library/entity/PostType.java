@@ -6,10 +6,13 @@ package com.beiyun.library.entity;
  */
 public enum PostType {
 
-    //单级传送
-    SINGLE,
+    //单级传送,默认传输方式
+    DEFAULT,
 
-    //循环传送
-    LOOP,
+    //主线程循环
+    MAIN,
+
+    //异步循环
+    ASYNC;
 
 }
