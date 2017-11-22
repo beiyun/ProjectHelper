@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.beiyun.projecthelper">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".base.MyApplication"
@@ -22,7 +23,11 @@
         <activity
             android:name=".KeyboardActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".GodViewActivity" />
+        <activity android:name=".EventBusActivity" />
+        <activity android:name=".EventBusBActivity" />
+        <activity android:name=".EventBusCActivity"></activity>
     </application>
 
 </manifest>

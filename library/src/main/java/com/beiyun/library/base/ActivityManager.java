@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.beiyun.library.util.Events;
+
 import java.util.Stack;
 
 /**
@@ -44,12 +46,13 @@ class ActivityManager {
             a.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
                 @Override
                 public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                    pushActivity(activity);
+
 
                 }
 
                 @Override
                 public void onActivityStarted(Activity activity) {
+                    pushActivity(activity);
 
                 }
 
@@ -89,6 +92,18 @@ class ActivityManager {
     private void pushActivity(Activity activity) {
         mActivityStack.push(activity);
         Log.d(TAG, "pushActivity: "+activity.getLocalClassName());
+        checkEvents(activity);
+    }
+
+
+    /**
+     * 检查是否有events
+     */
+    private void checkEvents(Activity activity) {
+        if(activity == null) return;
+        if(Events.isRegister(activity)){
+            Events.receive(activity);
+        }
     }
 
 
@@ -107,7 +122,8 @@ class ActivityManager {
      */
     protected void finish(){
         if(!mActivityStack.empty()){
-            mActivityStack.pop();
+            Activity pop = mActivityStack.pop();
+            checkEvents(pop);
         }
     }
 
@@ -120,6 +136,8 @@ class ActivityManager {
         if(mActivityStack.empty()||mActivityStack.search(activity) == -1) return;
         activity.finish();
         mActivityStack.removeElement(activity);
+        checkEvents(activity);
+
         Log.d(TAG, "finish: "+activity.getLocalClassName());
     }
 
@@ -137,6 +155,7 @@ class ActivityManager {
             if (readyToEnd != null) {
                 readyToEnd.finish();
                 mActivityStack.removeElement(readyToEnd);
+                checkEvents(readyToEnd);
             }
 
 

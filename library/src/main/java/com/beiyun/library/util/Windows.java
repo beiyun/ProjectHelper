@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.beiyun.library.base.Apps;
-import com.beiyun.library.constants.Constants;
+import com.beiyun.library.constants.WindowConstants;
 
 /**
  * Created by beiyun on 2017/11/9.
@@ -21,17 +21,17 @@ public class Windows {
      * @return int px
      */
     public static int getStatusBarHeight(){
-        if(Constants.STATUS_BAR_HEIGHT != 0)
-            return Constants.STATUS_BAR_HEIGHT;
+        if(WindowConstants.STATUS_BAR_HEIGHT != 0)
+            return WindowConstants.STATUS_BAR_HEIGHT;
         int dimenResId = Apps.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if(dimenResId > 0){
-            Constants.STATUS_BAR_HEIGHT = Apps.getResources().getDimensionPixelSize(dimenResId);
+            WindowConstants.STATUS_BAR_HEIGHT = Apps.getResources().getDimensionPixelSize(dimenResId);
         }else{
             //下面这个方式只有viewTree发生变化的时候才会得到
-            Constants.STATUS_BAR_HEIGHT = getDecorViewRect().top;
+            WindowConstants.STATUS_BAR_HEIGHT = getDecorViewRect().top;
         }
 
-        return Constants.STATUS_BAR_HEIGHT;
+        return WindowConstants.STATUS_BAR_HEIGHT;
     }
 
 
@@ -40,22 +40,22 @@ public class Windows {
      * @return int actionbarHeight
      */
     public static int getActionBarHeight(){
-        if(Constants.ACTION_BAR_HEIGHT != 0)
-            return Constants.ACTION_BAR_HEIGHT;
+        if(WindowConstants.ACTION_BAR_HEIGHT != 0)
+            return WindowConstants.ACTION_BAR_HEIGHT;
         if(Apps.getCurrentActivity() instanceof AppCompatActivity){
             ActionBar actionBar = ((AppCompatActivity) Apps.getCurrentActivity()).getSupportActionBar();
             Logs.e(actionBar + "----",null);
             if(actionBar != null){
-                Constants.ACTION_BAR_HEIGHT = actionBar.getHeight();
+                WindowConstants.ACTION_BAR_HEIGHT = actionBar.getHeight();
             }
         }else{
             android.app.ActionBar actionBar = Apps.getCurrentActivity().getActionBar();
             Logs.e(actionBar + "+++",null);
             if(actionBar != null){
-                Constants.ACTION_BAR_HEIGHT = actionBar.getHeight();
+                WindowConstants.ACTION_BAR_HEIGHT = actionBar.getHeight();
             }
         }
-        return Constants.ACTION_BAR_HEIGHT;
+        return WindowConstants.ACTION_BAR_HEIGHT;
     }
 
 
@@ -64,9 +64,9 @@ public class Windows {
      * @return heightPixels
      */
     public static int getWindowHeight(){
-        if(Constants.WINDOW_HEIGHT == 0)
-        Constants.WINDOW_HEIGHT = getWindowDisplayMetrics().heightPixels;
-        return Constants.WINDOW_HEIGHT;
+        if(WindowConstants.WINDOW_HEIGHT == 0)
+        WindowConstants.WINDOW_HEIGHT = getWindowDisplayMetrics().heightPixels;
+        return WindowConstants.WINDOW_HEIGHT;
     }
 
 
@@ -75,9 +75,9 @@ public class Windows {
      * @return widthPixels
      */
     public static int getWindowWidth(){
-        if(Constants.WINDOW_WIDTH == 0)
-        Constants.WINDOW_WIDTH = getWindowDisplayMetrics().widthPixels;
-        return Constants.WINDOW_WIDTH;
+        if(WindowConstants.WINDOW_WIDTH == 0)
+        WindowConstants.WINDOW_WIDTH = getWindowDisplayMetrics().widthPixels;
+        return WindowConstants.WINDOW_WIDTH;
     }
 
 
@@ -107,15 +107,15 @@ public class Windows {
      * @return 导航栏高度
      */
     public static int getNavBarHeight() {
-        if(Constants.NAV_BAR_HEIGHT != 0)
-            return Constants.NAV_BAR_HEIGHT;
+        if(WindowConstants.NAV_BAR_HEIGHT != 0)
+            return WindowConstants.NAV_BAR_HEIGHT;
 
         Resources res = Apps.getResources();
         int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId != 0) {
-         Constants.NAV_BAR_HEIGHT =  res.getDimensionPixelSize(resourceId);
+         WindowConstants.NAV_BAR_HEIGHT =  res.getDimensionPixelSize(resourceId);
         }
-        return Constants.NAV_BAR_HEIGHT;
+        return WindowConstants.NAV_BAR_HEIGHT;
     }
 
     /**

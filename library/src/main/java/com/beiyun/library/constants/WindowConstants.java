@@ -4,7 +4,7 @@ package com.beiyun.library.constants;
  * Created by beiyun on 2017/11/9.
  * 一些常量
  */
-public class Constants {
+public class WindowConstants {
 
     /**
      * 状态栏高度

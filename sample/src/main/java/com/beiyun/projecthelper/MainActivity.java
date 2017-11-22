@@ -65,6 +65,8 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("Keyboards");
         data.add("Windows");
         data.add("Times");
+        data.add("GodView");
+        data.add("EventBus");
         return data;
     }
 
@@ -86,23 +88,11 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 Apps.exit();
                 break;
             case 4:
-                Account a = new Account();
-                a.setAge(10);
-                a.setIdentify("41022319900214423X");
-                a.setName("北云");
-                a.setPassword("beiyun");
-                a.setPhone("18087172012");
-                a.setLogin(true);
-                a.setAge(26);
-                a.setaFloat(2f);
-                a.setaLong(123123123123L);
-                Set<String> stringSet = new HashSet<>();
-                stringSet.add("stringSet item 1");
-                stringSet.add("stringSet item 2");
-                stringSet.add("stringSet item 3");
-                stringSet.add("stringSet item 4");
-                a.setStringSet(stringSet);
-                boolean save = Sps.save(a);
+                Account a = getAccount();
+                boolean save = false;
+                if (a != null) {
+                    save = Sps.save(a);
+                }
                 if(save){
                     Toast.showShort("保存成功");
                 }
@@ -131,8 +121,34 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
             case 8:
                 Toast.showShort(Times.getCurrentTime(TimeType.CN_yyyy_MM_dd_a_K_mm_ss_E));
                 break;
-
+            case 9:
+                startActivity(new Intent(this,GodViewActivity.class));
+                break;
+            case 10:
+                startActivity(new Intent(this,EventBusActivity.class));
+                break;
         }
+    }
+
+    private Account getAccount() {
+        Account a = new Account();
+        a.setAge(10);
+        a.setIdentify("41022319900214423X");
+        a.setName("北云");
+        a.setPassword("beiyun");
+        a.setPhone("18087172012");
+        a.setLogin(true);
+        a.setAge(26);
+        a.setaFloat(2f);
+        a.setaLong(123123123123L);
+        Set<String> stringSet = new HashSet<>();
+        stringSet.add("stringSet item 1");
+        stringSet.add("stringSet item 2");
+        stringSet.add("stringSet item 3");
+        stringSet.add("stringSet item 4");
+        a.setStringSet(stringSet);
+
+        return a;
     }
 
 
@@ -147,6 +163,9 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
     public boolean onOptionsItemSelected(MenuItem item) {
         return true;
     }
+
+
+
 }
 
 
