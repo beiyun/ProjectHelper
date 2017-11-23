@@ -1,10 +1,8 @@
 package com.beiyun.library.event;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import com.beiyun.library.base.Apps;
 
@@ -14,10 +12,6 @@ import com.beiyun.library.base.Apps;
  */
 public class PostHandler extends Handler {
 
-    public static final int DEFAULT = 1;
-    public static final int MAIN = 2;
-    public static final int ASYNC = 3;
-
     private static PostHandler mHandler;
 
 
@@ -25,23 +19,13 @@ public class PostHandler extends Handler {
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
         if(msg.what == 0){
-            notifyPosterChanged();
+            PostCallBack c = (PostCallBack) msg.obj;
+            if(c != null){
+                c.main();
+            }
         }
     }
 
-    private static final String TAG = "PostHandler";
-
-
-
-    private void notifyPosterChanged() {
-        Class receiver = EventBus.getDefault().getLastReceiver();
-        if(receiver != null){
-            Log.e(TAG, "notifyPosterChanged: "+receiver.getName());
-            Activity activity = Apps.getActivity(receiver);
-            if(activity == null) return;
-            EventBus.getDefault().dispatchTask(activity);
-        }
-    }
 
 
     private PostHandler(Looper looper){
@@ -61,8 +45,17 @@ public class PostHandler extends Handler {
     }
 
 
-    public static void post(){
-       getHandler().sendEmptyMessage(0);
+    /**
+     * 将Task转到MainThread进行
+     * @param callBack PostCallBack
+     */
+    public static void postInMainThread(PostCallBack callBack){
+        getHandler().obtainMessage(0,callBack).sendToTarget();
+
+    }
+
+    public interface PostCallBack{
+        void main();
     }
 
 

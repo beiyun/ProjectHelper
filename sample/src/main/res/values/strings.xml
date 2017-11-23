@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ProjectHelper</string>
+    <string name="update">修改上一页textView内容</string>
 </resources>

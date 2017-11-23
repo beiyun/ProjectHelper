@@ -71,11 +71,10 @@ public class Events {
 
     /**
      * 中断指定poster向下传输数据
-     * @param receiver receiver
      * @param posterClass posterClass
      */
-    public static void abort(Object receiver,Class<?> posterClass){
-        getDefault().abort(receiver,posterClass);
+    public static void abort(Class<?> posterClass){
+        getDefault().abort(posterClass);
     }
 
 
@@ -92,7 +91,7 @@ public class Events {
      * 清空缓存
      */
     public static void clearCache(){
-        getDefault().getSingleQueue().clear();
+        getDefault().getTaskQueue().clear();
     }
 
 

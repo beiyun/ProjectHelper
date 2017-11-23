@@ -16,6 +16,9 @@ public class Logs {
         TAG = Apps.getAppName()+" ==☆==：";
     }
 
+    public static void i(String msg){
+        i(msg,null);
+    }
 
     public static void i(String msg,Throwable t){
         Log.e(TAG, msg, t);
@@ -25,8 +28,17 @@ public class Logs {
         Log.d(TAG, msg);
     }
 
+
+    public static void e(String msg){
+        e(msg,null);
+    }
+
     public static void e(String msg,Throwable tr){
         Log.e(TAG, msg,tr);
+    }
+
+    public static void w(String msg){
+        w(msg,null);
     }
 
     public static void w(String msg,Throwable tr){

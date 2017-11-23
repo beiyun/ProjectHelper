@@ -27,7 +27,13 @@
         <activity android:name=".GodViewActivity" />
         <activity android:name=".EventBusActivity" />
         <activity android:name=".EventBusBActivity" />
-        <activity android:name=".EventBusCActivity"></activity>
+        <activity android:name=".EventBusCActivity" />
+
+        <service
+            android:name=".EventBusService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="1" />
     </application>
 
 </manifest>

@@ -2,6 +2,8 @@ package com.beiyun.projecthelper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -10,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.beiyun.library.anot.Subscribe;
+import com.beiyun.library.entity.PostType;
 import com.beiyun.library.util.Events;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.base.BaseActivity;
@@ -23,6 +26,17 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
 
 
     private TextView textView;
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if(msg.what == 0){
+                String s = "position = "+msg.arg1;
+
+            }
+            return false;
+        }
+    });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +61,14 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
         b2.setOnClickListener(this);
         b3.setOnClickListener(this);
         b4.setOnClickListener(this);
-
-
+        startService(new Intent(this,EventBusService.class));
     }
 
 
     @Override
     protected void onDestroy() {
         Events.unregister(this);
+        stopService(new Intent(this,EventBusService.class));
         super.onDestroy();
     }
 
@@ -77,6 +91,12 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    @Subscribe(postType = PostType.MAIN)
+    public void mainTest(String s){
+        textView.setText(s);
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -94,6 +114,34 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
                 startActivity(new Intent(this,EventBusCActivity.class));
                 break;
             case R.id.button4://循环测试
+
+                Thread tr = new Thread(new Runnable() {
+
+
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < 1001; i++) {
+                            try {
+                                Thread.sleep(10);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            String s = "异步position = "+i;
+//                            handler.obtainMessage(0,i,0).sendToTarget();
+                            Events.post(s);
+
+                        }
+
+
+
+
+
+                    }
+                });
+
+                tr.start();
+
                 break;
         }
     }

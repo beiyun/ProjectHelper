@@ -1,14 +1,16 @@
 package com.beiyun.projecthelper;
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.beiyun.library.anot.Receiver;
 import com.beiyun.library.anot.Subscribe;
-import com.beiyun.library.view.Toast;
+import com.beiyun.library.entity.PostType;
+import com.beiyun.library.util.Events;
 import com.beiyun.projecthelper.entity.EventBusTest;
 
 @Receiver
@@ -29,11 +31,15 @@ public class EventBusBActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
     }
 
+    @Subscribe(postType = PostType.MAIN)
+    public void mainTest(String s){
+        textView.setText(s);
+    }
+
 
     @Subscribe
     public void receive(EventBusTest test){
         textView.setText(test.toString());
-        Toast.showShort(test.getMessage());
     }
 
     @Override
@@ -43,5 +49,9 @@ public class EventBusBActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View view) {
+        Events.post(new EventBusTest(getString(R.string.update)));
     }
 }
