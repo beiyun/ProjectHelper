@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import com.beiyun.library.anot.Receiver;
 import com.beiyun.library.anot.Subscribe;
-import com.beiyun.library.entity.PostType;
-import com.beiyun.projecthelper.entity.EventBusTest;
+import com.beiyun.projecthelper.entity.EBT1;
 
 @Receiver
 public class EventBusCActivity extends AppCompatActivity {
@@ -33,13 +32,8 @@ public class EventBusCActivity extends AppCompatActivity {
     }
 
 
-    @Subscribe(postType = PostType.MAIN)
-    public void mainTest(String s){
-        textView.setText(s);
-    }
-
     @Subscribe
-    public void receive(EventBusTest test){
+    public void receive(EBT1 test){
         Log.e(TAG, "receive: ==========================");
         textView.setText(test.toString());
     }

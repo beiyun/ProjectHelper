@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.beiyun.library.anot.Subscribe;
-import com.beiyun.library.entity.PostType;
+import com.beiyun.library.entity.PostMode;
 import com.beiyun.library.util.Events;
 import com.beiyun.library.util.Logs;
 
@@ -32,7 +32,7 @@ public class EventBusService extends Service {
     }
 
 
-    @Subscribe(postType = PostType.MAIN)
+    @Subscribe(postType = PostMode.MAIN)
     public void test(String position){
         Logs.e(position);
 

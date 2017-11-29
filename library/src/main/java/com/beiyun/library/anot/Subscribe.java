@@ -1,6 +1,6 @@
 package com.beiyun.library.anot;
 
-import com.beiyun.library.entity.PostType;
+import com.beiyun.library.entity.PostMode;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -16,5 +16,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Subscribe {
 
-    PostType postType() default PostType.DEFAULT;
+    PostMode postType() default PostMode.SINGLE;
 }

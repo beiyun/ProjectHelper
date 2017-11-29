@@ -1,13 +1,13 @@
 package com.beiyun.projecthelper.entity;
 
 /**
- * Created by beiyun on 2017/11/17.
+ * Created by beiyun on 2017/11/28.
  */
-public class EventBusTest {
+public class EBT2 {
 
     private String message;
 
-    public EventBusTest(String message) {
+    public EBT2(String message) {
         this.message = message;
     }
 

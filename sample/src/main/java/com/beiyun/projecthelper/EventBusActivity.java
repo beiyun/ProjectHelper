@@ -2,8 +2,6 @@ package com.beiyun.projecthelper;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,12 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.beiyun.library.anot.Subscribe;
-import com.beiyun.library.entity.PostType;
+import com.beiyun.library.entity.PostMode;
 import com.beiyun.library.util.Events;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.base.BaseActivity;
 import com.beiyun.projecthelper.entity.Account;
-import com.beiyun.projecthelper.entity.EventBusTest;
+import com.beiyun.projecthelper.entity.EBT;
+import com.beiyun.projecthelper.entity.EBT1;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,16 +25,8 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
 
 
     private TextView textView;
-    private Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            if(msg.what == 0){
-                String s = "position = "+msg.arg1;
+    private TextView textView1;
 
-            }
-            return false;
-        }
-    });
 
 
     @Override
@@ -56,19 +47,20 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
         Button b3 = (Button) findViewById(R.id.button3);
         Button b4 = (Button) findViewById(R.id.button4);
         textView = (TextView) findViewById(R.id.text);
+        textView1 = (TextView) findViewById(R.id.text1);
         b.setOnClickListener(this);
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
         b3.setOnClickListener(this);
         b4.setOnClickListener(this);
-        startService(new Intent(this,EventBusService.class));
+//        startService(new Intent(this,EventBusService.class));
     }
 
 
     @Override
     protected void onDestroy() {
         Events.unregister(this);
-        stopService(new Intent(this,EventBusService.class));
+//        stopService(new Intent(this,EventBusService.class));
         super.onDestroy();
     }
 
@@ -91,9 +83,9 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
     }
 
 
-    @Subscribe(postType = PostType.MAIN)
-    public void mainTest(String s){
-        textView.setText(s);
+    @Subscribe(postType = PostMode.MAIN)
+    public void mainTest(EBT ebt){
+        textView1.setText(ebt.toString());
     }
 
 
@@ -101,7 +93,7 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button://发送一条消息
-                Events.post(new EventBusTest("发送BC的一条测试消息"));
+                Events.post(new EBT1("发送BC的一条测试消息"));
                 Toast.showShort("发送成功");
                 break;
             case R.id.button1://本页测试
@@ -129,7 +121,7 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
 
                             String s = "异步position = "+i;
 //                            handler.obtainMessage(0,i,0).sendToTarget();
-                            Events.post(s);
+                            Events.post(new EBT(s));
 
                         }
 

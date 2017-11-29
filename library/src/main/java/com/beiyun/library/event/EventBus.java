@@ -3,7 +3,7 @@ package com.beiyun.library.event;
 
 import com.beiyun.library.anot.Receiver;
 import com.beiyun.library.anot.Subscribe;
-import com.beiyun.library.entity.PostType;
+import com.beiyun.library.entity.PostMode;
 import com.beiyun.library.util.Logs;
 
 import java.lang.reflect.Method;
@@ -21,7 +21,11 @@ public class EventBus {
 
     //粘性任务缓存
     private Map<String,ArrayList<Class<?>>> mStickyCaches = new ConcurrentHashMap<>();
-    //任务队列
+    //单任务队列
+    private Map<String,Object> mSingleTaskQueue = new ConcurrentHashMap<>();
+    //任务分发器
+    private Map<String,Object> mTaskDispatcher = new ConcurrentHashMap<>();
+    //循环任务队列
     private Map<String,Object> mTaskQueue = new ConcurrentHashMap<>();
     //receiver缓存
     private Stack<Object> mRegisterCaches = new Stack<>();
@@ -45,7 +49,7 @@ public class EventBus {
      * 接收
      * @param receiver receiver
      */
-    public void register(Object receiver){
+    public synchronized void register(Object receiver){
         if(receiver == null) return;
         if(mRegisterCaches.search(receiver) != -1){
             throw new ReOrUnRegisterException("cannot reRegister or has no unregister");
@@ -58,16 +62,14 @@ public class EventBus {
 
 
 
-    public void dispatchTask(final Object receiver) {
-        Logs.e("dispatchTask: -- receiver = "+receiver.getClass().getName());
+    public synchronized void dispatchTask(final Object receiver) {
         Method[] methods = receiver.getClass().getDeclaredMethods();
         if(methods == null || methods.length == 0) return;
-        Logs.e("当前线程是 == " +Thread.currentThread().getId()+"  "+Thread.currentThread().getName());
         for (final Method m:methods) {
             Subscribe annotation = m.getAnnotation(Subscribe.class);
             if(annotation == null) continue;
-            //if default type should invoke in mainThread
-            if(annotation.postType() == PostType.DEFAULT){
+            //if single type should invoke in mainThread
+            if(annotation.postType() == PostMode.SINGLE){
                 if(isMainThread()){
                     invokeStickyTask(m,receiver);
                 }else{
@@ -80,7 +82,7 @@ public class EventBus {
                 }
 
                 //invoke in mainThread
-            }else if(annotation.postType() == PostType.MAIN){
+            }else if(annotation.postType() == PostMode.MAIN){
                 if(isMainThread()){
                     invokeMainTask(m,receiver);
                 }else{
@@ -93,7 +95,7 @@ public class EventBus {
                 }
 
                 //invoke in Thread is not mainThread
-            }else if(annotation.postType() == PostType.ASYNC){
+            }else if(annotation.postType() == PostMode.ASYNC){
                 invokeAsyncTask(m,receiver);
             }
         }
@@ -113,21 +115,8 @@ public class EventBus {
      * @param method
      * @param receiver
      */
-    private void invokeAsyncTask(Method method, Object receiver) {
-        Logs.e("invokeAsyncTask-- method ="+method.getName()+" receiver = "+receiver.getClass().getName());
-        synchronized (EventBus.class){
-            try {
-                Class<?>[] parameterTypes = method.getParameterTypes();
-                if(parameterTypes.length == 1 && !parameterTypes[0].getName().startsWith("android")){
-                    Object poster = mTaskQueue.get(parameterTypes[0].getName());
-                    if(poster == null) return;
-                    method.invoke(receiver,poster);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
+    private synchronized void invokeAsyncTask(Method method, Object receiver) {
+        invokeMainTask(method,receiver);
     }
 
 
@@ -135,21 +124,25 @@ public class EventBus {
      * 主线程任务
      * @param receiver 接收类
      */
-    private void invokeMainTask(Method method,Object receiver) {
-        Logs.e("invokeMainTask-- method ="+method.getName()+" receiver = "+receiver.getClass().getName());
-        synchronized (EventBus.class){
-            try {
-                Class<?>[] parameterTypes = method.getParameterTypes();
-                if(parameterTypes.length == 1 && !parameterTypes[0].getName().startsWith("android")){
-                    Object poster = mTaskQueue.get(parameterTypes[0].getName());
-                    if(poster == null) return;
-                    method.invoke(receiver,poster);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+    private synchronized void invokeMainTask(Method method,Object receiver) {
+        try {
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            if(parameterTypes.length == 1 && !parameterTypes[0].getName().startsWith("android")){
+                String key = parameterTypes[0].getName();
+                if(mTaskDispatcher.isEmpty()) return;
+                Object newPoster = mTaskDispatcher.get(key);
+                mTaskDispatcher.remove(key);
+                if(newPoster == null) return;
+                mTaskQueue.put(newPoster.getClass().getName(),newPoster);
+                Object poster = mTaskQueue.get(key);
+                if(poster == null) return;
+                Logs.e("执行Main任务 --> \nmethod =<"+method.getName()+"> \nreceiver = <"+receiver.getClass().getName()+"> \nkey = <"+parameterTypes[0].getName()+">" +
+                            "\n poster = <"+poster+">");
+                method.invoke(receiver,poster);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
 
@@ -157,57 +150,69 @@ public class EventBus {
      * 执行粘性任务
      * @param receiver 接收类
      */
-    private void invokeStickyTask(Method method,Object receiver) {
-        Logs.e("invokeStickyTask -- method ="+method.getName()+" receiver = "+receiver.getClass().getName());
-        synchronized (EventBus.class){
-            try {
-                //get parameterTypes
-                Class<?>[] parameterTypes = method.getParameterTypes();
-                //filter method without android method
-                if(parameterTypes.length == 1 && !parameterTypes[0].getName().startsWith("android")){
-                    //get key
-                    String key = parameterTypes[0].getName();
-                    //get poster instance
-                    Object poster = mTaskQueue.get(key);
-                    //get class cache by key from stickCaches
-                    ArrayList<Class<?>> classes = mStickyCaches.get(key);
-                    //check if has received in the class
-                    if(classes != null&& classes.contains(receiver.getClass())) return;
-                    //invoke method with @Subscribe(PostType = DEFAULT)
-                    method.invoke(receiver,poster);
-                    if(classes != null){
-                        classes.add(receiver.getClass());
-                    } else {
-                        classes = new ArrayList<>();
-                        classes.add(receiver.getClass());
-                        mStickyCaches.put(key,classes);
+    private synchronized void invokeStickyTask(Method method,Object receiver) {
+        Logs.e("invokeStickyTask");
+
+        try {
+            //get parameterTypes
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            //filter method without android method
+            if(parameterTypes.length == 1 && !parameterTypes[0].getName().startsWith("android")){
+                //get key
+                String key = parameterTypes[0].getName();
+                if(!mTaskDispatcher.isEmpty()){
+                    Object newPoster = mTaskDispatcher.get(key);
+                    Logs.e("invokeStickyTask newPoster=" + newPoster);
+                    mTaskDispatcher.remove(key);
+                    if(newPoster != null){
+                        mSingleTaskQueue.put(newPoster.getClass().getName(),newPoster);
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+                //get class cache by key from stickCaches
+                ArrayList<Class<?>> classes = mStickyCaches.get(key);
+                Logs.e("invokeStickyTask classes=" + classes);
+                //check if has received in the class
+                if(classes != null&& classes.contains(receiver.getClass())) return;
+                Logs.e("invokeStickyTask classes.contains(receiver.getClass())= false" );
+                //get poster instance
+                Object poster = mSingleTaskQueue.get(key);
+                Logs.e("invokeStickyTask poster = "+poster );
+                if(poster == null) return;
+                Logs.e("执行粘性任务 --> \nmethod =<"+method.getName()+"> \nreceiver = <"+receiver.getClass().getName()+"> \nkey = <"+key+">" +
+                        "\n poster = <"+poster+">");
+
+                method.invoke(receiver,poster);
+                if(classes != null){
+                    classes.add(receiver.getClass());
+                } else {
+                    classes = new ArrayList<>();
+                    classes.add(receiver.getClass());
+                    mStickyCaches.put(key,classes);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
 
 
-    public void post(Object poster){
+    public synchronized void post(Object poster){
         if(poster == null) return;
-        String key = poster.getClass().getName();
-        Logs.e("post: poster = "+poster.toString());
-        mTaskQueue.put(key,poster);
-        notifyPosterChanged();
+        mTaskDispatcher.put(poster.getClass().getName(),poster);
+        Logs.e("post: mTaskDispatcher.size = "+mTaskDispatcher);
         filterStickyKey(poster.getClass().getName());
+        notifyPosterChanged();
     }
 
 
     //when post change, the receivers should be change
-    private void notifyPosterChanged() {
+    private synchronized void notifyPosterChanged() {
         if(mRegisterCaches.empty())return;
-        for (Object receiver:mRegisterCaches) {
+        Stack<Object> copy = mRegisterCaches;
+        for (Object receiver:copy) {
             if(receiver != null){
-                Logs.e("notifyPosterChanged:-- receiver = "+receiver.getClass().getName());
-               dispatchTask(receiver);
+                dispatchTask(receiver);
             }
         }
     }
@@ -217,7 +222,7 @@ public class EventBus {
      * filter the sticky key in stickyCache when post
      * @param key key
      */
-    private void filterStickyKey(String key) {
+    private synchronized void filterStickyKey(String key) {
         if(mStickyCaches.containsKey(key)){
             mStickyCaches.remove(key);
         }
@@ -229,7 +234,7 @@ public class EventBus {
      * @param receiver receiver
      * @return true false
      */
-    public boolean isInject(Object receiver){
+    public synchronized boolean isInject(Object receiver){
         if(receiver == null) return false;
         Receiver annotation = receiver.getClass().getAnnotation(Receiver.class);
         Logs.e("isInject -- receiver = "+receiver.getClass().getName()+" annotation = "+ annotation);
@@ -242,7 +247,7 @@ public class EventBus {
      * @param receiver  receiver
      * @return true false
      */
-    public boolean isRegister(Object receiver){
+    public synchronized boolean isRegister(Object receiver){
         Logs.e("isRegister-- receiver = "+receiver.getClass().getName());
         return !mRegisterCaches.empty() && mRegisterCaches.search(receiver) != -1;
     }
@@ -253,7 +258,7 @@ public class EventBus {
      * @param receiver 接收器
      * @return key list
      */
-    private ArrayList<String> getKeys(Object receiver){
+    private synchronized ArrayList<String> getKeys(Object receiver){
         if(receiver == null) return null;
         ArrayList<String> keys = new ArrayList<>();
         //make sure the method be defined with 'public' or 'protect'
@@ -276,7 +281,7 @@ public class EventBus {
      * 终止向下传递 终止本页所有的poster
      * @param receiver receiver
      */
-    public void abort(Object receiver){
+    public synchronized void abort(Object receiver){
         ArrayList<String> keys = getKeys(receiver);
         Logs.e( "abort:-- receiver =  "+receiver.getClass().getName());
         if(keys == null || keys.isEmpty()) return;
@@ -292,7 +297,7 @@ public class EventBus {
      * 终止某个poster向下传递
      * @param posterClass posterClass
      */
-    public void abort(Class<?> posterClass){
+    public synchronized void abort(Class<?> posterClass){
         if(posterClass == null) return;
         Object poster = mTaskQueue.get(posterClass.getName());
         if(poster != null) mTaskQueue.remove(posterClass.getName());
@@ -303,7 +308,7 @@ public class EventBus {
      * 获取Task队列
      * @return Map
      */
-    public Map<String, Object> getTaskQueue() {
+    public synchronized Map<String, Object> getTaskQueue() {
         return mTaskQueue;
     }
 
@@ -312,7 +317,7 @@ public class EventBus {
      * 接触注册
      * @param receiver receiver
      */
-    public void unregister(Object receiver){
+    public synchronized void unregister(Object receiver){
         if(receiver == null) return;
         if(!mRegisterCaches.empty() && mRegisterCaches.search(receiver) != -1){
             mRegisterCaches.removeElement(receiver);
@@ -325,7 +330,7 @@ public class EventBus {
      * 获取最后一个加入缓存的receiver
      * @return Object
      */
-    public Object getLastReceiver(){
+    public synchronized Object getLastReceiver(){
         Logs.e("getLastReceiver:-- mRegisterCaches.size() == "+mRegisterCaches.size() );
         return mRegisterCaches.empty()? null : mRegisterCaches.peek();
     }
@@ -335,7 +340,7 @@ public class EventBus {
      * get alive receivers
      * @return Stack<Object>
      */
-    public Stack<Object> getAliveReceivers(){
+    public synchronized Stack<Object> getAliveReceivers(){
         return mRegisterCaches;
     }
 

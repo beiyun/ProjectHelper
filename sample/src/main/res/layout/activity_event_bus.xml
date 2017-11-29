@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:gravity="center"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.beiyun.projecthelper.EventBusActivity">
+
+
+
+
+    <Button
+        android:id="@+id/button"
+        android:text="post消息出去，测试在BC两页能否接收到"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button2"
+        android:text="Events post跳转到B页"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button3"
+        android:text="Events post跳转到C页"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/colorPrimary"/>
+
 
 
     <Button
@@ -17,36 +50,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button"
-        android:text="post消息出去，测试在BC两页能否接收到"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_below="@id/button1"
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/button2"
-        android:text="Events post跳转到B页"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_below="@id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/button3"
-        android:text="Events post跳转到C页"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_below="@id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button4"
         android:text="测试循环post"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_below="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -55,7 +63,19 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/dp_20"
-        android:layout_below="@id/button4"
+        android:textSize="@dimen/sp_18"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_below="@id/text"
+        android:gravity="center"
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/colorAccent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
