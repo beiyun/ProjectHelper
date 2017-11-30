@@ -4,7 +4,7 @@ import com.beiyun.library.event.EventBus;
 
 /**
  * Created by beiyun on 2017/11/17.
- * 简易型eventBus
+ * 简易型eventBus 按照自己思路写的，并未参考EventBus
  *
  * post方式：
  * 可以在任何地方post数据
