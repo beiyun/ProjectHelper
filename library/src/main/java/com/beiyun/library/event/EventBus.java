@@ -287,6 +287,12 @@ public class EventBus {
     }
 
 
+    public void clearCache(){
+        mTaskQueue.clear();
+        mSingleTaskQueue.clear();
+    }
+
+
     /**
      * 接触注册
      * @param receiver receiver
