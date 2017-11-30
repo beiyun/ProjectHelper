@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.beiyun.library.anot.Receiver;
 import com.beiyun.library.anot.Subscribe;
+import com.beiyun.library.entity.PostMode;
 import com.beiyun.library.util.Events;
 import com.beiyun.projecthelper.entity.EBT;
 import com.beiyun.projecthelper.entity.EBT1;
@@ -17,6 +18,7 @@ import com.beiyun.projecthelper.entity.EBT1;
 public class EventBusBActivity extends AppCompatActivity {
 
     private TextView textView;
+    private TextView textView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,17 @@ public class EventBusBActivity extends AppCompatActivity {
         }
 
         textView = (TextView) findViewById(R.id.textView);
+        textView1 = (TextView) findViewById(R.id.textView1);
     }
 
     @Subscribe
     public void receive(EBT1 test){
         textView.setText(test.toString());
+    }
+
+    @Subscribe(postType = PostMode.MAIN)
+    public void position(EBT ebt){
+        textView1.setText(ebt.toString());
     }
 
     @Override

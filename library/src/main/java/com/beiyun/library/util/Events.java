@@ -60,22 +60,6 @@ public class Events {
     }
 
 
-    /**
-     * 中断向下传输数据
-     * @param receiver receiver
-     */
-    public static void abort(Object receiver){
-        getDefault().abort(receiver);
-    }
-
-
-    /**
-     * 中断指定poster向下传输数据
-     * @param posterClass posterClass
-     */
-    public static void abort(Class<?> posterClass){
-        getDefault().abort(posterClass);
-    }
 
 
     /**
