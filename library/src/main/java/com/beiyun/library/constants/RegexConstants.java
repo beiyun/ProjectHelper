@@ -19,6 +19,20 @@ public class RegexConstants {
      * <p>虚拟运营商：170</p>
      */
     public static final String REGEX_MOBILE_EXACT  = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|(147))\\d{8}$";
+
+
+    //移动
+    public static final String REGEX_CHINA_MOBILE = "^1(3[4-9]|4[7]|5[0-27-9]|7[08]|8[2-478])\\d{8}$";
+
+
+    //联通
+    public static final String REGEX_CHINA_UNICOM = "^1(3[0-2]|4[5]|5[56]|7[0156]|8[56])\\d{8}$";
+
+
+    //电信
+    public static final String REGEX_CHINA_TELECOMMOUNICATIONS = "^1(3[3]|4[9]|53|7[037]|8[019])\\d{8}$";
+
+
     /**
      * 正则：电话号码
      */

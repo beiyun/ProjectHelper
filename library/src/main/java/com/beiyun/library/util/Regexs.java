@@ -34,6 +34,41 @@ public class Regexs {
         return isMatch(RegexConstants.REGEX_MOBILE_EXACT, input);
     }
 
+
+    /**
+     * 验证移动手机号
+     *
+     * @param input 待验证文本
+     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     */
+    public static boolean isChinaMobile(final CharSequence input) {
+        return isMatch(RegexConstants.REGEX_CHINA_MOBILE, input);
+    }
+
+
+    /**
+     * 验证联通手机号
+     *
+     * @param input 待验证文本
+     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     */
+    public static boolean isChinaUnicom(final CharSequence input) {
+        return isMatch(RegexConstants.REGEX_CHINA_UNICOM, input);
+    }
+
+
+    /**
+     * 验证电信手机号
+     *
+     * @param input 待验证文本
+     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     */
+    public static boolean isChinaTelecommounications(final CharSequence input) {
+        return isMatch(RegexConstants.REGEX_CHINA_TELECOMMOUNICATIONS, input);
+    }
+
+
+
     /**
      * 验证电话号码
      *
@@ -191,4 +226,9 @@ public class Regexs {
         if (input == null) return null;
         return Pattern.compile(regex).matcher(input).replaceAll(replacement);
     }
+
+
+//    public static String generateStringByRegex(String regex){
+//
+//    }
 }

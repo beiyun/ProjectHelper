@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 
 /**
  * Created by beiyun on 2017/11/22.
+ *
  */
 @Documented
 @Target(ElementType.METHOD)

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.beiyun.library.base.Apps;
 import com.beiyun.library.entity.TimeType;
 import com.beiyun.library.util.Nets;
+import com.beiyun.library.util.Regexs;
 import com.beiyun.library.util.Sps;
 import com.beiyun.library.util.Times;
 import com.beiyun.library.util.Windows;
@@ -67,6 +68,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("Times");
         data.add("GodView");
         data.add("EventBus");
+        data.add("regexs");
         return data;
     }
 
@@ -126,6 +128,12 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 break;
             case 10:
                 startActivity(new Intent(this,EventBusActivity.class));
+                break;
+            case 11:
+                boolean chinaMobile = Regexs.isChinaMobile("18310428956");
+                boolean chinaTelecommounications = Regexs.isChinaTelecommounications("18310428956");
+                boolean chinaUnicom = Regexs.isChinaUnicom("18310428956");
+                Toast.showShort("18310428956是移动？"+chinaMobile +"   联通？"+chinaUnicom+"  电信？"+chinaTelecommounications);
                 break;
         }
     }
