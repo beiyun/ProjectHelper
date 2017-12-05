@@ -24,7 +24,6 @@
             android:name=".KeyboardActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".GodViewActivity" />
         <activity android:name=".EventBusActivity" />
         <activity android:name=".EventBusBActivity" />
         <activity android:name=".EventBusCActivity" />

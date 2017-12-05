@@ -124,7 +124,6 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 Toast.showShort(Times.getCurrentTime(TimeType.CN_yyyy_MM_dd_a_K_mm_ss_E));
                 break;
             case 9:
-                startActivity(new Intent(this,GodViewActivity.class));
                 break;
             case 10:
                 startActivity(new Intent(this,EventBusActivity.class));
