@@ -9,7 +9,7 @@ public class RegexConstants {
     /**
      * 正则：手机号（简单）
      */
-    public static final String REGEX_MOBILE_SIMPLE = "^[1]\\d{10}$";
+    public static final String REGEX_MOBILE_SIMPLE = "[1]\\d{10}";
     /**
      * 正则：手机号（精确）
      * <p>移动：134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188</p>
@@ -18,37 +18,34 @@ public class RegexConstants {
      * <p>全球星：1349</p>
      * <p>虚拟运营商：170</p>
      */
-    public static final String REGEX_MOBILE_EXACT  = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|(147))\\d{8}$";
+    public static final String REGEX_MOBILE_EXACT  = "((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|(147))\\d{8}";
 
 
     //移动
-    public static final String REGEX_CHINA_MOBILE = "^1(3[4-9]|4[7]|5[0-27-9]|7[08]|8[2-478])\\d{8}$";
+    public static final String REGEX_CHINA_MOBILE = "1(3[4-9]|4[7]|5[0-27-9]|7[08]|8[2-478])\\d{8}";
 
 
     //联通
-    public static final String REGEX_CHINA_UNICOM = "^1(3[0-2]|4[5]|5[56]|7[0156]|8[56])\\d{8}$";
+    public static final String REGEX_CHINA_UNICOM = "1(3[0-2]|4[5]|5[56]|7[0156]|8[56])\\d{8}";
 
 
     //电信
-    public static final String REGEX_CHINA_TELECOMMOUNICATIONS = "^1(3[3]|4[9]|53|7[037]|8[019])\\d{8}$";
+    public static final String REGEX_CHINA_TELECOMMOUNICATIONS = "1(3[3]|4[9]|53|7[037]|8[019])\\d{8}";
 
 
     /**
      * 正则：电话号码
      */
-    public static final String REGEX_TEL           = "^0\\d{2,3}[- ]?\\d{7,8}";
-    /**
-     * 正则：身份证号码15位
-     */
-    public static final String REGEX_ID_CARD15     = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$";
+    public static final String REGEX_TEL           = "0\\d{2,3}[- ]?\\d{7,8}";
+
     /**
      * 正则：身份证号码18位
      */
-    public static final String REGEX_ID_CARD18     = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$";
+    public static final String REGEX_ID_CARD18     = "(\\d{6})(\\d{4})(\\d{2})(\\d{2})(\\d{3})([0-9]|X)";
     /**
      * 正则：邮箱
      */
-    public static final String REGEX_EMAIL         = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+    public static final String REGEX_EMAIL         = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?";
     /**
      * 正则：URL
      */
@@ -56,15 +53,16 @@ public class RegexConstants {
     /**
      * 正则：汉字
      */
-    public static final String REGEX_ZH            = "^[\\u4e00-\\u9fa5]+$";
+    public static final String REGEX_ZH            = "[\\u4e00-\\u9fa5]";
     /**
      * 正则：用户名，取值范围为a-z,A-Z,0-9,"_",汉字，不能以"_"结尾,用户名必须是6-20位
+     *
      */
-    public static final String REGEX_USERNAME      = "^[\\w\\u4e00-\\u9fa5]{6,20}(?<!_)$";
+    public static final String REGEX_USERNAME      = "[A-Za-z0-9_\\-\\u4e00-\\u9fa5]{6,20}+";
     /**
      * 正则：yyyy-MM-dd格式的日期校验，已考虑平闰年
      */
-    public static final String REGEX_DATE          = "^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$";
+    public static final String REGEX_DATE  = "([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))";
     /**
      * 正则：IP地址
      */
@@ -93,33 +91,30 @@ public class RegexConstants {
     /**
      * 正则：正整数
      */
-    public static final String REGEX_POSITIVE_INTEGER     = "^[1-9]\\d*$";
+    public static final String REGEX_POSITIVE_INTEGER     = "[1-9]\\d*";
     /**
      * 正则：负整数
      */
-    public static final String REGEX_NEGATIVE_INTEGER     = "^-[1-9]\\d*$";
+    public static final String REGEX_NEGATIVE_INTEGER     = "-[1-9]\\d*";
     /**
      * 正则：整数
      */
-    public static final String REGEX_INTEGER              = "^-?[1-9]\\d*$";
+    public static final String REGEX_INTEGER              = "-?[1-9]\\d*";
     /**
      * 正则：非负整数(正整数 + 0)
      */
-    public static final String REGEX_NOT_NEGATIVE_INTEGER = "^[1-9]\\d*|0$";
+    public static final String REGEX_NOT_NEGATIVE_INTEGER = "[1-9]\\d*|0";
     /**
      * 正则：非正整数（负整数 + 0）
      */
-    public static final String REGEX_NOT_POSITIVE_INTEGER = "^-[1-9]\\d*|0$";
+    public static final String REGEX_NOT_POSITIVE_INTEGER = "-[1-9]\\d*|0";
     /**
      * 正则：正浮点数
      */
-    public static final String REGEX_POSITIVE_FLOAT       = "^[1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*$";
+    public static final String REGEX_POSITIVE_FLOAT       = "[1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*";
     /**
      * 正则：负浮点数
      */
-    public static final String REGEX_NEGATIVE_FLOAT       = "^-[1-9]\\d*\\.\\d*|-0\\.\\d*[1-9]\\d*$";
+    public static final String REGEX_NEGATIVE_FLOAT       = "-[1-9]\\d*\\.\\d*|-0\\.\\d*[1-9]\\d*";
 
-    ///////////////////////////////////////////////////////////////////////////
-    // If u want more please visit http://toutiao.com/i6231678548520731137
-    ///////////////////////////////////////////////////////////////////////////
 }

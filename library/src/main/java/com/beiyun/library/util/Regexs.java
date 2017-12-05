@@ -1,6 +1,7 @@
 package com.beiyun.library.util;
 
 import com.beiyun.library.constants.RegexConstants;
+import com.mifmif.common.regex.Generex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,15 +80,6 @@ public class Regexs {
         return isMatch(RegexConstants.REGEX_TEL, input);
     }
 
-    /**
-     * 验证身份证号码15位
-     *
-     * @param input 待验证文本
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
-     */
-    public static boolean isIDCard15(final CharSequence input) {
-        return isMatch(RegexConstants.REGEX_ID_CARD15, input);
-    }
 
     /**
      * 验证身份证号码18位
@@ -99,6 +91,7 @@ public class Regexs {
         return isMatch(RegexConstants.REGEX_ID_CARD18, input);
     }
 
+
     /**
      * 验证邮箱
      *
@@ -108,6 +101,7 @@ public class Regexs {
     public static boolean isEmail(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_EMAIL, input);
     }
+
 
     /**
      * 验证URL
@@ -119,6 +113,7 @@ public class Regexs {
         return isMatch(RegexConstants.REGEX_URL, input);
     }
 
+
     /**
      * 验证汉字
      *
@@ -126,8 +121,12 @@ public class Regexs {
      * @return {@code true}: 匹配<br>{@code false}: 不匹配
      */
     public static boolean isZh(final CharSequence input) {
-        return isMatch(RegexConstants.REGEX_ZH, input);
+        if(input == null) return false;
+        Pattern pattern = Pattern.compile(RegexConstants.REGEX_ZH);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.find();
     }
+
 
     /**
      * 验证用户名
@@ -140,6 +139,7 @@ public class Regexs {
         return isMatch(RegexConstants.REGEX_USERNAME, input);
     }
 
+
     /**
      * 验证yyyy-MM-dd格式的日期校验，已考虑平闰年
      *
@@ -149,6 +149,7 @@ public class Regexs {
     public static boolean isDate(final CharSequence input) {
         return isMatch(RegexConstants.REGEX_DATE, input);
     }
+
 
     /**
      * 验证IP地址
@@ -160,6 +161,7 @@ public class Regexs {
         return isMatch(RegexConstants.REGEX_IP, input);
     }
 
+
     /**
      * 判断是否匹配正则
      *
@@ -170,6 +172,7 @@ public class Regexs {
     public static boolean isMatch(final String regex, final CharSequence input) {
         return input != null && input.length() > 0 && Pattern.matches(regex, input);
     }
+
 
     /**
      * 获取正则匹配的部分
@@ -189,6 +192,7 @@ public class Regexs {
         return matches;
     }
 
+
     /**
      * 获取正则匹配分组
      *
@@ -200,6 +204,7 @@ public class Regexs {
         if (input == null) return null;
         return input.split(regex);
     }
+
 
     /**
      * 替换正则匹配的第一部分
@@ -213,6 +218,7 @@ public class Regexs {
         if (input == null) return null;
         return Pattern.compile(regex).matcher(input).replaceFirst(replacement);
     }
+
 
     /**
      * 替换所有正则匹配的部分
@@ -228,7 +234,18 @@ public class Regexs {
     }
 
 
-//    public static String generateStringByRegex(String regex){
-//
-//    }
+    /**
+     * 根据正则表达式生成随机字符串
+     * @param regex 正则表达式
+     * @return 匹配正则的字符串
+     */
+    public static String generateStringByRegex(String regex){
+        if(regex == null) return null;
+        try {
+            Generex generex = new Generex(regex);
+            return generex.random();
+        }catch (Exception e){
+            return null;
+        }
+    }
 }
