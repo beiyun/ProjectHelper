@@ -33,6 +33,8 @@
             android:enabled="true"
             android:exported="true"
             android:permission="1" />
+
+        <activity android:name=".entity.ViewsActivity"></activity>
     </application>
 
 </manifest>

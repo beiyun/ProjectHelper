@@ -21,6 +21,7 @@ import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.adapter.MainAdapter;
 import com.beiyun.projecthelper.base.BaseActivity;
 import com.beiyun.projecthelper.entity.Account;
+import com.beiyun.projecthelper.entity.ViewsActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -66,7 +67,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("Keyboards");
         data.add("Windows");
         data.add("Times");
-        data.add("GodView");
+        data.add("Views");
         data.add("EventBus");
         data.add("regexs");
         return data;
@@ -124,6 +125,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 Toast.showShort(Times.getCurrentTime(TimeType.CN_yyyy_MM_dd_a_K_mm_ss_E));
                 break;
             case 9:
+                startActivity(new Intent(this, ViewsActivity.class));
                 break;
             case 10:
                 startActivity(new Intent(this,EventBusActivity.class));
