@@ -18,7 +18,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.beiyun.library.base.Apps;
 import com.beiyun.library.entity.ViewType;
 
 /**

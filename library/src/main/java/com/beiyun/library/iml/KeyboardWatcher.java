@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
-import com.beiyun.library.base.Apps;
+import com.beiyun.library.util.Apps;
 import com.beiyun.library.util.Windows;
 
 import java.lang.ref.WeakReference;

@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.beiyun.library.R;
-import com.beiyun.library.base.Apps;
+import com.beiyun.library.util.Apps;
 
 
 /**

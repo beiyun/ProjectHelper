@@ -21,7 +21,7 @@ import java.io.File;
  * Created by beiyun on 2017/11/3.
  *继承了context的方法和一些app相关工具
  */
-abstract class App {
+public abstract class App {
 
 
    /**

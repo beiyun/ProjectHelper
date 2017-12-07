@@ -1,4 +1,4 @@
-package com.beiyun.library.base;
+package com.beiyun.library.util;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -14,6 +14,9 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
+
+import com.beiyun.library.base.App;
+import com.beiyun.library.base.ProjectHelper;
 
 import java.io.File;
 

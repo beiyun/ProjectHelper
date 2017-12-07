@@ -35,8 +35,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 
-import com.beiyun.library.base.Apps;
-
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

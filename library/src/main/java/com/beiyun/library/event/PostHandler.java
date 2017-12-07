@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.beiyun.library.base.Apps;
+import com.beiyun.library.util.Apps;
 
 /**
  * Created by beiyun on 2017/11/22.

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.beiyun.library.base.Apps;
 import com.beiyun.library.iml.KeyboardWatcher;
 
 /**

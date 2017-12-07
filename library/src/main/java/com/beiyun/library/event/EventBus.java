@@ -157,7 +157,7 @@ public class EventBus {
      * @param receiver 接收类
      */
     private synchronized void invokeStickyTask(Method method,Object receiver) {
-        Logs.e("invokeStickyTask");
+        Logs.e("invokeStickyTask  mTaskDispatcher"+mTaskDispatcher);
 
         try {
             //get parameterTypes
@@ -303,7 +303,6 @@ public class EventBus {
             mRegisterCaches.removeElement(receiver);
         }
         mTaskQueue.clear();
-        mSingleTaskQueue.clear();
         Logs.e("unregister:-- receiver = "+receiver.getClass().getName());
     }
 

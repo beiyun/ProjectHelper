@@ -2,8 +2,6 @@ package com.beiyun.library.util;
 
 import android.util.Log;
 
-import com.beiyun.library.base.Apps;
-
 /**
  * Created by beiyun on 2017/11/7.
  * log 打印

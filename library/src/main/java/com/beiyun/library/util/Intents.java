@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
-import com.beiyun.library.base.Apps;
-
 import java.io.File;
 
 /**

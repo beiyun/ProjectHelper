@@ -1,7 +1,5 @@
 package com.beiyun.library.util;
 
-import com.beiyun.library.base.Apps;
-
 /**
  * Created by beiyun on 2017/11/17.
  */
