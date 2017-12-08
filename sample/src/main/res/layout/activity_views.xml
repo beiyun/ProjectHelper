@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.beiyun.projecthelper.entity.ViewsActivity">
+    tools:context=".ViewsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,187 +16,101 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
-       <LinearLayout
-           android:id="@+id/contentView"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:gravity="center"
+            android:textSize="@dimen/sp_20"
+            android:text="@string/app_name"/>
 
-           <LinearLayout
-               android:id="@+id/content"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical">
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:gravity="center"
 
-               <TextView
-                   android:id="@+id/textView"
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/dp_48"
-                   android:gravity="center"
-                   android:textSize="@dimen/sp_20"
-                   android:text="@string/app_name"/>
-
-               <EditText
-                   android:id="@+id/editText"
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/dp_48"
-                   android:gravity="center"
-
-                   android:layout_marginTop="@dimen/dp_10"
-                   android:textSize="@dimen/sp_20"
-                   android:text="@string/app_name"/>
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_20"
+            android:text="@string/app_name"/>
 
 
-               <ImageView
-                   android:onClick="imageClick"
-                   android:id="@+id/imageView"
-                   android:layout_width="@dimen/dp_100"
-                   android:layout_height="@dimen/dp_100"
-                   android:src="@mipmap/ic_launcher"
-                   android:layout_gravity="center_horizontal"
-                   android:layout_marginTop="@dimen/dp_10"
-                   android:contentDescription="@string/app_name"/>
+        <ImageView
+            android:onClick="imageClick"
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:contentDescription="@string/app_name"/>
 
 
-
-               <Button
-                   android:id="@+id/button"
-                   android:layout_marginTop="@dimen/dp_10"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:textSize="@dimen/sp_16"
-                   android:text="@string/app_name"/>
-
-
-
-
-               <CheckBox
-                   android:id="@+id/checkbox"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="@string/app_name"
-                   android:checked="true"/>
-
-
-               <RadioGroup
-                   android:id="@+id/radioGroup"
-                   android:layout_width="match_parent"
-                   android:orientation="horizontal"
-                   android:layout_height="wrap_content">
-
-                   <RadioButton
-                       android:id="@+id/radioButton1"
-                       android:layout_width="0dp"
-                       android:layout_weight="1"
-                       android:checked="true"
-                       android:text="@string/app_name"
-                       android:layout_height="wrap_content"/>
-
-                   <RadioButton
-                       android:id="@+id/radioButton2"
-                       android:layout_width="0dp"
-                       android:layout_weight="1"
-                       android:text="@string/app_name"
-                       android:layout_height="wrap_content"/>
-
-
-                   <RadioButton
-                       android:id="@+id/radioButton3"
-                       android:layout_width="0dp"
-                       android:layout_weight="1"
-                       android:text="@string/app_name"
-                       android:layout_height="wrap_content"/>
-
-                   <RadioButton
-                       android:id="@+id/radioButton4"
-                       android:layout_width="0dp"
-                       android:layout_weight="1"
-                       android:text="@string/app_name"
-                       android:layout_height="wrap_content"/>
-
-
-               </RadioGroup>
-
-
-           </LinearLayout>
-
-           <Button
-               android:onClick="clear"
-               android:layout_marginTop="@dimen/dp_10"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="清空所有内容"/>
-
-           <Button
-               android:onClick="resetContent"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="重置内容"/>
-
-
-           <Button
-               android:onClick="clearTextView"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="清空TextView内容"/>
-
-
-           <Button
-               android:onClick="clearButton"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="清空Button内容"/>
-
-
-           <Button
-               android:onClick="clearEditText"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="清空EditText内容"/>
-
-           <Button
-               android:onClick="clearImageView"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="清空ImageView内容"/>
-
-           <Button
-               android:onClick="clearCheckBox"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="清空CheckBox内容"/>
-
-           <Button
-               android:onClick="clearRaidoGroup"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="清空RaidoGroup内容"/>
-
-
-
-           <Button
-               android:onClick="disableControl"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="@dimen/sp_16"
-               android:text="禁用控件"/>
-
-       </LinearLayout>
 
         <Button
-            android:onClick="ableControl"
+            android:id="@+id/button"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_16"
-            android:text="解除禁用"/>
+            android:text="@string/app_name"/>
+
+
+
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:checked="true"/>
+
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/app_name"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:layout_height="wrap_content"/>
+
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:layout_height="wrap_content"/>
+
+
+        </RadioGroup>
+
+
+
+        <com.beiyun.library.view.NestedListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
 
@@ -207,4 +121,4 @@
     </LinearLayout>
 
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

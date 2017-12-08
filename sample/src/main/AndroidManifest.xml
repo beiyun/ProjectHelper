@@ -34,7 +34,7 @@
             android:exported="true"
             android:permission="1" />
 
-        <activity android:name=".entity.ViewsActivity"></activity>
+        <activity android:name=".ViewsActivity"></activity>
     </application>
 
 </manifest>

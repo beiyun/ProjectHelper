@@ -1,5 +1,6 @@
 package com.beiyun.library.util;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -7,13 +8,17 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.ListViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,9 +32,52 @@ import com.beiyun.library.entity.ViewType;
 public class Views {
 
 
-
     public static View create(){
         return new View(Apps.getCurrentActivity());
+    }
+
+
+    /**
+     * 解决recyclerView外层嵌套ScrollView 滑动不流畅
+     * @param recyclerView recyclerView
+     */
+    public static void nestedScroll(RecyclerView recyclerView){
+        recyclerView.setNestedScrollingEnabled(false);
+    }
+
+
+    /**
+     * 获取当前页面homeView
+     * @return homeView
+     */
+    public static View getHomeView(){
+        return getHomeView(Apps.getCurrentActivity());
+    }
+
+    /**
+     * 获取指定页面homeView
+     * @return homeView
+     */
+    private static View getHomeView(Activity activity) {
+        return activity.findViewById(android.R.id.home);
+    }
+
+
+    /**
+     * 获取当前页面绘制区域的最外层的View(不包含ActionBar和statusBar)
+     * @return view
+     */
+    public static View getContentView(){
+        return getContentView(Apps.getCurrentActivity());
+    }
+
+
+    /**
+     * 获取指定页面绘制区域的最外层的View(不包含ActionBar和statusBar)
+     * @return view
+     */
+    private static View getContentView(Activity activity) {
+        return activity.findViewById(android.R.id.content);
     }
 
 
@@ -37,8 +85,7 @@ public class Views {
      * 清除当前页面所有的指定ViewType类型的内容(不清除actionBar和状态栏上的内容)
      */
     public static void clearContent(@NonNull ViewType... viewTypes){
-        View view = Apps.getCurrentActivity().findViewById(android.R.id.content);
-        clearContent(view,viewTypes);
+        clearContent(getContentView(),viewTypes);
     }
 
     /**
@@ -48,16 +95,9 @@ public class Views {
      */
     public static void clearContent(@NonNull View view,@NonNull ViewType... viewTypes){
         for (ViewType viewType:viewTypes) {
-            if(view instanceof ViewGroup){
-                for (int i = 0; i < ((ViewGroup)view).getChildCount(); i++) {
-                    View child = ((ViewGroup)view).getChildAt(i);
-                    if(viewType == ViewType.All){
-                        for (ViewType vt:viewType.getAll()) {
-                            clearChildContent(child,vt);
-                        }
-                    }else{
-                        clearChildContent(child,viewType);
-                    }
+            if(viewType == ViewType.All){
+                for (ViewType vt:viewType.getAll()) {
+                    clearChildContent(view,vt);
                 }
             }else{
                 clearChildContent(view,viewType);
@@ -70,51 +110,79 @@ public class Views {
      * 清除指定view的内容如果view是viewGroup 那么会将他的子控件都清空
      * @param view
      */
-    public static void clearContent(View view){
-        if(view.getClass().getName().equals(AppCompatEditText.class.getName())){
+    public static void clearContent(@NonNull View view){
+        Logs.e("clearContent : "+view.getClass().getName() );
+        String className = getClassName(view.getClass());
+        if(className.equals(AppCompatEditText.class.getName())){
             ((EditText) view).setText(null);
-        }else if(view.getClass().getName().equals(AppCompatImageView.class.getName())){
+        }else if(className.equals(AppCompatImageView.class.getName())){
             ((ImageView) view).setImageBitmap(null);
-        }else if(view.getClass().getName().equals(AppCompatTextView.class.getName())){
+        }else if(className.equals(AppCompatTextView.class.getName())){
             ((TextView) view).setText(null);
-        }else if(view.getClass().getName().equals(AppCompatButton.class.getName()) ){
+        }else if(className.equals(AppCompatButton.class.getName()) ){
             ((Button) view).setText(null);
-        }else if(view.getClass().getName().equals(AppCompatCheckBox.class.getName())){
+        }else if(className.equals(AppCompatCheckBox.class.getName())){
             ((CheckBox) view).setChecked(false);
-        }else if(view.getClass().getName().equals(AppCompatRadioButton.class.getName())){
+        }else if(className.equals(AppCompatRadioButton.class.getName())){
             ViewParent parent = view.getParent();
             if(parent instanceof RadioGroup){
                 ((RadioGroup) parent).check(-1);
             }
         }else if(view instanceof ViewGroup){
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                clearContent(((ViewGroup) view).getChildAt(i));
+
+            if(className.equals(ListView.class.getName())){
+                ((ListView) view).setAdapter(null);
+            }else if(className.equals(RecyclerView.class.getName())){
+                ((RecyclerView) view).setAdapter(null);
+            }else if(className.equals(ListViewCompat.class.getName())){
+                ((ListViewCompat) view).setAdapter(null);
+            }else if(className.equals(GridView.class.getName())){
+                ((GridView) view).setAdapter(null);
+            }else{
+
+                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                    clearContent(((ViewGroup) view).getChildAt(i));
+                }
             }
         }
     }
 
 
     private static void clearChildContent(View child, ViewType viewType) {
+        String className = getClassName(child.getClass());
 
-        if(child.getClass().getName().equals(AppCompatEditText.class.getName()) && viewType == ViewType.EditText){
+        if(className.equals(AppCompatEditText.class.getName()) && viewType == ViewType.EditText){
             ((EditText) child).setText(null);
-        }else if(child.getClass().getName().equals(AppCompatImageView.class.getName()) && viewType == ViewType.ImageView){
+        }else if(className.equals(AppCompatImageView.class.getName()) && viewType == ViewType.ImageView){
             ((ImageView) child).setImageBitmap(null);
-        }else if(child.getClass().getName().equals(AppCompatTextView.class.getName()) && viewType == ViewType.TextView){
+        }else if(className.equals(AppCompatTextView.class.getName()) && viewType == ViewType.TextView){
             ((TextView) child).setText(null);
-        }else if(child.getClass().getName().equals(AppCompatButton.class.getName()) && viewType == ViewType.Button){
+        }else if(className.equals(AppCompatButton.class.getName()) && viewType == ViewType.Button){
             ((Button) child).setText(null);
-        }else if(child.getClass().getName().equals(AppCompatCheckBox.class.getName()) && viewType == ViewType.CheckBox){
+        }else if(className.equals(AppCompatCheckBox.class.getName()) && viewType == ViewType.CheckBox){
             ((CheckBox) child).setChecked(false);
-        }else if(child.getClass().getName().equals(AppCompatRadioButton.class.getName()) && viewType == ViewType.RadioButton){
+        }else if(className.equals(AppCompatRadioButton.class.getName()) && viewType == ViewType.RadioButton){
             ViewParent parent = child.getParent();
             if(parent instanceof RadioGroup){
                 ((RadioGroup) parent).check(-1);
             }
         }else if(child instanceof ViewGroup){
-            for (int i = 0; i < ((ViewGroup) child).getChildCount(); i++) {
-                clearChildContent(((ViewGroup) child).getChildAt(i),viewType);
+
+            if(className.equals(ListView.class.getName())){
+                ((ListView) child).setAdapter(null);
+            }else if(className.equals(RecyclerView.class.getName())){
+                ((RecyclerView) child).setAdapter(null);
+            }else if(className.equals(ListViewCompat.class.getName())){
+                ((ListViewCompat) child).setAdapter(null);
+            }else if(className.equals(GridView.class.getName())){
+                ((GridView) child).setAdapter(null);
+            }else{
+
+                for (int i = 0; i < ((ViewGroup) child).getChildCount(); i++) {
+                    clearChildContent(((ViewGroup) child).getChildAt(i),viewType);
+                }
             }
+
         }
     }
 
@@ -123,8 +191,7 @@ public class Views {
      * 禁用当前页面所有控件(actionBar和状态栏除外)
      */
     public static void disableControl(){
-        View view = Apps.getCurrentActivity().findViewById(android.R.id.content);
-        disableControl(view);
+        disableControl(getContentView());
     }
 
 
@@ -133,25 +200,47 @@ public class Views {
      * @param view
      */
     public static void disableControl(View view) {
-        if(view == null) return;
-        if(view.getClass().getName().equals(AppCompatEditText.class.getName())){
+        String className = getClassName(view.getClass());;
+        Logs.e("禁用控件xxxxxx ："+className);
+        if(className.equals(AppCompatEditText.class.getName())){
             ((EditText) view).clearFocus();
             ((EditText) view).setFocusableInTouchMode(false);
-        }else if(view.getClass().getName().equals(AppCompatImageView.class.getName())){
+        }else if(className.equals(AppCompatImageView.class.getName())){
             ((ImageView) view).setClickable(false);
-        }else if(view.getClass().getName().equals(AppCompatTextView.class.getName())){
+        }else if(className.equals(AppCompatTextView.class.getName())){
             ((TextView) view).setFocusable(false);
-        }else if(view.getClass().getName().equals(AppCompatButton.class.getName()) ){
+        }else if(className.equals(AppCompatButton.class.getName()) ){
             ((Button) view).setClickable(false);
-        }else if(view.getClass().getName().equals(AppCompatCheckBox.class.getName())){
+        }else if(className.equals(AppCompatCheckBox.class.getName())){
             ((CheckBox) view).setClickable(false);
-        }else if(view.getClass().getName().equals(AppCompatRadioButton.class.getName())){
+        }else if(className.equals(AppCompatRadioButton.class.getName())){
             ((RadioButton) view).setClickable(false);
         }else if(view instanceof ViewGroup){
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                disableControl(((ViewGroup) view).getChildAt(i));
+            if(className.equals(ListView.class.getName())){
+                view.setEnabled(false);
+            }else if(className.equals(RecyclerView.class.getName())){
+                view.setEnabled(false);
+            }else if(className.equals(ListViewCompat.class.getName())){
+                view.setEnabled(false);
+            }else if(className.equals(GridView.class.getName())){
+                view.setEnabled(false);
+            }else{
+                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                    disableControl(((ViewGroup) view).getChildAt(i));
+                }
             }
         }
+    }
+
+    private static String getClassName(Class viewClass) {
+        String className = viewClass.getName();
+        Logs.e("getClassName = "+className);
+        if(!className.startsWith("android")){
+            className = getClassName(viewClass.getSuperclass());
+        }
+
+        return className;
+
     }
 
 
@@ -159,29 +248,42 @@ public class Views {
      * 解除禁用
      */
     public static void ableControl(){
-        View view = Apps.getCurrentActivity().findViewById(android.R.id.content);
-        ableControl(view);
+        ableControl(getContentView());
     }
 
 
     public static void ableControl(View view) {
-        if(view == null)return;
-        if(view.getClass().getName().equals(AppCompatEditText.class.getName())){
+        String className = getClassName(view.getClass());
+        Logs.e("解除禁用 ："+className);
+        if(className.equals(AppCompatEditText.class.getName())){
             ((EditText) view).setFocusableInTouchMode(true);
-        }else if(view.getClass().getName().equals(AppCompatImageView.class.getName())){
+        }else if(className.equals(AppCompatImageView.class.getName())){
             ((ImageView) view).setClickable(true);
-        }else if(view.getClass().getName().equals(AppCompatTextView.class.getName())){
+        }else if(className.equals(AppCompatTextView.class.getName())){
             ((TextView) view).setFocusable(true);
-        }else if(view.getClass().getName().equals(AppCompatButton.class.getName()) ){
+        }else if(className.equals(AppCompatButton.class.getName()) ){
             ((Button) view).setClickable(true);
-        }else if(view.getClass().getName().equals(AppCompatCheckBox.class.getName())){
+        }else if(className.equals(AppCompatCheckBox.class.getName())){
             ((CheckBox) view).setClickable(true);
-        }else if(view.getClass().getName().equals(AppCompatRadioButton.class.getName())){
+        }else if(className.equals(AppCompatRadioButton.class.getName())){
             ((RadioButton) view).setClickable(true);
         }else if(view instanceof ViewGroup){
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                ableControl(((ViewGroup) view).getChildAt(i));
+
+            if(className.equals(ListView.class.getName())){
+                Logs.e("className.equals(ListView.class.getName()");
+                view.setEnabled(true);
+            }else if(className.equals(RecyclerView.class.getName())){
+                view.setEnabled(true);
+            }else if(className.equals(ListViewCompat.class.getName())){
+                view.setEnabled(true);
+            }else if(className.equals(GridView.class.getName())){
+                view.setEnabled(true);
+            }else{
+                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                    ableControl(((ViewGroup) view).getChildAt(i));
+                }
             }
+
         }
     }
 

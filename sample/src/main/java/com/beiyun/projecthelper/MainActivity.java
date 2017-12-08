@@ -21,7 +21,6 @@ import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.adapter.MainAdapter;
 import com.beiyun.projecthelper.base.BaseActivity;
 import com.beiyun.projecthelper.entity.Account;
-import com.beiyun.projecthelper.entity.ViewsActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
