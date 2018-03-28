@@ -34,7 +34,11 @@
             android:exported="true"
             android:permission="1" />
 
-        <activity android:name=".ViewsActivity"></activity>
+        <activity android:name=".ViewsActivity" />
+        <activity android:name=".DpsActivity" />
+        <activity android:name=".DialogActivity" />
+        <activity android:name=".WindowActivity"/>
+
     </application>
 
 </manifest>

@@ -54,6 +54,8 @@ public class EventBusBActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+
         Events.post(new EBT(getString(R.string.update)));
     }
+
 }

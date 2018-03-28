@@ -1,11 +1,21 @@
 package com.beiyun.library.util;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.beiyun.library.constants.WindowConstants;
 
@@ -154,6 +164,88 @@ public class Windows {
         return rect;
     }
 
+
+    /**
+     * set statusBar color
+     * @param colorResId color resources id
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setStatusBarColor(@ColorRes int colorResId ){
+        try{
+            Window window = Apps.getCurrentActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Apps.getColor(colorResId));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setNavigationBarColor(@ColorRes int colorResId){
+        try{
+            Window window = Apps.getCurrentActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setNavigationBarColor(Apps.getColor(colorResId));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * set actonBar color if it is exist
+     * @param colorResId color id
+     */
+    public static void setActionBarColor(@ColorRes int colorResId){
+        Activity currentActivity = Apps.getCurrentActivity();
+        int color = Apps.getColor(colorResId);
+        ColorDrawable drawable = new ColorDrawable(color);
+        if(currentActivity instanceof AppCompatActivity){
+            ActionBar supportActionBar = ((AppCompatActivity) currentActivity).getSupportActionBar();
+            if (supportActionBar != null) {
+                supportActionBar.setBackgroundDrawable(drawable);
+            }
+            return;
+        }
+
+        android.app.ActionBar actionBar = currentActivity.getActionBar();
+        if (actionBar != null) {
+            actionBar.setBackgroundDrawable(drawable);
+        }
+
+
+    }
+
+
+    /**
+     * set actonBar color if it is exist
+     * @param colorResId color id
+     */
+    public static void setActionBarTitleTextColor(@ColorRes int colorResId){
+        Activity currentActivity = Apps.getCurrentActivity();
+        int color = Apps.getColor(colorResId);
+        if(currentActivity instanceof AppCompatActivity){
+            ActionBar supportActionBar = ((AppCompatActivity) currentActivity).getSupportActionBar();
+            if (supportActionBar != null) {
+                SpannableString title = new SpannableString(supportActionBar.getTitle());
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(color);
+                title.setSpan(colorSpan,0,title.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                supportActionBar.setTitle(title);
+            }
+            return;
+        }
+
+        android.app.ActionBar actionBar = currentActivity.getActionBar();
+        if (actionBar != null) {
+            SpannableString title = new SpannableString(actionBar.getTitle());
+            ForegroundColorSpan colorSpan = new ForegroundColorSpan(color);
+            title.setSpan(colorSpan,0,title.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            actionBar.setTitle(title);
+        }
+
+
+    }
 
 
 

@@ -21,6 +21,7 @@ import com.beiyun.library.util.Logs;
 import com.beiyun.library.util.Views;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.base.BaseActivity;
+import com.beiyun.projecthelper.view.TestView;
 
 public class ViewsActivity extends BaseActivity {
 
@@ -33,6 +34,7 @@ public class ViewsActivity extends BaseActivity {
     private CheckBox checkBox;
     private RadioButton radioButton;
     private ListView listView;
+    private TestView testView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class ViewsActivity extends BaseActivity {
         checkBox = (CheckBox) findViewById(R.id.checkbox);
         radioButton = (RadioButton) findViewById(R.id.radioButton1);
         listView = (ListView) findViewById(R.id.listView);
+        testView = (TestView) findViewById(R.id.testView);
 
 
     }
@@ -71,6 +74,10 @@ public class ViewsActivity extends BaseActivity {
                 Toast.showShort(view.getClass().getSimpleName()+" position = "+ position);
             }
         });
+
+        testView.setAutoText("autoTextView");
+        testView.setMultiText("multiTextView");
+        testView.setText("textView");
     }
 
 
@@ -88,6 +95,7 @@ public class ViewsActivity extends BaseActivity {
         menu.add(1,8,0,"clear RadioGroup");
         menu.add(1,9,0,"disableControl");
         menu.add(1,10,0,"ableControl");
+        menu.add(1,11,0,"clearTestView");
         return true;
     }
 
@@ -127,6 +135,9 @@ public class ViewsActivity extends BaseActivity {
             case 10:
                 Views.ableControl();
                 break;
+            case 11:
+                Views.clearContent(testView);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -146,6 +157,18 @@ public class ViewsActivity extends BaseActivity {
 
     public void imageClick(View view) {
         Toast.showShort("ImageView click");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }
 

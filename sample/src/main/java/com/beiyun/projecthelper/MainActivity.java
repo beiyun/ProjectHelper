@@ -10,13 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.beiyun.library.util.Apps;
 import com.beiyun.library.entity.TimeType;
+import com.beiyun.library.util.Apps;
 import com.beiyun.library.util.Nets;
 import com.beiyun.library.util.Regexs;
 import com.beiyun.library.util.Sps;
 import com.beiyun.library.util.Times;
-import com.beiyun.library.util.Windows;
 import com.beiyun.library.view.Toast;
 import com.beiyun.projecthelper.adapter.MainAdapter;
 import com.beiyun.projecthelper.base.BaseActivity;
@@ -69,6 +68,8 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("Views");
         data.add("EventBus");
         data.add("regexs");
+        data.add("dps");
+        data.add("Dialogs");
         return data;
     }
 
@@ -111,14 +112,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 overridePendingTransition(R.anim.toast_in,R.anim.toast_out);
                 break;
             case 7:
-                String s = "状态栏高度 =" + Windows.getStatusBarHeight()
-                        + "  标题栏高度 =" + Windows.getActionBarHeight()
-                        + "  顶层View的高度 = " + Windows.getDecorViewHeight()
-                        + "  顶层View的宽度 = " + Windows.getDecorViewWidth()
-                        + "  屏幕高度 = " + Windows.getWindowHeight()
-                        + "  屏幕宽度 = " + Windows.getWindowWidth()
-                        + "  导航栏高度 = " + Windows.getNavBarHeight();
-                Toast.showLong(s);
+               startActivity(new Intent(this,WindowActivity.class));
                 break;
             case 8:
                 Toast.showShort(Times.getCurrentTime(TimeType.CN_yyyy_MM_dd_a_K_mm_ss_E));
@@ -134,6 +128,12 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
                 boolean chinaTelecommounications = Regexs.isChinaTelecommounications("18310428956");
                 boolean chinaUnicom = Regexs.isChinaUnicom("18310428956");
                 Toast.showShort("18310428956是移动？"+chinaMobile +"   联通？"+chinaUnicom+"  电信？"+chinaTelecommounications);
+                break;
+            case 12:
+                startActivity(new Intent(this,DpsActivity.class));
+                break;
+            case 13:
+                startActivity(new Intent(this,DialogActivity.class));
                 break;
         }
     }
@@ -173,7 +173,18 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
 }
 
 

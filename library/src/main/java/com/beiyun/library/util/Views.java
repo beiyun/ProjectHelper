@@ -2,11 +2,17 @@ package com.beiyun.library.util;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.support.v7.widget.AppCompatCheckedTextView;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatRatingBar;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.RecyclerView;
@@ -128,7 +134,20 @@ public class Views {
             if(parent instanceof RadioGroup){
                 ((RadioGroup) parent).check(-1);
             }
-        }else if(view instanceof ViewGroup){
+        }else if(className.equals(AppCompatAutoCompleteTextView.class.getName())){
+            ((AppCompatAutoCompleteTextView) view).setText(null);
+        }else if(className.equals(AppCompatMultiAutoCompleteTextView.class.getName())){
+            ((AppCompatMultiAutoCompleteTextView) view).setText(null);
+        }else if(className.equals(AppCompatCheckedTextView.class.getName())){
+            ((AppCompatCheckedTextView) view).setText(null);
+            ((AppCompatCheckedTextView) view).setChecked(false);
+        }else if(className.equals(AppCompatImageButton.class.getName())){
+            ((AppCompatImageButton) view).setImageBitmap(null);
+        }else if(className.equals(AppCompatRatingBar.class.getName())){
+            ((AppCompatRatingBar) view).setProgress(0);
+        }else if(className.equals(AppCompatSeekBar.class.getName())){
+            ((AppCompatSeekBar) view).setProgress(0);
+        } else if(view instanceof ViewGroup){
 
             if(className.equals(ListView.class.getName())){
                 ((ListView) view).setAdapter(null);
@@ -166,6 +185,19 @@ public class Views {
             if(parent instanceof RadioGroup){
                 ((RadioGroup) parent).check(-1);
             }
+        }else if(className.equals(AppCompatAutoCompleteTextView.class.getName()) && viewType == ViewType.AutoCompleteTextView){
+            ((AppCompatAutoCompleteTextView) child).setText(null);
+        }else if(className.equals(AppCompatMultiAutoCompleteTextView.class.getName()) && viewType == ViewType.MultiAutoCompleteTextView){
+            ((AppCompatMultiAutoCompleteTextView) child).setText(null);
+        }else if(className.equals(AppCompatCheckedTextView.class.getName()) && viewType == ViewType.CheckedTextView){
+            ((AppCompatCheckedTextView) child).setText(null);
+            ((AppCompatCheckedTextView) child).setChecked(false);
+        }else if(className.equals(AppCompatImageButton.class.getName()) && viewType == ViewType.ImageButton){
+            ((AppCompatImageButton) child).setImageBitmap(null);
+        }else if(className.equals(AppCompatRatingBar.class.getName()) && viewType == ViewType.RatingBar){
+            ((AppCompatRatingBar) child).setProgress(0);
+        }else if(className.equals(AppCompatSeekBar.class.getName()) && viewType == ViewType.SeekBar){
+            ((AppCompatSeekBar) child).setProgress(0);
         }else if(child instanceof ViewGroup){
 
             if(className.equals(ListView.class.getName())){
@@ -215,6 +247,21 @@ public class Views {
             ((CheckBox) view).setClickable(false);
         }else if(className.equals(AppCompatRadioButton.class.getName())){
             ((RadioButton) view).setClickable(false);
+        }else if(className.equals(AppCompatAutoCompleteTextView.class.getName())){
+            ((AppCompatAutoCompleteTextView) view).clearFocus();
+            ((AppCompatAutoCompleteTextView) view).setFocusableInTouchMode(false);
+        }else if(className.equals(AppCompatMultiAutoCompleteTextView.class.getName())){
+            ((AppCompatMultiAutoCompleteTextView) view).clearFocus();
+            ((AppCompatMultiAutoCompleteTextView) view).setFocusableInTouchMode(false);
+        }else if(className.equals(AppCompatCheckedTextView.class.getName())){
+            ((AppCompatCheckedTextView) view).setFocusable(false);
+            ((AppCompatCheckedTextView) view).setClickable(false);
+        }else if(className.equals(AppCompatImageButton.class.getName())){
+            ((AppCompatImageButton) view).setClickable(false);
+        }else if(className.equals(AppCompatRatingBar.class.getName())){
+            ((AppCompatRatingBar) view).setClickable(false);
+        }else if(className.equals(AppCompatSeekBar.class.getName())){
+            ((AppCompatSeekBar) view).setClickable(false);
         }else if(view instanceof ViewGroup){
             if(className.equals(ListView.class.getName())){
                 view.setEnabled(false);
@@ -267,6 +314,19 @@ public class Views {
             ((CheckBox) view).setClickable(true);
         }else if(className.equals(AppCompatRadioButton.class.getName())){
             ((RadioButton) view).setClickable(true);
+        }else if(className.equals(AppCompatAutoCompleteTextView.class.getName())){
+            ((AppCompatAutoCompleteTextView) view).setFocusableInTouchMode(true);
+        }else if(className.equals(AppCompatMultiAutoCompleteTextView.class.getName())){
+            ((AppCompatMultiAutoCompleteTextView) view).setFocusableInTouchMode(true);
+        }else if(className.equals(AppCompatCheckedTextView.class.getName())){
+            ((AppCompatCheckedTextView) view).setFocusable(true);
+            ((AppCompatCheckedTextView) view).setClickable(true);
+        }else if(className.equals(AppCompatImageButton.class.getName())){
+            ((AppCompatImageButton) view).setClickable(true);
+        }else if(className.equals(AppCompatRatingBar.class.getName())){
+            ((AppCompatRatingBar) view).setClickable(true);
+        }else if(className.equals(AppCompatSeekBar.class.getName())){
+            ((AppCompatSeekBar) view).setClickable(true);
         }else if(view instanceof ViewGroup){
 
             if(className.equals(ListView.class.getName())){

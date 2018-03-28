@@ -14,6 +14,12 @@ public enum ViewType {
     Button,
     CheckBox,
     RadioButton,
+    AutoCompleteTextView,
+    MultiAutoCompleteTextView,
+    CheckedTextView,
+    ImageButton,
+    RatingBar,
+    SeekBar,
     All;
 
     public ArrayList<ViewType> getAll(){
@@ -24,6 +30,12 @@ public enum ViewType {
         viewTypes.add(Button);
         viewTypes.add(CheckBox);
         viewTypes.add(RadioButton);
+        viewTypes.add(AutoCompleteTextView);
+        viewTypes.add(MultiAutoCompleteTextView);
+        viewTypes.add(CheckedTextView);
+        viewTypes.add(ImageButton);
+        viewTypes.add(RatingBar);
+        viewTypes.add(SeekBar);
         return viewTypes;
     }
 

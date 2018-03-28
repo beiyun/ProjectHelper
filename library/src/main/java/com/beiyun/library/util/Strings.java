@@ -14,7 +14,7 @@ public class Strings {
      * @param str  str
      * @return true 是空   false 非空
      */
-    public static boolean isEmpty(String str){
+    public static boolean isEmpty(CharSequence str){
         return TextUtils.isEmpty(str);
     }
 

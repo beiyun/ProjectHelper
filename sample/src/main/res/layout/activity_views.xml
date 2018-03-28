@@ -113,6 +113,12 @@
             android:layout_height="wrap_content"/>
 
 
+        <com.beiyun.projecthelper.view.TestView
+            android:id="@+id/testView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
 
 
 

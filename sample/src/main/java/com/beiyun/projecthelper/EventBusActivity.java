@@ -159,6 +159,7 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
 
         return a;
     }
+
 }
 
 

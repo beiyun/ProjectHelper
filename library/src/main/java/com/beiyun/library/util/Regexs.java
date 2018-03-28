@@ -1,7 +1,6 @@
 package com.beiyun.library.util;
 
 import com.beiyun.library.constants.RegexConstants;
-import com.mifmif.common.regex.Generex;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -239,13 +238,13 @@ public class Regexs {
      * @param regex 正则表达式
      * @return 匹配正则的字符串
      */
-    public static String generateStringByRegex(String regex){
-        if(regex == null) return null;
-        try {
-            Generex generex = new Generex(regex);
-            return generex.random();
-        }catch (Exception e){
-            return null;
-        }
-    }
+//    public static String generateStringByRegex(String regex){
+//        if(regex == null) return null;
+//        try {
+//            Generex generex = new Generex(regex);
+//            return generex.random();
+//        }catch (Exception e){
+//            return null;
+//        }
+//    }
 }

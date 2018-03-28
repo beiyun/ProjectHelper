@@ -73,4 +73,5 @@ public class KeyboardActivity extends BaseActivity implements KeyboardWatcher.On
         Keyboards.destroyKeyboardListener();
         super.onDestroy();
     }
+
 }
