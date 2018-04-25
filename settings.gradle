@@ -1,1 +1,1 @@
-include ':sample', ':library', ':PushSDK'
+include ':sample', ':library'

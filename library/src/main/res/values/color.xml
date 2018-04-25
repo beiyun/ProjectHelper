@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="bottom_background_color">#f4f4f4</color>
+    <color name="content_background_color">#ffffff</color>
+    <color name="include_background_color">#dedede</color>
+    <color name="title_background_color">#3F51B5</color>
+    <color name="title_background_color_dark">#303F9F</color>
+    <color name="text_gray">#7A7A7A</color>
+    <color name="text_black">#363636</color>
+    <color name="text_black_dark">#2A2A2A</color>
+    <color name="disable_control_color">#EFF3F8</color>
+    <color name="disable_edit_color">#FCFAF2</color>
+
 </resources>

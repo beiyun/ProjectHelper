@@ -20,7 +20,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         info = getApplicationInfo();
-        Log.d(TAG, "onCreate one para: "+toString());
         this.getBaseContext();
     }
 
