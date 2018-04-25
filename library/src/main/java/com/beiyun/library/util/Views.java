@@ -2,6 +2,7 @@ package com.beiyun.library.util;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.ListViewCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -14,7 +15,6 @@ import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,8 +153,6 @@ public class Views {
                 ((ListView) view).setAdapter(null);
             }else if(className.equals(RecyclerView.class.getName())){
                 ((RecyclerView) view).setAdapter(null);
-            }else if(className.equals(ListViewCompat.class.getName())){
-                ((ListViewCompat) view).setAdapter(null);
             }else if(className.equals(GridView.class.getName())){
                 ((GridView) view).setAdapter(null);
             }else{
@@ -204,8 +202,6 @@ public class Views {
                 ((ListView) child).setAdapter(null);
             }else if(className.equals(RecyclerView.class.getName())){
                 ((RecyclerView) child).setAdapter(null);
-            }else if(className.equals(ListViewCompat.class.getName())){
-                ((ListViewCompat) child).setAdapter(null);
             }else if(className.equals(GridView.class.getName())){
                 ((GridView) child).setAdapter(null);
             }else{

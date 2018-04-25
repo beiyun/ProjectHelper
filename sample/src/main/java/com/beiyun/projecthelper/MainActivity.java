@@ -70,6 +70,8 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
         data.add("regexs");
         data.add("dps");
         data.add("Dialogs");
+        data.add("sps remove");
+        data.add("sps clear");
         return data;
     }
 
@@ -135,6 +137,16 @@ public class MainActivity extends BaseActivity implements MainAdapter.OnItemClic
             case 13:
                 startActivity(new Intent(this,DialogActivity.class));
                 break;
+            case 14:
+                Sps.remove(Account.class,"password");
+                Toast.showShort("remove 结果 ="+Sps.get(Account.class).toString());
+                break;
+            case 15:
+                Sps.clear(Account.class);
+                Toast.showShort("clear结果 ="+Sps.get(Account.class).toString());
+                break;
+                default:
+
         }
     }
 

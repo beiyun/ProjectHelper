@@ -30,8 +30,9 @@ public class Windows {
      * @return int px
      */
     public static int getStatusBarHeight(){
-        if(WindowConstants.STATUS_BAR_HEIGHT != 0)
+        if(WindowConstants.STATUS_BAR_HEIGHT != 0) {
             return WindowConstants.STATUS_BAR_HEIGHT;
+        }
         int dimenResId = Apps.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if(dimenResId > 0){
             WindowConstants.STATUS_BAR_HEIGHT = Apps.getResources().getDimensionPixelSize(dimenResId);
@@ -49,8 +50,9 @@ public class Windows {
      * @return int actionbarHeight
      */
     public static int getActionBarHeight(){
-        if(WindowConstants.ACTION_BAR_HEIGHT != 0)
+        if(WindowConstants.ACTION_BAR_HEIGHT != 0) {
             return WindowConstants.ACTION_BAR_HEIGHT;
+        }
         if(Apps.getCurrentActivity() instanceof AppCompatActivity){
             ActionBar actionBar = ((AppCompatActivity) Apps.getCurrentActivity()).getSupportActionBar();
             Logs.e(actionBar + "----",null);
@@ -73,8 +75,9 @@ public class Windows {
      * @return heightPixels
      */
     public static int getWindowHeight(){
-        if(WindowConstants.WINDOW_HEIGHT == 0)
-        WindowConstants.WINDOW_HEIGHT = getWindowDisplayMetrics().heightPixels;
+        if(WindowConstants.WINDOW_HEIGHT == 0) {
+            WindowConstants.WINDOW_HEIGHT = getWindowDisplayMetrics().heightPixels;
+        }
         return WindowConstants.WINDOW_HEIGHT;
     }
 
@@ -84,8 +87,9 @@ public class Windows {
      * @return widthPixels
      */
     public static int getWindowWidth(){
-        if(WindowConstants.WINDOW_WIDTH == 0)
-        WindowConstants.WINDOW_WIDTH = getWindowDisplayMetrics().widthPixels;
+        if(WindowConstants.WINDOW_WIDTH == 0) {
+            WindowConstants.WINDOW_WIDTH = getWindowDisplayMetrics().widthPixels;
+        }
         return WindowConstants.WINDOW_WIDTH;
     }
 
@@ -116,8 +120,9 @@ public class Windows {
      * @return 导航栏高度
      */
     public static int getNavBarHeight() {
-        if(WindowConstants.NAV_BAR_HEIGHT != 0)
+        if(WindowConstants.NAV_BAR_HEIGHT != 0) {
             return WindowConstants.NAV_BAR_HEIGHT;
+        }
 
         Resources res = Apps.getResources();
         int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
@@ -131,7 +136,9 @@ public class Windows {
      * 隐藏导航栏
      */
     public static void hideNavBar() {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) return;
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            return;
+        }
         if (getNavBarHeight() > 0) {
             View decorView = Apps.getCurrentActivity().getWindow().getDecorView();
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -169,8 +176,10 @@ public class Windows {
      * set statusBar color
      * @param colorResId color resources id
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void setStatusBarColor(@ColorRes int colorResId ){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+            return;
+        }
         try{
             Window window = Apps.getCurrentActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -181,8 +190,10 @@ public class Windows {
     }
 
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void setNavigationBarColor(@ColorRes int colorResId){
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+            return;
+        }
         try{
             Window window = Apps.getCurrentActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

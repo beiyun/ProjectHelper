@@ -268,6 +268,78 @@ public class Sps {
 
 
     /**
+     * 移除一条
+     * @param key
+     */
+    public void remove(String key){
+       mSp.edit().remove(key).apply();
+    }
+
+    /**
+     * 清空偏好
+     */
+    public void clear(){
+        mSp.edit().clear().apply();
+    }
+
+
+    public static void remove(@NonNull Class<?> cls,String key){
+        remove(cls.getName(),key);
+    }
+
+    public static void remove(@NonNull Object o,String key){
+        remove(o.getClass().getName(),key);
+    }
+
+
+    public static void remove(@NonNull String spName,String key){
+        remove(spName,key,SpMode.MODE_PRIVATE);
+    }
+
+    public static void remove(@NonNull Class<?> cls,String key,SpMode spMode){
+        remove(cls.getName(),key,spMode);
+    }
+
+    public static void remove(@NonNull Object o,String key,SpMode spMode){
+        remove(o.getClass().getName(),key,spMode);
+    }
+
+    public static void remove(@NonNull String spName,String key,SpMode spMode){
+        Sps sps = init().name(spName).mode(spMode).build();
+        sps.remove(key);
+    }
+
+
+    public static void clear(@NonNull Class<?> cls){
+        clear(cls.getName());
+    }
+
+    public static void clear(@NonNull Object o){
+        clear(o.getClass().getName());
+    }
+
+
+    public static void clear(@NonNull String spName){
+        clear(spName,SpMode.MODE_PRIVATE);
+    }
+
+
+    public static void clear(@NonNull Class<?> cls,SpMode spMode){
+        clear(cls.getName(),spMode);
+    }
+
+    public static void clear(@NonNull Object o,SpMode spMode){
+        clear(o.getClass().getName(),spMode);
+    }
+
+
+    public static void clear(@NonNull String spName,SpMode spMode){
+        Sps sps = init().name(spName).build();
+        sps.clear();
+    }
+
+
+    /**
      * 获取sp类型
      * @param spMode
      * @return int

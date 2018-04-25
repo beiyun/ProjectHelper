@@ -1,8 +1,6 @@
 package com.beiyun.library;
 
 
-import com.beiyun.library.util.Jsons;
-
 import org.junit.Test;
 
 /**
@@ -22,16 +20,6 @@ public class JsonTest {
                 "\"jobArea\":\"370783001001\",\"idNumber\":\"41022119890718481X\"}";
 
 
-//        UserEntity entity = gson.fromJson(json,UserEntity.class);
-//        UserEntity entity = gson.fromJson(json,new TypeToken<UserEntity>(){}.getType());
-
-//        UserEntity entity = Jsons.parseJson(json, new TypeToken<UserEntity>() {
-//        });
-
-        UserEntity entity = Jsons.parseObject(json, UserEntity.class);
-
-
-        System.out.print(entity);
 
 
 

@@ -14,7 +14,11 @@ import java.io.File;
 public class Videos {
 
 
-    //获取视频文件时长
+    /**
+     * 获取视频文件时长
+     * @param file
+     * @return
+     */
     public static int getDuration(File file) {
         try {
             return MediaPlayer.create(Apps.getCurrentActivity(), Uri.fromFile(file)).getDuration();
@@ -24,7 +28,11 @@ public class Videos {
         return 0;
     }
 
-    //获取视频文件缩略图
+    /**
+     * 获取视频文件缩略图
+     * @param videoPath
+     * @return
+     */
     public static Bitmap getVideoThumbnail(String videoPath) {
         MediaMetadataRetriever media =new MediaMetadataRetriever();
         media.setDataSource(videoPath);
