@@ -6,6 +6,7 @@ import android.os.Message;
 
 import com.beiyun.library.util.Apps;
 
+
 /**
  * Created by beiyun on 2017/11/22.
  *
@@ -33,7 +34,7 @@ public class PostHandler extends Handler {
     }
 
 
-    public static PostHandler getHandler(){
+    private static PostHandler getHandler(){
         if(mHandler == null){
             synchronized (PostHandler.class){
                 if(mHandler == null){
@@ -49,7 +50,7 @@ public class PostHandler extends Handler {
      * 将Task转到MainThread进行
      * @param callBack PostCallBack
      */
-    public static void postInMainThread(PostCallBack callBack){
+    static void postInMainThread(PostCallBack callBack){
         getHandler().obtainMessage(0,callBack).sendToTarget();
 
     }

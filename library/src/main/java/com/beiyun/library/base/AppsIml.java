@@ -1,5 +1,6 @@
 package com.beiyun.library.base;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -13,9 +14,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 
 import com.beiyun.library.util.Files;
@@ -24,6 +22,10 @@ import com.beiyun.library.util.Intents;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 /**
  * Created by beiyun on 2017/11/1.
@@ -271,7 +273,7 @@ class AppsIml extends App {
     public String getAppName(String packageName) {
         PackageManager pm = getPackageManager();
         try {
-            PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+            @SuppressLint("WrongConstant") PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
             return packageInfo.applicationInfo.loadLabel(pm).toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -293,7 +295,7 @@ class AppsIml extends App {
     public Drawable getAppIcon(String packageName) {
         PackageManager pm = getPackageManager();
         try {
-            PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+            @SuppressLint("WrongConstant") PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
             return packageInfo.applicationInfo.loadIcon(pm);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -310,7 +312,7 @@ class AppsIml extends App {
     public String getAppPath(String packageName) {
         PackageManager pm = getPackageManager();
         try {
-            PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+            @SuppressLint("WrongConstant") PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
             return packageInfo.applicationInfo.sourceDir;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -327,7 +329,7 @@ class AppsIml extends App {
     public Signature[] getAppSignature(String packageName) {
         PackageManager pm = getPackageManager();
         try {
-            PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+            @SuppressLint("WrongConstant") PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
             return packageInfo.signatures;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -339,7 +341,7 @@ class AppsIml extends App {
     public boolean isSystemApp() {
         PackageManager pm = getPackageManager();
         try {
-            PackageInfo packageInfo = pm.getPackageInfo(getPackageName(), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+            @SuppressLint("WrongConstant") PackageInfo packageInfo = pm.getPackageInfo(getPackageName(), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
             ApplicationInfo applicationInfo = packageInfo.applicationInfo;
             return applicationInfo != null && (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM)!= 0;
         } catch (PackageManager.NameNotFoundException e) {

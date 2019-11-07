@@ -3,7 +3,6 @@ package com.beiyun.library.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.beiyun.library.entity.SpMode;
@@ -11,6 +10,8 @@ import com.beiyun.library.entity.SpMode;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by beiyun on 2017/11/3.

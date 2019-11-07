@@ -1,13 +1,14 @@
 package com.beiyun.projecthelper;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.beiyun.library.util.Windows;
 import com.beiyun.projecthelper.base.BaseActivity;
+
+import androidx.appcompat.app.ActionBar;
 
 public class WindowActivity extends BaseActivity {
 

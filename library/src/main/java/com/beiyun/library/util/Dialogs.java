@@ -1,11 +1,12 @@
 package com.beiyun.library.util;
 
 import android.content.DialogInterface;
-import android.support.annotation.ColorInt;
-import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+
+import androidx.annotation.ColorInt;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * Created by beiyun on 2017/12/29.

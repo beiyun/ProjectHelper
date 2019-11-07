@@ -1,21 +1,6 @@
 package com.beiyun.library.util;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.ListViewCompat;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.AppCompatCheckedTextView;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatImageButton;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
-import android.support.v7.widget.AppCompatRadioButton;
-import android.support.v7.widget.AppCompatRatingBar;
-import android.support.v7.widget.AppCompatSeekBar;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -30,6 +15,22 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.beiyun.library.entity.ViewType;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatCheckedTextView;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
+import androidx.appcompat.widget.AppCompatRadioButton;
+import androidx.appcompat.widget.AppCompatRatingBar;
+import androidx.appcompat.widget.AppCompatSeekBar;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.widget.ListViewCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by beiyun on 2017/11/17.

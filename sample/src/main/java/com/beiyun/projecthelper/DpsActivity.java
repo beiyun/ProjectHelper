@@ -2,7 +2,6 @@ package com.beiyun.projecthelper;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -16,6 +15,8 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
 
 public class DpsActivity extends BaseActivity {
 

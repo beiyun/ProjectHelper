@@ -2,9 +2,10 @@ package com.beiyun.projecthelper.base;
 
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by beiyun on 2017/11/2.

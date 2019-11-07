@@ -3,11 +3,12 @@ package com.beiyun.projecthelper.entity;
 /**
  * Created by beiyun on 2017/11/28.
  */
-public class EBT2 {
+public class EBT2 extends EBT{
 
     private String message;
 
     public EBT2(String message) {
+        super(message);
         this.message = message;
     }
 

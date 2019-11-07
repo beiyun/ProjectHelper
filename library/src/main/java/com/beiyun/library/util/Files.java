@@ -1,6 +1,5 @@
 package com.beiyun.library.util;
 
-import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -8,6 +7,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by beiyun on 2017/11/6.

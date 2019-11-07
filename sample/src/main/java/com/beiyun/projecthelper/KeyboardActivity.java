@@ -1,8 +1,6 @@
 package com.beiyun.projecthelper;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +11,9 @@ import com.beiyun.library.iml.KeyboardWatcher;
 import com.beiyun.library.util.Keyboards;
 import com.beiyun.library.util.Windows;
 import com.beiyun.projecthelper.base.BaseActivity;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 public class KeyboardActivity extends BaseActivity implements KeyboardWatcher.OnKeyboardToggleListener {
 

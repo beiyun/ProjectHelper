@@ -1,8 +1,6 @@
 package com.beiyun.projecthelper;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -12,6 +10,9 @@ import com.beiyun.library.anot.Subscribe;
 import com.beiyun.library.entity.PostMode;
 import com.beiyun.projecthelper.entity.EBT;
 import com.beiyun.projecthelper.entity.EBT1;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 @Receiver
 public class EventBusCActivity extends AppCompatActivity {

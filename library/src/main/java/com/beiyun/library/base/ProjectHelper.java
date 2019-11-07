@@ -14,7 +14,7 @@ public class ProjectHelper {
         app = AppsIml.init(context);
     }
 
-    public static void init(Context context){
+    public static void initialize(Context context){
         new ProjectHelper(context);
     }
 

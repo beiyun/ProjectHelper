@@ -3,10 +3,6 @@ package com.beiyun.projecthelper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,6 +20,11 @@ import com.beiyun.projecthelper.entity.Account;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends BaseActivity implements MainAdapter.OnItemClickListener {
 

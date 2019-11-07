@@ -1,8 +1,6 @@
 package com.beiyun.projecthelper;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +11,10 @@ import com.beiyun.library.entity.PostMode;
 import com.beiyun.library.util.Events;
 import com.beiyun.projecthelper.entity.EBT;
 import com.beiyun.projecthelper.entity.EBT1;
+import com.beiyun.projecthelper.entity.EBT2;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 @Receiver
 public class EventBusBActivity extends AppCompatActivity {
@@ -36,6 +38,11 @@ public class EventBusBActivity extends AppCompatActivity {
 
     @Subscribe
     public void receive(EBT1 test){
+        textView.setText(test.toString());
+    }
+
+    @Subscribe
+    public void receive1(EBT2 test){
         textView.setText(test.toString());
     }
 

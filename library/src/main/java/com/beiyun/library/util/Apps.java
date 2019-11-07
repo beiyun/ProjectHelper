@@ -10,15 +10,16 @@ import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 
 import com.beiyun.library.base.App;
 import com.beiyun.library.base.ProjectHelper;
 
 import java.io.File;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 /**
  * Created by beiyun on 2017/11/3.

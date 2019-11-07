@@ -56,13 +56,12 @@ public class EventBus {
         }
         mRegisterCaches.push(receiver);
         invokeStickyTask(receiver);
-        Logs.e("register:-- receiver = "+receiver.getClass().getName());
 
     }
 
 
 
-    public synchronized void dispatchTask(final Object receiver) {
+    private synchronized void dispatchTask(final Object receiver) {
         Method[] methods = getMethods(receiver);
         for (final Method m:methods) {
             Subscribe annotation = m.getAnnotation(Subscribe.class);
@@ -142,8 +141,6 @@ public class EventBus {
                 }
                 Object poster = mTaskQueue.get(key);
                 if(poster == null) return;
-                Logs.e("执行Main任务 --> \nmethod =<"+method.getName()+"> \nreceiver = <"+receiver.getClass().getName()+"> \nkey = <"+parameterTypes[0].getName()+">" +
-                            "\n poster = <"+poster+">");
                 method.invoke(receiver,poster);
             }
         } catch (Exception e) {
@@ -168,7 +165,6 @@ public class EventBus {
                 String key = parameterTypes[0].getName();
                 if(!mTaskDispatcher.isEmpty() && mTaskDispatcher.containsKey(key)){
                     Object newPoster = mTaskDispatcher.get(key);
-                    Logs.e("invokeStickyTask newPoster=" + newPoster);
                     mSingleTaskQueue.put(newPoster.getClass().getName(),newPoster);
                     mTaskDispatcher.remove(key);
                 }
@@ -179,8 +175,6 @@ public class EventBus {
                 //get poster instance
                 Object poster = mSingleTaskQueue.get(key);
                 if(poster == null) return;
-                Logs.e("执行粘性任务 --> \nmethod =<"+method.getName()+"> \nreceiver = <"+receiver.getClass().getName()+"> \nkey = <"+key+">" +
-                        "\n poster = <"+poster+">");
                 method.invoke(receiver,poster);
                 if(classes != null){
                     classes.add(receiver.getClass());
@@ -200,7 +194,6 @@ public class EventBus {
     public synchronized void post(Object poster){
         if(poster == null) return;
         mTaskDispatcher.put(poster.getClass().getName(),poster);
-        Logs.e("post: mTaskDispatcher.size = "+mTaskDispatcher);
         filterStickyKey(poster.getClass().getName());
         notifyPosterChanged();
     }
@@ -212,7 +205,6 @@ public class EventBus {
         Stack<Object> copy = mRegisterCaches;
         for (final Object receiver:copy) {
             if(receiver != null){
-                Logs.e("notifyPosterChanged----------"+receiver.getClass().getSimpleName());
                 dispatchTask(receiver);
             }
         }
@@ -261,7 +253,6 @@ public class EventBus {
     public synchronized boolean isInject(Object receiver){
         if(receiver == null) return false;
         Receiver annotation = receiver.getClass().getAnnotation(Receiver.class);
-        Logs.e("isInject -- receiver = "+receiver.getClass().getName()+" annotation = "+ annotation);
         return annotation != null;
     }
 
@@ -272,7 +263,6 @@ public class EventBus {
      * @return true false
      */
     public synchronized boolean isRegister(Object receiver){
-        Logs.e("isRegister-- receiver = "+receiver.getClass().getName());
         return !mRegisterCaches.empty() && mRegisterCaches.search(receiver) != -1;
     }
 
@@ -303,7 +293,6 @@ public class EventBus {
             mRegisterCaches.removeElement(receiver);
         }
         mTaskQueue.clear();
-        Logs.e("unregister:-- receiver = "+receiver.getClass().getName());
     }
 
 
@@ -327,7 +316,7 @@ public class EventBus {
 
 
     class ReOrUnRegisterException extends RuntimeException{
-        public ReOrUnRegisterException(String message) {
+        ReOrUnRegisterException(String message) {
             super(message);
         }
     }

@@ -2,7 +2,6 @@ package com.beiyun.projecthelper;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +16,12 @@ import com.beiyun.projecthelper.base.BaseActivity;
 import com.beiyun.projecthelper.entity.Account;
 import com.beiyun.projecthelper.entity.EBT;
 import com.beiyun.projecthelper.entity.EBT1;
+import com.beiyun.projecthelper.entity.EBT2;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.appcompat.app.ActionBar;
 
 public class EventBusActivity extends BaseActivity implements View.OnClickListener {
 
@@ -93,11 +95,11 @@ public class EventBusActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button://发送一条消息
-                Events.post(new EBT1("发送BC的一条测试消息"));
+                Events.post(new EBT1("发送BC的一条测试消息......2"));
                 Toast.showShort("发送成功");
                 break;
             case R.id.button1://本页测试
-                Events.post(getAccount());
+                Events.post(new EBT2("发送BC的一条测试消息....1"));
                 break;
             case R.id.button2://跳转到B
                 startActivity(new Intent(this,EventBusBActivity.class));

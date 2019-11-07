@@ -1,7 +1,5 @@
 package com.beiyun.projecthelper.adapter;
 
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -11,6 +9,9 @@ import com.beiyun.library.util.Apps;
 import com.beiyun.projecthelper.R;
 
 import java.util.ArrayList;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by beiyun on 2017/11/1.
