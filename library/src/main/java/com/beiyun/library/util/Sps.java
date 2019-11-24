@@ -47,6 +47,16 @@ public class Sps {
         mSp = Apps.getSharedPreferences(name,spMode == null? getSpMode(SpMode.MODE_PRIVATE):getSpMode(spMode));
     }
 
+    /**
+     * spName is packageName SpMode is private
+     */
+    private Sps(){
+        mSp = Apps.getSharedPreferences(Apps.getPackageName(),getSpMode(SpMode.MODE_PRIVATE));
+    }
+
+
+
+
 
     /**
      * 若使用Sps的一般方法，需调用此方法进行初始化
@@ -111,6 +121,110 @@ public class Sps {
         Sps sps = Sps.init().object(o).mode(spMode).build();
         return save(o,sps);
     }
+
+    /**
+     * save string
+     * @param key
+     * @param stringValue
+     */
+    public static void save(String key, String stringValue){
+        new Sps().putString(key,stringValue);
+    }
+
+    /**
+     * save boolean
+     * @param key
+     * @param booleanValue
+     */
+    public static void save(String key, boolean booleanValue){
+        new Sps().putBoolean(key,booleanValue);
+    }
+
+    /**
+     * save long
+     * @param key
+     * @param longValue
+     */
+    public static void save(String key,long longValue){
+        new Sps().putLong(key,longValue);
+    }
+
+    /**
+     * save float
+     * @param key
+     * @param floatValue
+     */
+    public static void save(String key,float floatValue){
+        new Sps().putFloat(key,floatValue);
+    }
+
+    /**
+     * save int
+     * @param key
+     * @param intValue
+     */
+    public static void save(String key,int intValue){
+        new Sps().putInt(key,intValue);
+    }
+
+    /**
+     * save Set<String>
+     * @param key
+     * @param stringSet
+     */
+    public static void save(String key,Set<String> stringSet){
+        new Sps().putStringSet(key,stringSet);
+    }
+
+    /**
+     * get String value by key
+     * @param key
+     * @return
+     */
+    public static String getStringValue(String key){
+        return new Sps().getString(key);
+    }
+
+    /**
+     * get String value by key
+     * @param key
+     * @return
+     */
+    public static int getIntValue(String key){
+        return new Sps().getInt(key);
+    }
+
+    /**
+     * get float value of key
+     * @param key
+     * @return
+     */
+    public static float getFloatValue(String key){
+        return new Sps().getFloat(key);
+    }
+
+    /**
+     * get long value of key
+     * @param key
+     * @return
+     */
+    public static long getLongValue(String key){
+        return new Sps().getLong(key);
+    }
+
+    /**
+     *
+     * @param key the key of string set value
+     * @return string set value of key
+     */
+    public static Set<String> getStringSetValue(String key){
+        return new Sps().getStringSet(key);
+    }
+
+
+
+
+
 
     /**
      * 通过class文件找回保存的该class中所有保存的值
